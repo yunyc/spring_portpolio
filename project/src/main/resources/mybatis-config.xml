@@ -11,7 +11,10 @@
 
 	<typeAliases>
 		<typeAlias alias="UserVO" type="com.example.project.user.service.UserVO"/>
+		<typeAlias alias="BoardVO" type="com.example.project.board.service.BoardVO"/>
 	</typeAliases>
+	
+
 
 </configuration>
 

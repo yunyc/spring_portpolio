@@ -27,7 +27,7 @@
 	                	</sec:authorize>
 	                    <li><a href="/product.do">상품보기</a></li>
 	                    <li><a href="/question.do">질문</a></li>
-	                    <li><a href="/request.do">문의사항</a></li>
+	                    <li><a href="/board.do">문의사항</a></li>
 	                </ul>
 	            </div>
 	        </header>

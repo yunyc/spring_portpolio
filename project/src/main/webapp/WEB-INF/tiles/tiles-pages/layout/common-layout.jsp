@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<tiles:insertAttribute name="topnav" />
+		<tiles:insertAttribute name="header" />
 	</div>
 	<div id="contents">
 		<tiles:insertAttribute name="content" />
