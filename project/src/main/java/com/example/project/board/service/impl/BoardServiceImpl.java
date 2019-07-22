@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.project.board.service.BoardService;
-import com.example.project.board.service.BoardVO;
+import com.example.project.board.service.VO.BoardReplyVO;
+import com.example.project.board.service.VO.BoardVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -41,5 +42,33 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.deleteBoardList(boardVO);
 		
 	}
+
+	@Override
+	@Transactional
+	public List<BoardReplyVO> selectReplyList(BoardReplyVO replyVO) throws Exception {
+		return boardMapper.selectReplyList(replyVO);
+	}
+
+	@Override
+	@Transactional
+	public void insertReplyList(BoardReplyVO replyVO) throws Exception {
+		boardMapper.insertReplyList(replyVO);
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateReplyList(BoardReplyVO replyVO) throws Exception {
+		boardMapper.updateReplyList(replyVO);
+		
+	}
+
+	@Override
+	@Transactional
+	public void deleteReplyList(BoardReplyVO replyVO) throws Exception {
+		boardMapper.deleteReplyList(replyVO);
+		
+	}
+
 
 }

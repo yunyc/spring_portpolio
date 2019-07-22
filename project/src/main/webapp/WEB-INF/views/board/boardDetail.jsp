@@ -13,36 +13,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<p>제목 - ${boardList.boardTitle}, 분류 - ${boardList.boardType}</p>
+	<p>글 내용</p>
+	<p>${boardList.boardContent}</p>
+	<c:forEach items="${replyList}" var="varReplyList">
+		<p>사용자 - ${varReplyList.userId}</p>
+		<p>댓글 내용- ${varReplyList.replyContent}</p>
+		<p><a href="/board/boardDetail/replyRegister.do?boardId=${boardList.boardId}&mode=update">수정</a></p>
+		<p><a href="/board/boardDetail/replyRegister.do?boardId=${boardList.boardId}&mode=delete">삭제</a></p>
+	</c:forEach>
+	<p><a href="/board/boardDetail/replyRegister.do?boardId=${boardList.boardId}&mode=insert">답글 달기</a></p>
 	
-		<table>
-			<thead>
-				<tr>
-					<td>번호</td>
-					<td>제목</td>
-					<td>작성자</td>
-					<td>분류</td>
-					<td>날짜</td>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${boardList}" var="varBoardList">
-					<tr>
-						<td>${varBoardList.boardId}</td>
-						<td>${varBoardList.boardTitle}</td>
-						<td>${varBoardList.userId}</td>
-						<td>${varBoardList.boardType}</td>
-						<td>${varBoardList.boardDate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<ul>
-			<c:forEach items="${boardPageVO}" var="boardPage" begin="1" end="10" step="1" varStatus="status">
-			<li><a href="/board.do?currentPage=${status.index + 1}">${status.index + 1}</a></li>
-			</c:forEach>
-		</ul>
-		
-		<a href="/common/boardInsert.do">글쓰기</a>
 	
 </body>
 </html>

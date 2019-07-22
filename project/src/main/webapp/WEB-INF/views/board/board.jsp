@@ -28,7 +28,8 @@
 				<c:forEach items="${boardList}" var="varBoardList">
 					<tr>
 						<td>${varBoardList.boardId}</td>
-						<td>${varBoardList.boardTitle}</td>
+						<td><a href="/board/boardDetail.do?boardId=${varBoardList.boardId}">
+							${varBoardList.boardTitle}</a></td>
 						<td>${varBoardList.userId}</td>
 						<td>${varBoardList.boardType}</td>
 						<td>${varBoardList.boardDate}</td>

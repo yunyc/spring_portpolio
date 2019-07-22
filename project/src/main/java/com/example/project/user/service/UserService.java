@@ -12,5 +12,9 @@ public interface UserService {
 	void insertAuthority(UserVO userVO) throws Exception;
 	
 	void updateAuthority(HashMap<String, Object> map) throws Exception;
+	
+	// 메일
+	
+	void sendMail(String email, String userId, String key);
 
 }

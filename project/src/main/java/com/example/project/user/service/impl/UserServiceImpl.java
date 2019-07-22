@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +20,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Resource
 	private UserMapper userMapper;
+	
+	@Resource 
+	private JavaMailSender javaMailSender;
 
 	@Override
 	@Transactional
@@ -41,6 +48,26 @@ public class UserServiceImpl implements UserService {
 	public void insertAuthority(UserVO userVO) throws Exception {
 		userMapper.insertAuthority(userVO);
 		
+	}
+	
+	@Override
+	@Async
+	public void sendMail(String email, String userId, String key) {
+		
+		MimeMessage message = javaMailSender.createMimeMessage();
+		
+		try {
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom("yunyc5233@gmail.com");
+			messageHelper.setSubject("계정 활성화");
+			messageHelper.setTo(email);
+			messageHelper.setText("http://localhost:8079/common/emailConfirm.do?userId=" + userId + "&authKey=" + key);
+			javaMailSender.send(message);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
