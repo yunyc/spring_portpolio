@@ -12,10 +12,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form action="/common/signUp/submit.do" modelAttribute="userVO">
+	<form:form method="post" modelAttribute="userVO">
 		<p>아이디</p>
 		<form:input path="userId" />
 		<form:errors path="userId" cssClass="err" />
+		<input type="button" value="아이디 중복 확인" />
 		<p>비밀번호</p>
 		<form:input path="password"/>
 		<form:errors path="password" />

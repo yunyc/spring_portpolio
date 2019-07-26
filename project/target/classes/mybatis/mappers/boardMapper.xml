@@ -14,7 +14,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       ,BOARD_DATE
 		       ,USER_ID
 		  FROM T_BOARD
-		  
 		  <where>
 		  	<if test="currentPage != null and currentPage != 0">
 		  		AND BOARD_ID BETWEEN 1 + (#{currentPage} - 1) * 10 AND #{currentPage} * 10
@@ -25,9 +24,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  </where>
 	</select>
 	
+	<select id="countBoardList" resultType="PagingVO">
+		SELECT COUNT(BOARD_ID) BOARD_COUNT
+  		  FROM T_BOARD
+	</select>
+	
 	<insert id="insertBoardList" parameterType="BoardVO">
-		INSERT INTO T_BOARD (BOARD_TITLE, BOARD_CONTENT, BOARD_TYPE, BOARD_DATE, USER_ID)
-              VALUES(#{boardTitle}, #{boardContent}, #{boardType}, #{boardDate}, #{userId})
+		INSERT INTO T_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_TYPE, BOARD_DATE, USER_ID)
+             VALUES((SELECT NVL2(MAX(BOARD_ID), (MAX(BOARD_ID) + 1), 1) 
+                       FROM T_BOARD),
+                     #{boardTitle}, #{boardContent}, #{boardType}, #{boardDate}, #{userId})
         
 	</insert>
 	
@@ -37,13 +43,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,BOARD_CONTENT = #{boardContent}
 		      ,BOARD_TYPE = #{boardType}
 		      ,BOARD_DATE = #{boardDate}
-		WHERE USER_ID = #{userId}
+		WHERE BOARD_ID = #{boardId}
 		           
 	</update>
 	
 	<delete id="deleteBoardList" parameterType="BoardVO">
 		DELETE FROM T_BOARD
-              WHERE USER_ID = #{userId}
+         WHERE BOARD_ID = #{boardId}
 	</delete>
 	
 	
@@ -74,7 +80,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<delete id="deleterReplyList" parameterType="BoardReplyVO">
 		DELETE T_REPLY
-		 WHERE BOARD_ID = #{replyId}
+		<where>
+			<if test="boardId != null and boardId != 0">
+				AND WHERE BOARD_ID = #{boardId}
+			</if>
+			<if test="replyId != null and replyId != 0">
+				AND WHERE BOARD_ID = #{boardId}
+			</if>
+		</where>
+		 
 	</delete>
 
 

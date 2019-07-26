@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form action="/common/login/check.do">
+	<form:form action="/login/check">
 		<p>아이디</p>
 		<input type="text" name="userId"/>
 		<p>비밀번호</p>
@@ -20,7 +20,8 @@
 		
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" >
 		<input type="submit" />
-		<a href="/common/signUp.do">회원가입</a>
+		<a href="/signUp">회원가입</a>
+		<a href="/find">정보 찾기</a>
 	
 	</form:form>
 	

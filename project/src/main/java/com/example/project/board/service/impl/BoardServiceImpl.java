@@ -1,5 +1,6 @@
 package com.example.project.board.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.BoardReplyVO;
 import com.example.project.board.service.VO.BoardVO;
+import com.example.project.board.service.VO.PagingVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -68,6 +70,11 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteReplyList(BoardReplyVO replyVO) throws Exception {
 		boardMapper.deleteReplyList(replyVO);
 		
+	}
+
+	@Override
+	public PagingVO countBoardList() throws Exception {
+		return boardMapper.countBoardList();
 	}
 
 

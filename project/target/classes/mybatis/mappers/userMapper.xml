@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertUserList" parameterType="UserVO">
-		INSERT INTO T_USER (USER_ID, USER_PASSWORD, USER_EMAIL, USER_NICKNAME, USER_AUTHKEY)
-                         VALUES (#{userId}, #{password}, #{userEmail}, #{userNickname}, #{authKey})
+		INSERT INTO T_USER (USER_ID, USER_PASSWORD, ENABLED, USER_EMAIL, USER_NICKNAME, USER_AUTHKEY)
+                         VALUES (#{userId}, #{password}, 1, #{userEmail}, #{userNickname}, #{authKey})
         
 	</insert>
 	

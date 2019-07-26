@@ -13,18 +13,18 @@
     
     <!-- 인터셉터, 권한, 로그인 기능 설정 -->
     <sec:http auto-config='true' use-expressions="true">
-        <!-- 인터셉터 경로 설정 -->
+        <!-- 인터셉터 경로 설정 
         <sec:intercept-url pattern="/common/**" access="permitAll" />
         <sec:intercept-url pattern="/user/**" access="isAuthenticated()" />
         <sec:intercept-url pattern="/**" access="permitAll" />
-        
+        -->
         <!-- 폼 로그인 설정 -->
-        <sec:form-login login-page="#{url.login}"
-                        login-processing-url="#{url.loginCheck}"
-                        default-target-url="#{url.main}"
+        <sec:form-login login-page="/login"
+                        login-processing-url="/login/check"
+                        default-target-url="/main.do"
                         username-parameter="userId" 
                         password-parameter="password"
-                        authentication-failure-url="#{url.loginError}" 
+                        authentication-failure-url="/login?error" 
                         always-use-default-target='true' />
         <!-- 로그아웃 설정 -->
         <sec:logout invalidate-session="true"
@@ -33,7 +33,7 @@
         <!-- 세션 관련 설정 -->
         <sec:session-management>
         	<sec:concurrency-control max-sessions="1"
-        	                         expired-url="#{url.login}"
+        	                         expired-url="/login"
         	                         error-if-maximum-exceeded="true"/>
         </sec:session-management>
         

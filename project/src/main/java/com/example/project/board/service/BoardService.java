@@ -1,9 +1,11 @@
 package com.example.project.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.project.board.service.VO.BoardReplyVO;
 import com.example.project.board.service.VO.BoardVO;
+import com.example.project.board.service.VO.PagingVO;
 
 public interface BoardService {
 	
@@ -23,5 +25,8 @@ public interface BoardService {
 	void updateReplyList(BoardReplyVO replyVO) throws Exception;
 	
 	void deleteReplyList(BoardReplyVO replyVO) throws Exception;
+	
+	// 카운트
+	PagingVO countBoardList() throws Exception;
 
 }

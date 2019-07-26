@@ -28,7 +28,7 @@
 				<c:forEach items="${boardList}" var="varBoardList">
 					<tr>
 						<td>${varBoardList.boardId}</td>
-						<td><a href="/board/boardDetail.do?boardId=${varBoardList.boardId}">
+						<td><a href="/board/${varBoardList.boardId}">
 							${varBoardList.boardTitle}</a></td>
 						<td>${varBoardList.userId}</td>
 						<td>${varBoardList.boardType}</td>
@@ -38,12 +38,21 @@
 			</tbody>
 		</table>
 		<ul>
-			<c:forEach items="${boardPageVO}" var="boardPage" begin="1" end="10" step="1" varStatus="status">
-			<li><a href="/board.do?currentPage=${status.index + 1}">${status.index + 1}</a></li>
+			<c:forEach items="${boardPageVO}" var="boardPage" begin="0" end="10" step="1" varStatus="status">
+				<li><a href="/board?currentPage=${status.count}">${status.count}</a></li>
 			</c:forEach>
 		</ul>
 		
-		<a href="/common/boardInsert.do">글쓰기</a>
+		<script>
+			
+		</script>
+		
+		<form method="get" action="/board/newboard">
+			<input type="hidden" name="method" value="post"/>
+			<input type="submit" value="새 글 쓰기"/>
+		</form>
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
 </body>
 </html>

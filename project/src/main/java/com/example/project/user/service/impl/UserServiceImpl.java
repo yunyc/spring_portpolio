@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 			messageHelper.setFrom("yunyc5233@gmail.com");
 			messageHelper.setSubject("계정 활성화");
 			messageHelper.setTo(email);
-			messageHelper.setText("http://localhost:8079/common/emailConfirm.do?userId=" + userId + "&authKey=" + key);
+			messageHelper.setText("http://localhost:8079/emailConfirm?userId=" + userId + "&authKey=" + key);
 			javaMailSender.send(message);
 		
 		} catch (Exception e) {

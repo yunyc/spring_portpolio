@@ -1,5 +1,6 @@
 package com.example.project.board.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.project.board.service.VO.BoardReplyVO;
 import com.example.project.board.service.VO.BoardVO;
+import com.example.project.board.service.VO.PagingVO;
 
 @Mapper
 public interface BoardMapper {
@@ -27,5 +29,8 @@ public interface BoardMapper {
 	void updateReplyList(BoardReplyVO replyVO) throws Exception;
 	
 	void deleteReplyList(BoardReplyVO replyVO) throws Exception;
+	
+	// 카운트
+	PagingVO countBoardList() throws Exception;
 
 }

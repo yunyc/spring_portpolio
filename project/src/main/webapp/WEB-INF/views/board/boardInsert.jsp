@@ -13,13 +13,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form modelAttribute="BoardVO" action="/common/boardInsert/submit.do">
+	<form:form modelAttribute="BoardVO" method="${method}">
 		<p>제목</p>
 		<form:input path="boardTitle"/>
 		<p>글내용</p>
 		<form:textarea path="boardContent"/>
 		<p>글분류</p>
 		<form:input path="boardType"/>
+		<form:hidden path="boardId" value="${boardVO.boardId}"/>
 		<input type="submit"/>
 	</form:form>
 	

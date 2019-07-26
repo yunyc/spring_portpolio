@@ -20,14 +20,14 @@
 	                </div>
 	                <ul class="right_menu">
 	                	<sec:authorize access="isAnonymous()">
-	                		<li><a href="/common/login.do">로그인</a></li>
+	                		<li><a href="/login">로그인</a></li>
 	                	</sec:authorize>
 	                	<sec:authorize access="isAuthenticated()">
 	                		<li><a href="#">안녕하십니까</a>
 	                	</sec:authorize>
-	                    <li><a href="/product.do">상품보기</a></li>
-	                    <li><a href="/question.do">질문</a></li>
-	                    <li><a href="/board.do">문의사항</a></li>
+	                    <li><a href="/product">상품보기</a></li>
+	                    <li><a href="/question">질문</a></li>
+	                    <li><a href="/board">문의사항</a></li>
 	                </ul>
 	            </div>
 	        </header>

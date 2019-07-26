@@ -11,6 +11,7 @@
 
 	<typeAliases>
 		<typeAlias alias="UserVO" type="com.example.project.user.service.UserVO"/>
+		<typeAlias alias="PagingVO" type="com.example.project.board.service.VO.PagingVO"/>
 		<typeAlias alias="BoardVO" type="com.example.project.board.service.VO.BoardVO"/>
 		<typeAlias alias="BoardReplyVO" type="com.example.project.board.service.VO.BoardReplyVO"/>
 	</typeAliases>
