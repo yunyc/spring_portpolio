@@ -1,6 +1,6 @@
 package com.example.project.board.service.VO;
 
-public class BoardReplyVO {
+public class ReplyVO {
 	
 	private int replyId;
 	private int boardId;

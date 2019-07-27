@@ -1,14 +1,14 @@
 package com.example.project.board.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.project.board.service.VO.BoardReplyVO;
+import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.VO.BoardVO;
 import com.example.project.board.service.VO.PagingVO;
+import com.example.project.board.service.VO.ReplyVO;
 
 @Mapper
 public interface BoardMapper {
@@ -22,13 +22,13 @@ public interface BoardMapper {
 	void deleteBoardList(BoardVO boardVO) throws Exception;
 	
 	//답변
-	List<BoardReplyVO> selectReplyList(BoardReplyVO replyVO) throws Exception;
+	List<ReplyVO> selectReplyList(ReplyVO replyVO) throws Exception;
 	
-	void insertReplyList(BoardReplyVO replyVO) throws Exception;
+	void insertReplyList(ReplyVO replyVO) throws Exception;
 	
-	void updateReplyList(BoardReplyVO replyVO) throws Exception;
+	void updateReplyList(ReplyVO replyVO) throws Exception;
 	
-	void deleteReplyList(BoardReplyVO replyVO) throws Exception;
+	void deleteReplyList(ReplyVO replyVO) throws Exception;
 	
 	// 카운트
 	PagingVO countBoardList() throws Exception;

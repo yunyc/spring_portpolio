@@ -75,19 +75,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateReplyList" parameterType="BoardReplyVO">
 		 UPDATE T_REPLY
 			SET REPLY_CONTENT = #{replyContent}
-			WHERE BOARD_ID = #{replyId}
+			WHERE REPLY_ID = #{replyId}
 	</update>
 	
-	<delete id="deleterReplyList" parameterType="BoardReplyVO">
+	<delete id="deleteReplyList" parameterType="BoardReplyVO">
 		DELETE T_REPLY
-		<where>
-			<if test="boardId != null and boardId != 0">
-				AND WHERE BOARD_ID = #{boardId}
-			</if>
-			<if test="replyId != null and replyId != 0">
-				AND WHERE BOARD_ID = #{boardId}
-			</if>
-		</where>
+		WHERE REPLY_ID = #{replyId}
 		 
 	</delete>
 

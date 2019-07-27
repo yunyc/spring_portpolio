@@ -1,6 +1,5 @@
 package com.example.project.board.web;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.project.board.service.VO.BoardReplyVO;
+import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.BoardVO;
 import com.example.project.board.service.VO.PagingVO;
+import com.example.project.board.service.VO.ReplyVO;
 
 @Controller
 @RequestMapping("/board")
@@ -51,11 +51,11 @@ public class BoardController {
 		BoardVO boardVO = new BoardVO();
 		boardVO.setBoardId(boardId);
 		
-		BoardReplyVO replyVO  = new BoardReplyVO();
+		ReplyVO replyVO  = new ReplyVO();
 		replyVO.setBoardId(boardId);
 		
 		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
-		List<BoardReplyVO> replyList = boardService.selectReplyList(replyVO);
+		List<ReplyVO> replyList = boardService.selectReplyList(replyVO);
 		
 		model.addAttribute("boardVO", boardList.get(0));
 		model.addAttribute("replyList", replyList);
@@ -107,7 +107,7 @@ public class BoardController {
 	//글 삭제
 	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.DELETE)
 	public String boardDelete(@PathVariable int boardId, BoardVO boardVO,
-			BoardReplyVO replyVO) throws Exception {
+			ReplyVO replyVO) throws Exception {
 		
 		boardVO.setBoardId(boardId);
 		replyVO.setBoardId(boardId);

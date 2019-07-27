@@ -1,11 +1,11 @@
 package com.example.project.board.service;
 
-import java.util.HashMap;
 import java.util.List;
 
-import com.example.project.board.service.VO.BoardReplyVO;
+import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.VO.BoardVO;
 import com.example.project.board.service.VO.PagingVO;
+import com.example.project.board.service.VO.ReplyVO;
 
 public interface BoardService {
 	
@@ -17,14 +17,14 @@ public interface BoardService {
 	
 	void deleteBoardList(BoardVO boardVO) throws Exception;
 	
-	// 답변
-	List<BoardReplyVO> selectReplyList(BoardReplyVO replyVO) throws Exception;
+	// 댓글
+	List<ReplyVO> selectReplyList(ReplyVO replyVO) throws Exception;
 	
-	void insertReplyList(BoardReplyVO replyVO) throws Exception;
+	void insertReplyList(ReplyVO replyVO) throws Exception;
 	
-	void updateReplyList(BoardReplyVO replyVO) throws Exception;
+	void updateReplyList(ReplyVO replyVO) throws Exception;
 	
-	void deleteReplyList(BoardReplyVO replyVO) throws Exception;
+	void deleteReplyList(ReplyVO replyVO) throws Exception;
 	
 	// 카운트
 	PagingVO countBoardList() throws Exception;
