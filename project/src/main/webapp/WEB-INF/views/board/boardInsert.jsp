@@ -14,15 +14,19 @@
 </head>
 <body>
 	<form:form modelAttribute="BoardVO" method="${method}">
-		<p>제목</p>
-		<form:input path="boardTitle"/>
-		<p>글내용</p>
-		<form:textarea path="boardContent"/>
-		<p>글분류</p>
-		<form:input path="boardType"/>
 		<form:hidden path="boardId" value="${boardVO.boardId}"/>
+		<p>제목</p>
+		<form:input path="boardTitle" value="${boardVO.boardTitle}" />
+		<p>글내용</p>
+		<form:textarea path="boardContent" value="${boardVO.boardContent}"/>
+		<p>글분류</p>
+		<form:input path="boardType" value="${boardVO.boardType}"/>
 		<input type="submit"/>
 	</form:form>
+	
+	<script>
+	
+	</script>
 	
 	
 	

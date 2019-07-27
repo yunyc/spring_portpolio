@@ -47,10 +47,7 @@
 			
 		</script>
 		
-		<form method="get" action="/board/newboard">
-			<input type="hidden" name="method" value="post"/>
-			<input type="submit" value="새 글 쓰기"/>
-		</form>
+		<a href="/board/post">새 글 쓰기</a>
 		
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	

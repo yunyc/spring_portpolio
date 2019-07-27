@@ -13,19 +13,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form id="boardFrm">
-		<a href="javascript:fn_submit('boardFrm', 'delete');">글 삭제</a>
+	<script>
+		// PATCH, DELETE용 메서드
+		function fn_submit(formId, method) {
+			$("#" + formId + ">" + "[name=_method]").val(method);
+			$("#" + formId).submit();
+		}
+	</script>
+	<form:form id="boardFrm" modelAttribute="boardVO" action="/board/post/${boardVO.boardId}">
+			<form:hidden path="boardId" value="${boardVO.boardId}" />
+			<form:hidden path="boardTitle" value="${boardVO.boardTitle}" />
+			<form:hidden path="boardContent" value="${boardVO.boardContent}" />
+			<form:hidden path="boardType" value="${boardVO.boardType}" />			
+			<input type="submit" value="글 수정" />
+			<a href="javascript:fn_submit('boardFrm', 'delete');">글 삭제</a>
+			<input type="hidden" name="_method" value="" />
 	</form:form>
-	
-	
-	
-	<form method="get" action="/board/newboard">
-			<input type="hidden" name="method" value="patch"/>
-			<input type="hidden" name="boardId" value="${boardVO.boardId}" />
-			<input type="submit" value="글 수정"/>
-	<form>
-	
-	
+		
     <p>댓글</p>
     <a href="javascript:fn_Submit('post')">댓글 달기</a>
       
@@ -42,12 +46,7 @@
 		<form:hidden path="boardId" value="${boardList.boardId}" />
 	</form:form>
 	
-	<script>
-		function fn_submit(formId, method) {
-			$("#boardFrm").attr("_method", "delete");
-			$("#boardFrm").submit();
-		}
-	</script>
+	
 	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

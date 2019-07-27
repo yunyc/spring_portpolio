@@ -29,6 +29,7 @@ public class BoardController {
 	@Resource
 	private BoardService boardService;
 	
+	// 게시글 목록
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String boardInit(@ModelAttribute BoardVO boardVO, @ModelAttribute PagingVO pagingVO, Model model) throws Exception {
 		
@@ -43,49 +44,7 @@ public class BoardController {
 		return "board/board";
 	}
 	
-	@RequestMapping(value = "/newboard")
-	public String boardInsertInit(@ModelAttribute BoardVO boardVO, 
-			@RequestParam String method, Model model) throws Exception {
-		
-		model.addAttribute("BoardVO", boardVO);
-		model.addAttribute("method", method);
-		
-		return "board/boardInsert";
-	}
-	
-	
-	@RequestMapping(value = "/newboard", method = RequestMethod.POST)
-	public String boardInsertSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
-		
-		boardService.insertBoardList(boardVO);
-		
-		return "redirect:/board";
-	}
-	
-	@RequestMapping(value = "/newboard", method = RequestMethod.PATCH)
-	public String boardUpdateSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
-		
-		boardService.updateBoardList(boardVO);
-		
-		return "redirect:/board";
-	}
-	
-	@RequestMapping(value = "/{boardId}", method = RequestMethod.DELETE)
-	public String boardDelete(@PathVariable int boardId) throws Exception {
-		
-		BoardVO boardVO = new BoardVO();
-		boardVO.setBoardId(boardId);
-		
-		BoardReplyVO replyVO = new BoardReplyVO();
-		replyVO.setBoardId(boardId);
-		
-		boardService.deleteReplyList(replyVO);
-		boardService.deleteBoardList(boardVO);
-		
-		return "redirect:/board";
-	}
-	
-	
+	// 게시글 상세
 	@RequestMapping(value = "/{boardId}", method = RequestMethod.GET)
 	public String boardDetail(@PathVariable int boardId, Model model) throws Exception {
 		
@@ -105,15 +64,57 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 	
-
-	
-	@RequestMapping(value = "/{boardId}", method = RequestMethod.POST)
-	public String boardDetailRegister() throws Exception {
+	// 작성 페이지 이동
+	@RequestMapping(value = "/post", method = RequestMethod.GET)
+	public String boardInsertInit(BoardVO boardVO, Model model) throws Exception {
 		
+		model.addAttribute("BoardVO", boardVO);
+		model.addAttribute("method", "post");
 		
-		
-		return null;
+		return "board/boardInsert";
 	}
-	          
-
+	
+	// 게시글 작성
+	@RequestMapping(value = "/post", method = RequestMethod.POST)
+	public String boardInsertSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
+		
+		boardService.insertBoardList(boardVO);
+		
+		return "redirect:/board";
+	}
+	
+	// 작성 페이지 이동
+	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.POST)
+	public String boardUpdateInit(@PathVariable int boardId,
+			@ModelAttribute BoardVO boardVO, Model model) throws Exception {
+		
+		boardVO.setBoardId(boardId);	
+		model.addAttribute("BoardVO", boardVO);
+		model.addAttribute("method", "patch");
+			
+		return "board/boardInsert";
+	}
+	
+	// 글 수정
+	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.PATCH)
+	public String boardUpdateSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
+		
+		boardService.updateBoardList(boardVO);
+		
+		return "redirect:/board";
+	}
+	
+	//글 삭제
+	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.DELETE)
+	public String boardDelete(@PathVariable int boardId, BoardVO boardVO,
+			BoardReplyVO replyVO) throws Exception {
+		
+		boardVO.setBoardId(boardId);
+		replyVO.setBoardId(boardId);
+		
+		//boardService.deleteReplyList(replyVO);
+		boardService.deleteBoardList(boardVO);
+		
+		return "redirect:/board";
+	}
 }
