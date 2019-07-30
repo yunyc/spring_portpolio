@@ -6,6 +6,9 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security.xsd">
     
+    <bean id="authLoginSuccessHandler"
+    	  class="com.example.project.security.AuthLoginSuccessHandler"></bean>
+    
     <!-- 정적 리소스 파일 -->
     <sec:http pattern="/css/**" security="none" />
     <sec:http pattern="/img/**" security="none" />
@@ -25,11 +28,12 @@
                         username-parameter="userId" 
                         password-parameter="password"
                         authentication-failure-url="/login?error" 
-                        always-use-default-target='true' />
+                        always-use-default-target='true'
+                        authentication-success-handler-ref="authLoginSuccessHandler" />
         <!-- 로그아웃 설정 -->
         <sec:logout invalidate-session="true"
                     logout-url="/logout"   
-                    logout-success-url="/login?logout" />
+                    logout-success-url="/login" />
         <!-- 세션 관련 설정 -->
         <sec:session-management>
         	<sec:concurrency-control max-sessions="1"

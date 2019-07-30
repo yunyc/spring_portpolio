@@ -13,7 +13,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
 		<table>
 			<thead>
 				<tr>
@@ -25,27 +24,28 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${boardList}" var="varBoardList">
+				<c:forEach items="${boardList}" var="varBoardList" begin="${pagingVO.startIndex}" end="${pagingVO.endIndex}">
 					<tr>
-						<td>${varBoardList.boardId}</td>
-						<td><a href="/board/${varBoardList.boardId}">
-							${varBoardList.boardTitle}</a></td>
-						<td>${varBoardList.userId}</td>
-						<td>${varBoardList.boardType}</td>
-						<td>${varBoardList.boardDate}</td>
+						<td><c:out value="${varBoardList.boardId}"/></td>
+						<td>
+							<a href="/board/${varBoardList.boardId}">
+								<c:out value="${varBoardList.boardTitle}"/>
+							</a>
+						</td>
+						<td><c:out value="${varBoardList.userId}"/></td>
+						<td><c:out value="${varBoardList.boardType}"/></td>
+						<td><c:out value="${varBoardList.boardDate}"/></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<ul>
-			<c:forEach items="${boardPageVO}" var="boardPage" begin="0" end="10" step="1" varStatus="status">
-				<li><a href="/board?currentPage=${status.count}">${status.count}</a></li>
+			<li><a href="/board?currentPage=${pagingVO.currentPage - 1}">이전</a></li>
+			<c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
+				<li><a href="/board?currentPage=${page}">${page}</a></li>
 			</c:forEach>
+			<li><a href="/board?currentPage=${pagingVO.currentPage + 1}">다음</a></li>
 		</ul>
-		
-		<script>
-			
-		</script>
 		
 		<a href="/board/post">새 글 쓰기</a>
 		

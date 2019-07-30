@@ -1,5 +1,6 @@
 package com.example.project.board.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -31,6 +32,6 @@ public interface BoardMapper {
 	void deleteReplyList(ReplyVO replyVO) throws Exception;
 	
 	// 카운트
-	PagingVO countBoardList() throws Exception;
+	HashMap<String, Object> countBoardList() throws Exception;
 
 }

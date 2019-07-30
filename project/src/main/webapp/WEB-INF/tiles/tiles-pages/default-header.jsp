@@ -26,7 +26,7 @@
 	                		<li><a href="#">안녕하십니까</a>
 	                	</sec:authorize>
 	                    <li><a href="/product">상품보기</a></li>
-	                    <li><a href="/question">질문</a></li>
+	                    <li><a href="/quest">질문</a></li>
 	                    <li><a href="/board">문의사항</a></li>
 	                </ul>
 	            </div>

@@ -13,6 +13,11 @@
 	    
 	    <link rel="stylesheet" href="<c:url value='/resources/css/reset.css' />" />
 	    <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />" />
+	    
+	    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+		
+		<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+		
 </head>
 <body>
 	

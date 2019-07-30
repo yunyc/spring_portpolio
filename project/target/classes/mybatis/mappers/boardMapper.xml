@@ -15,26 +15,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       ,USER_ID
 		  FROM T_BOARD
 		  <where>
-		  	<if test="currentPage != null and currentPage != 0">
-		  		AND BOARD_ID BETWEEN 1 + (#{currentPage} - 1) * 10 AND #{currentPage} * 10
-		  	</if>
 		  	<if test="boardId != null and boardId != 0">
-		  			AND BOARD_ID = #{boardId}
+		  		AND BOARD_ID = #{boardId}
 		  	</if>
 		  </where>
+		  ORDER BY BOARD_ID DESC
 	</select>
 	
-	<select id="countBoardList" resultType="PagingVO">
+	<select id="countBoardList" resultType="map">
 		SELECT COUNT(BOARD_ID) BOARD_COUNT
   		  FROM T_BOARD
 	</select>
 	
 	<insert id="insertBoardList" parameterType="BoardVO">
-		INSERT INTO T_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_TYPE, BOARD_DATE, USER_ID)
-             VALUES((SELECT NVL2(MAX(BOARD_ID), (MAX(BOARD_ID) + 1), 1) 
-                       FROM T_BOARD),
-                     #{boardTitle}, #{boardContent}, #{boardType}, #{boardDate}, #{userId})
-        
+		INSERT INTO T_BOARD (BOARD_TITLE ,BOARD_CONTENT, BOARD_TYPE, BOARD_DATE, USER_ID)
+                      VALUES(#{boardTitle}, #{boardContent}, #{boardType}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userId})
 	</insert>
 	
 	<update id="updateBoardList" parameterType="BoardVO">
@@ -42,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   SET BOARD_TITLE = #{boardTitle}
 		      ,BOARD_CONTENT = #{boardContent}
 		      ,BOARD_TYPE = #{boardType}
-		      ,BOARD_DATE = #{boardDate}
+		      ,BOARD_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		WHERE BOARD_ID = #{boardId}
 		           
 	</update>
@@ -51,43 +46,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM T_BOARD
          WHERE BOARD_ID = #{boardId}
 	</delete>
-	
-	
-	<select id="selectReplyList" parameterType="BoardReplyVO" resultType="BoardReplyVO">
-		 SELECT REPLY_ID
-		       ,REPLY_CONTENT
-		       ,REPLY_DATE
-		       ,BOARD_ID
-		       ,USER_ID
-		   FROM T_REPLY
-		   <where>
-			   <if test="boardId != null and boardId = 0">
-			   		AND BOARD_ID = #{boardId}
-			   </if>
-		   </where>
-	</select>
-	
-	<insert id="insertReplyList" parameterType="BoardReplyVO">
-		INSERT INTO T_REPLY (REPLY_CONTENT, BOARD_ID, USER_ID)
-        			VALUES (#{replyContent}, #{boardId}, #{userId})
-	</insert>
-	
-	<update id="updateReplyList" parameterType="BoardReplyVO">
-		 UPDATE T_REPLY
-			SET REPLY_CONTENT = #{replyContent}
-			WHERE REPLY_ID = #{replyId}
-	</update>
-	
-	<delete id="deleteReplyList" parameterType="BoardReplyVO">
-		DELETE T_REPLY
-		WHERE REPLY_ID = #{replyId}
-		 
-	</delete>
-
-
-
-	
-
 </mapper>
 
 

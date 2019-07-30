@@ -1,5 +1,6 @@
 package com.example.project.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.project.board.service.VO.ReplyVO;
@@ -27,6 +28,6 @@ public interface BoardService {
 	void deleteReplyList(ReplyVO replyVO) throws Exception;
 	
 	// 카운트
-	PagingVO countBoardList() throws Exception;
+	HashMap<String, Object> countBoardList() throws Exception;
 
 }

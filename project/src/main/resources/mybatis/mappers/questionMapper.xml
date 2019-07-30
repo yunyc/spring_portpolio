@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="com.example.project.question.service.impl.QuestMapper">
+	
+	<select id="selectQuestList" resultType="QuestVO">
+		SELECT QUEST_ID
+       		  ,QUEST_TITLE
+       		  ,QUEST_CONTENT
+              ,QUEST_DATE
+              ,USER_ID
+  		  FROM T_QUESTION
+  		  <where>
+  		  	<if test="questId != null and questId != 0">
+  		  		 AND QUEST_ID = #{questId}
+  		  	</if>
+  		  </where>
+	</select>
+	
+	<insert id="insertQuest" parameterType="QuestVO">
+		INSERT INTO T_QUESTION(QUEST_TITLE, QUEST_CONTENT, QUEST_DATE, USER_ID)
+                        VALUES(#{questTitle}, #{questContent}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userId})
+	</insert>
+	
+	<update id="updateQuest" parameterType="QuestVO">
+		UPDATE T_QUESTION 
+		   SET QUEST_TITLE = #{questTitle}
+			  ,QUEST_CONTENT = #{questContent}
+			  ,QUEST_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			WHERE QUEST_ID = #{questId}
+	</update>
+	
+	<delete id="deleteQuest" parameterType="QuestVO">
+		DELETE T_QUESTION
+		 WHERE QUEST_ID = #{questId}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

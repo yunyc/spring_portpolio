@@ -11,8 +11,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<util:properties id="url" location="classpath:/properties/url-config.properties" />
 	
 	<!-- 아파치 DBCP 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -40,5 +38,5 @@
 	</bean>
 	
 	<tx:annotation-driven/>
-		
+	
 </beans>

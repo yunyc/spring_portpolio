@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.BoardService;
@@ -31,29 +33,27 @@ public class BoardController {
 	
 	// 게시글 목록
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String boardInit(@ModelAttribute BoardVO boardVO, @ModelAttribute PagingVO pagingVO, Model model) throws Exception {
-		
-		pagingVO = boardService.countBoardList();
-		pagingVO.PageInit();
+	public String boardInit(BoardVO boardVO, @ModelAttribute PagingVO pagingVO,
+			Model model) throws Exception {
 		
 		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
+		pagingVO.setBoardCount(boardList.size());
+		pagingVO.pageInit();
 		
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("boardPageVO", pagingVO.getPageList());
+		model.addAttribute("pagingVO", pagingVO);
 		
 		return "board/board";
 	}
 	
 	// 게시글 상세
 	@RequestMapping(value = "/{boardId}", method = RequestMethod.GET)
-	public String boardDetail(@PathVariable int boardId, Model model) throws Exception {
-		
-		BoardVO boardVO = new BoardVO();
+	public String boardDetail(@PathVariable int boardId, Model model,
+			BoardVO boardVO, ReplyVO replyVO) throws Exception {
+
 		boardVO.setBoardId(boardId);
-		
-		ReplyVO replyVO  = new ReplyVO();
 		replyVO.setBoardId(boardId);
-		
+
 		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
 		List<ReplyVO> replyList = boardService.selectReplyList(replyVO);
 		
@@ -86,10 +86,12 @@ public class BoardController {
 	// 작성 페이지 이동
 	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.POST)
 	public String boardUpdateInit(@PathVariable int boardId,
-			@ModelAttribute BoardVO boardVO, Model model) throws Exception {
+			BoardVO boardVO, Model model) throws Exception {
 		
-		boardVO.setBoardId(boardId);	
-		model.addAttribute("BoardVO", boardVO);
+		boardVO.setBoardId(boardId);
+		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
+		
+		model.addAttribute("BoardVO", boardList.get(0));
 		model.addAttribute("method", "patch");
 			
 		return "board/boardInsert";
@@ -108,10 +110,10 @@ public class BoardController {
 	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.DELETE)
 	public String boardDelete(@PathVariable int boardId, BoardVO boardVO,
 			ReplyVO replyVO) throws Exception {
-		
+		System.out.println(boardId);
 		boardVO.setBoardId(boardId);
 		replyVO.setBoardId(boardId);
-		
+		System.out.println(boardVO.getBoardId());
 		//boardService.deleteReplyList(replyVO);
 		boardService.deleteBoardList(boardVO);
 		

@@ -6,18 +6,9 @@ public class BoardVO {
 	private String boardTitle;
 	private String boardContent;
 	private String boardType;
-	private String boardDate = "2000-10-10";
+	private String boardDate;
 	private String userId = "yunyc";
 	
-	private int currentPage = 1;
-	
-	
-	public int getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
 	public int getBoardId() {
 		return boardId;
 	}

@@ -74,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public PagingVO countBoardList() throws Exception {
+	public HashMap<String, Object> countBoardList() throws Exception {
 		return boardMapper.countBoardList();
 	}
 

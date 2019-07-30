@@ -13,21 +13,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form modelAttribute="BoardVO" method="${method}">
+	<form:form modelAttribute="BoardVO">
 		<form:hidden path="boardId" value="${boardVO.boardId}"/>
+		<form:hidden path="userId" value="${userId}"/>
 		<p>제목</p>
 		<form:input path="boardTitle" value="${boardVO.boardTitle}" />
 		<p>글내용</p>
 		<form:textarea path="boardContent" value="${boardVO.boardContent}"/>
 		<p>글분류</p>
 		<form:input path="boardType" value="${boardVO.boardType}"/>
-		<input type="submit"/>
+		<a class="button" href="javascript:fn_submit('post');">글 생성</a>
+		<a class="button" href="javascript:fn_submit('patch');">글 수정</a>
+		<input type="hidden" name="_method" value="" />
 	</form:form>
-	
-	<script>
-	
-	</script>
-	
 	
 	
 </body>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="com.example.project.board.service.impl.BoardMapper">
+	
+	<select id="selectReplyList" parameterType="BoardReplyVO" resultType="BoardReplyVO">
+		 SELECT REPLY_ID
+		       ,REPLY_CONTENT
+		       ,REPLY_DATE
+		       ,BOARD_ID
+		       ,USER_ID
+		   FROM T_REPLY
+		   <where>
+			   <if test="boardId != null and boardId = 0">
+			   		AND BOARD_ID = #{boardId}
+			   </if>
+		   </where>
+	</select>
+	
+	<insert id="insertReplyList" parameterType="BoardReplyVO">
+		INSERT INTO T_REPLY (REPLY_CONTENT, BOARD_ID, USER_ID)
+        			VALUES (#{replyContent}, #{boardId}, #{userId})
+	</insert>
+	
+	<update id="updateReplyList" parameterType="BoardReplyVO">
+		 UPDATE T_REPLY
+			SET REPLY_CONTENT = #{replyContent}
+			WHERE REPLY_ID = #{replyId}
+	</update>
+	
+	<delete id="deleteReplyList" parameterType="BoardReplyVO">
+		DELETE T_REPLY
+		WHERE REPLY_ID = #{replyId}
+		 
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
