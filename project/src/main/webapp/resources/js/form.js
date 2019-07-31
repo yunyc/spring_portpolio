@@ -9,3 +9,11 @@ function fn_submit(method) {
 	$("[name=_method]").val(method);
 	$(".button").parent("form").submit();
 }
+
+$(document).ready(function() {
+	$("button").click(function() {
+		alert(1);
+		$("[name=_method]").val("post");
+		$("#dd").submit();
+	});
+});

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="com.example.project.product.service.impl.ProductMapper">
+	
+	<select id="selectProductList">
+		SELECT PRODUCT_ID
+	       ,PRODUCT_NAME
+	       ,PRODUCT_TITLE
+	       ,PRODUCT_DESCRIPTION
+	       ,PRODUCT_THUMNAIL
+	       ,PRODUCT_TYPE
+	       ,PRODUCT_GOOD
+	       ,PRODUCT_BAD
+	  FROM T_PRODUCT
+	</select>
+	
+	<insert id="insertProduct">
+		INSERT INTO T_PRODUCT(PRODUCT_NAME, PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE)
+               		   VALUES(#{productName}, #{productTitle}, #{productDescription}, #{productType})
+    </insert>
+    
+	<update id="updateProduct">
+		UPDATE T_PRODUCT
+		   SET PRODUCT_NAME = #{productName}
+		 WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<delete id="deleteProduct">
+		DELETE T_PRODUCT
+		 WHERE PRODUCT_ID = #{productId}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,9 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form id="dd" modelAttribute="questVO">
+	<form:form modelAttribute="questVO">
 		<form:hidden path="userId" value="${userId}"/>
-		<form:hidden path="userId" value="${questVO.questId}"/>
 		<p>질문 제목</p>
 		<form:input path="questTitle" value="${questVO.questTitle}"/>
 		<p>질문 내용</p>
@@ -32,7 +31,10 @@
 		<input type="hidden" name="_method" value=""/>
 	</form:form>
 	
-	
+	<form:form action="/quest/post?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
+		<input type="file" name="file"/>
+		<input type="submit" value="제출"/>
+	</form:form>
 	
 </body>
 </html>

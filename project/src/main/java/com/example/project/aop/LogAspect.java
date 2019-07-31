@@ -14,13 +14,13 @@ public class LogAspect {
 	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 	
 	@Around("execution(* com.example.project.*.web.*Controller.*(..))")
-    public Object measure(ProceedingJoinPoint jointPoint) throws Throwable {
+    public Object measure(ProceedingJoinPoint jp) throws Throwable {
 		// 메서드가 호출되기 전에 먼저 실행되는 코드
-		   logger.info("시작");
+		   logger.info(jp.getSignature().getName() + " 시작");
 		   // 메서드가 호출되는 시점
-		   Object result = jointPoint.proceed();
+		   Object result = jp.proceed();
 		    // 메서드가 호출된 실행되는 코드
-		   logger.info("끝");
+		   logger.info(jp.getSignature().getName() + " 끝");
 		   return result;
     }
 

@@ -1,8 +1,12 @@
 package com.example.project.question.web;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.Multipart;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.project.question.service.QuestService;
 import com.example.project.question.service.VO.QuestVO;
@@ -58,8 +64,20 @@ public class QuestController {
 	
 	// 질문하기
 	@RequestMapping(value = "/post" , method = RequestMethod.POST)
-	public String questInsert(@ModelAttribute QuestVO questVO, Model model) throws Exception {
+	public String questInsert(@ModelAttribute QuestVO questVO, MultipartHttpServletRequest mtfRequest, Model model) throws Exception {
 		
+		String fileTag = "file";
+		String filePath = "C:\\temp\\";
+		System.out.println(fileTag);
+		
+		MultipartFile file = mtfRequest.getFile(fileTag);
+		String fileName = file.getOriginalFilename();
+		
+		try {
+			file.transferTo(new File(filePath + fileName));
+		} catch(Exception e) {
+			System.out.println("업로드 오류");
+		}
 		questService.insertQuest(questVO);
 		
 		return "redirect:/quest";
