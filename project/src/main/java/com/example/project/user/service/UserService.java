@@ -15,6 +15,8 @@ public interface UserService {
 	
 	// 메일
 	
-	void sendMail(String email, String userId, String key);
+	void sendAuthKey(String email, String userId, int key);
+	
+	void sendUserInfo(String email, String userId, String userPassword);
 
 }

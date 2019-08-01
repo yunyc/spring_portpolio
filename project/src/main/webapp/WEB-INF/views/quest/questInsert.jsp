@@ -22,10 +22,10 @@
 		
 		<c:choose>
 			<c:when test="${method eq 'post'}">
-				<a class="button" href="javascript:fn_submit('post');">생성</a>
+				<button class="post" type="button">생성</button>
 			</c:when>
 			<c:otherwise>
-				<a class="button" href="javascript:fn_submit('patch');">수정</a>
+				<button class="patch" type="button">수정</button>
 			</c:otherwise>
 		</c:choose>
 		<input type="hidden" name="_method" value=""/>

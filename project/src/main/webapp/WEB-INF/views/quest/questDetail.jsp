@@ -14,8 +14,8 @@
 </head>
 	<form:form modelAttribute="questVO" action="/quest/post/${questVO.questId}">
 		<input type="hidden" name="_method" value="" />
-		<a class="button" href="javascript:fn_submit('post');">글 수정</a>
-		<a class="button" href="javascript:fn_submit('delete');">글 삭제</a>
+		<button class="post" type="button">글 수정</button>
+		<button class="delete" type="button">글 삭제</button>
 	</form:form>
 <body>
 	<p><c:out value="${questVO.questTitle}"/></p>

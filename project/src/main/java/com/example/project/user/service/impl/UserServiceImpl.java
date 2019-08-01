@@ -46,13 +46,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void insertAuthority(UserVO userVO) throws Exception {
-		userMapper.insertAuthority(userVO);
-		
+		userMapper.insertAuthority(userVO);	
 	}
 	
 	@Override
 	@Async
-	public void sendMail(String email, String userId, String key) {
+	public void sendAuthKey(String email, String userId, int key) {
 		
 		MimeMessage message = javaMailSender.createMimeMessage();
 		
@@ -63,6 +62,26 @@ public class UserServiceImpl implements UserService {
 			messageHelper.setSubject("계정 활성화");
 			messageHelper.setTo(email);
 			messageHelper.setText("http://localhost:8079/emailConfirm?userId=" + userId + "&authKey=" + key);
+			javaMailSender.send(message);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	@Async
+	public void sendUserInfo(String email, String userId, String userPassword) {
+		
+		MimeMessage message = javaMailSender.createMimeMessage();
+		
+		try {
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom("yunyc5233@gmail.com");
+			messageHelper.setSubject("아이디와 비밀번호");
+			messageHelper.setTo(email);
+			messageHelper.setText("아이디:" + userId + "\n" + "비밀번호:" + userPassword);
 			javaMailSender.send(message);
 		
 		} catch (Exception e) {

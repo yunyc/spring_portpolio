@@ -12,7 +12,7 @@ public class UserVO {
 	private String userId;
 	
 	@Size(min=1, max=10, message = "비밀번호는 1~20자 영문이어야 합니다")
-	private String password;
+	private String userPassword;
 	
 	private String passwordConfirm;
 	
@@ -24,7 +24,7 @@ public class UserVO {
 	
 	@Size(min=1, max=10, message = "오류가 났습니다")
 	private String userNickname;
-	private String authKey;
+	private int userAuthKey;
 	private int enabled;
 	private Date userDate;
 	
@@ -41,11 +41,11 @@ public class UserVO {
 		this.emailPrefix = emailPrefix;
 	}
 	
-	public String getAuthKey() {
-		return authKey;
+	public int getAuthKey() {
+		return userAuthKey;
 	}
-	public void setAuthKey(String authKey) {
-		this.authKey = authKey;
+	public void setAuthKey(int authKey) {
+		this.userAuthKey = authKey;
 	}
 	public String getUserId() {
 		return userId;
@@ -54,10 +54,10 @@ public class UserVO {
 		this.userId = userId;
 	}
 	public String getPassword() {
-		return password;
+		return userPassword;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.userPassword = password;
 	}
 	public String getPasswordConfirm() {
 		return passwordConfirm;
@@ -89,6 +89,12 @@ public class UserVO {
 	}
 	public void setUserDate(Date userDate) {
 		this.userDate = userDate;
+	}
+	
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", password=" + userPassword + ", userEmail=" + userEmail + ", userNickname="
+				+ userNickname + ", authKey=" + userAuthKey + ", enabled=" + enabled + ", userDate=" + userDate + "]";
 	}
 
 }

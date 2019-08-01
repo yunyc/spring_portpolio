@@ -6,19 +6,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="com.example.project.user.service.impl.UserMapper">
 	
-	<select id="selectUserList" parameterType="map" resultType="map">
-		SELECT USER_AUTHKEY
+	<select id="selectUserList" parameterType="map" resultType="UserVO">
+		SELECT USER_ID
+       	,USER_PASSWORD
+       	,ENABLED
+       	,USER_EMAIL
+       	,USER_NICKNAME
+       	,USER_POINT
+       	,USER_DATE
+       	,USER_AUTHKEY
+       	,USER_LEVEL
   		  FROM T_USER
   		  <where>
-  		      <if test="authKey != null">
-  		      	AND USER_AUTHKEY = #{authKey} 
+  		      <if test="authKey != null and authKey != 0">
+  		      	AND USER_AUTHKEY = #{userAuthKey} 
   		      </if>
+  		  </where>
+  		  <where>
+  		  	<if test="userEmail != null and userEmail != ''">
+  		  		AND USER_EMAIL = #{userEmail}
+  		  	</if>
   		  </where>
 	</select>
 	
 	<insert id="insertUserList" parameterType="UserVO">
-		INSERT INTO T_USER (USER_ID, USER_PASSWORD, ENABLED, USER_EMAIL, USER_NICKNAME, USER_AUTHKEY)
-                         VALUES (#{userId}, #{password}, 1, #{userEmail}, #{userNickname}, #{authKey})
+		INSERT INTO T_USER (USER_ID, USER_PASSWORD, ENABLED, USER_EMAIL, USER_DATE, USER_NICKNAME, USER_AUTHKEY)
+                         VALUES (#{userId}, #{password}, 1, #{userEmail}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userNickname}, #{authKey})
         
 	</insert>
 	

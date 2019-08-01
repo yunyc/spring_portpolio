@@ -5,30 +5,15 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<tiles:insertAttribute name="head" />
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
-	<script src="<c:url value='/resources/js/form.js'/>"></script>
 
-	<div id="wrapper">
-		<tiles:insertAttribute name="header" />
-	</div>
-	<div id="contents">
-		<tiles:insertAttribute name="content" />
-	</div>
-	
-	
-		
-	
-	
-	
 	
 	
 </body>

@@ -14,8 +14,8 @@
 </head>
 <body>
 	<form:form modelAttribute="boardVO" action="/board/post/${boardVO.boardId}">	
-			<a class="button" href="javascript:fn_submit('post');">글 수정</a>
-			<a class="button" href="javascript:fn_submit('delete');">글 삭제</a>
+			<button class="post" type="button">글 수정</button>
+			<button class="delete" type="button">글 삭제</button>
 			<input type="hidden" name="_method" value="" />
 	</form:form>
 		
@@ -28,22 +28,23 @@
 		<form:form id="replyFrm" modelAttribute="replyVO" action="/board/${boardVO.boardId}/reply/${varReply.replyId}">
 	    	<form:textarea path="replyContent" value="${varReply.replyContent}"/>
 	    	<form:hidden path="boardId" value="${boardVO.boardId}"/>
-	    	<form:hidden path="userId" value="${session.userId}"/>
+	    	<form:hidden path="userId" value="${userId}"/>
 	    	<input type="hidden" name="_method" value="" />
+	    	<button class="patch" type="button">수정</button>
+	    	<button class="delete" type="button">삭제</button>
 	    </form:form>
-
-		<a class="button" href="javascript:fn_submit('patch');">수정</a>
-		<a class="button" href="javascript:fn_submit('delete');">삭제</a> 
+	    
 	</c:forEach>
 	
-	<form:form id="replyForm" modelAttribute="replyVO" action="/board/${boardVO.boardId}/reply">
+	<form:form modelAttribute="replyVO" action="/board/${boardVO.boardId}/reply">
 	    <form:textarea path="replyContent" value="${varReply.replyContent}"/>
 	    <form:hidden path="boardId" value="${boardVO.boardId}"/>
-	    <form:hidden path="userId" value="${boardVO.userId}"/>
+	    <form:hidden path="userId" value="${userId}"/>
 	    <input type="hidden" name="_method" value="" />
+	    <button class="post" type="button">댓글 달기</button>
 	</form:form>
 	
-    <a href="javascript:fn_submit('replyForm', '');">댓글 달기</a>
+    
   
 
 </body>

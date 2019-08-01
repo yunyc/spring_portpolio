@@ -22,8 +22,8 @@
 		<form:textarea path="boardContent" value="${boardVO.boardContent}"/>
 		<p>글분류</p>
 		<form:input path="boardType" value="${boardVO.boardType}"/>
-		<a class="button" href="javascript:fn_submit('post');">글 생성</a>
-		<a class="button" href="javascript:fn_submit('patch');">글 수정</a>
+		<button class="post" type="button">글 생성</button>
+		<button class="patch" type="button">글 수정</button>
 		<input type="hidden" name="_method" value="" />
 	</form:form>
 	
