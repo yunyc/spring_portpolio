@@ -38,6 +38,12 @@ public class ReplyVO {
 		this.replyDate = replyDate;
 	}
 	
+	@Override
+	public String toString() {
+		return "ReplyVO [replyId=" + replyId + ", boardId=" + boardId + ", userId=" + userId + ", replyContent="
+				+ replyContent + ", replyDate=" + replyDate + "]";
+	}
+	
 	
 
 }

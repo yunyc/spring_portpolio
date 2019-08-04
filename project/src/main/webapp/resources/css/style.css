@@ -1,4 +1,10 @@
 @charset "UTF-8";
+#wrapper {
+    width: 1263px;
+    height: fit-content;
+    background: #f2f2f2;
+    
+}
 
 #header {
     width: 100%;
@@ -15,8 +21,6 @@
 }
 #header .logo_image {
     float: left;
-}
-#header p {
 }
 
 #header .right_menu {
@@ -36,5 +40,433 @@
 }
 
 #contents {
-	margin-top: 80px;
+    width: 1163px;
+    height: fit-content;
+    margin-top: 70px;
+    padding: 50px;
+    float: left;
+}
+#contents .main_content {
+    width: 840px;
+    height: fit-content;
+    float: left;
+    border: #ddd solid 1px;
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 20px;
+}
+
+#contents .main_content .product_list {
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#contents .main_content .product {
+    border: 1px solid #00;
+    width: 100px;
+    height: 100px;
+}
+
+
+#contents .main_content .user_quest {
+    height: 450px;
+    
+}
+
+#contents .main_content .user_response {
+    border: 1px solid #aaa;
+    width: 100%;
+    min-height: 200px;
+    margin-top: 20px; 
+    float: left;
+    
+}
+
+#contents .main_content .response_form {
+    width: calc(100% - 20px);
+    min-height: 200px;
+    margin-top: 20px; 
+    float: left;
+    padding: 10px;
+    
+}
+
+#contents .main_content .response_form textarea {
+    width: 80%;
+    height: 150px;
+    margin-top: 10px;
+}
+
+#contents .main_content .response_form button {
+    width: 17%;
+    height: 50px;
+    border: none;
+    float: right;
+    margin-top: 10px;
+    position: relative;
+    top: 100px;
+    background: #079125;
+    color: #fff;
+    font-size: 17px;
+}
+
+#contents .main_content .response_content {
+    padding: 10px;
+    min-height: 100px;
+}
+
+#contents .event_banner {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #aaa;
+}
+
+#contents .quest_banner {
+    width: 408px;
+    height: 305px;
+    border: 1px solid #aaa;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+#contents table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#contents table tr {
+    border: 1px solid #aaa;
+    border-left: 5px solid #079125;
+    
+}
+
+#contents table td {
+    padding: 6px;
+}
+
+#contents .quest_banner tr {
+    border-bottom: 1px solid #000;
+    
+}
+
+#contents .product_banner {
+    width: 408px;
+    height: 300px;
+    border: 1px solid #aaa;
+    margin-top: 20px;
+    float: right;
+    
+}
+
+#contents .product_banner .flex_list {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 66px);
+    flex-wrap: wrap;
+}
+
+#contents .product_banner .product {
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid #aaa;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+#contents .good_banner {
+     width: 100%;
+     height: 250px;
+     border: 1px solid #aaa;
+    margin-top: 20px;
+}
+
+.content_title {
+    font-size: 30px;
+    border-bottom: #000 solid 1px;
+    padding: 10px;
+}
+.board {
+}
+.board table {
+    width: 840px;
+    border-collapse: collapse;
+     
+    
+}
+
+.board table tr {
+    border-bottom: #000 solid 1px;
+}
+
+.board table td {
+    border-bottom: #000 solid 1px;
+    padding: 7px;
+}
+
+.board table thead {
+    background: #ddd;
+    text-align: center;
+    
+}
+
+
+#contents .main_content .pagination {
+    position: relative;
+    left: 400px;
+    
+}
+
+#contents .main_content .pagination li a{
+    width: 25px;
+    height: 25px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    
+}
+
+#contents .board_title {
+    background: #eee;
+    border-bottom: 1px solid #000;
+    
+}
+#contents .board_title p {
+    font-size: 30px;
+}
+
+#contents .board_list p {
+    font-size: 15px;
+}
+#contents .board_content {
+    min-height: 500px;
+    border-bottom: 1px solid #000;
+}
+#contents .reply_regist {
+    width: 800px;
+    height: 150px;
+    padding: 20px;
+}
+
+#contents textarea {
+    width:  640px;
+    height: 100px;
+    margin: auto;
+}
+
+#contents .reply {
+    width: 840px;
+    min-height: 150px;
+    border-bottom: 1px solid #000;
+    
+}
+
+#contents .reply .user {
+    width: 810px;
+    background: #eee;
+    padding: 15px;
+    border-bottom: 1px solid #000;
+}
+
+#contents .reply .content {
+    width: 810px;
+    padding: 15px;
+    min-height: 50px;
+    background: #eee;
+    
+}
+
+
+#contents .sidebar {
+    float: right;
+    width: 250px;
+    height: 100%;
+    
+    
+}
+
+#contents .sidebar .login {
+    width: 250px;
+    height: fit-content;
+    background: #fff;
+    border: #aaa solid 1px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    
+}
+
+.login::after { 
+    content: ''; 
+    display: table;
+    clear: both; 
+}
+
+#contents .sidebar .login_success {
+    width: calc(100% - 40px);
+    height: 100%;
+    padding: 20px;
+    padding-bottom: 10px;
+}
+
+#contents .sidebar .login_success::after {
+    content: ''; 
+    display: table;
+    clear: both; 
+}
+
+
+#contents .sidebar .login_success .profile {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #000;
+    float: left;
+    margin-right: 20px;
+}
+
+#contents .sidebar .login_success p {
+    display: block;
+}
+
+#contents .sidebar .login .login_form{
+    padding: 20px;
+    
+}
+
+
+#contents .sidebar .login input,
+#contents .sidebar .login button {
+    width: 210px;
+    height: 27px;
+    margin-bottom: 10px;
+    border: #ddd solid 1px;
+}
+
+#contents .sidebar .login label {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#contents .sidebar .login #remember {
+    width: 15px;
+    height: 15px;
+}
+
+#contents .sidebar .recent {
+    width: 250px;
+    height: 255px;
+    background: #fff;
+    border: #aaa solid 1px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin-top: 20px;
+    
+}
+
+
+#footer {
+    width: 100%;
+    height: 150px;
+    background: #aaa;
+    float: left;
+}
+
+
+.search_banner {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #aaa;
+}
+
+.quest_list {
+    width: 100%;
+    height: fit-content;
+    margin-top: 20px;
+}
+.quest_list .quest {
+    border: 1px solid #aaa;
+    width: 100%;
+    height: 250px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.quest_list .quest .title p{
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.quest_list .quest:hover {
+    border: 1px solid #aaa;
+    width: 100%;
+    height: 250px;
+    box-sizing: border-box;
+    background: #eee;
+}
+
+.quest_list .quest .content {
+    padding: 15px;
+    height: 110px;
+}
+
+.quest_list .quest .response {
+    height: 54px;
+    box-sizing: border-box;
+}
+
+.quest_list .quest .response_list {
+    border: 0.5px solid #aaa;
+    border-top: 1px solid #aaa;
+    width: 50%;
+    height: 55px;
+    float: left;
+    box-sizing: border-box;
+    padding: 15px;
+    text-align: center;
+}
+
+
+.quest_list button {
+    width: 100%;
+    height: 50px;
+    background: #079125;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+}
+
+.quest_content {
+    padding: 10px;
+    width: calc(100% - 20px);
+    min-height: 300px;
+    
+}
+
+.good_bad {
+    width: 100%;
+    height: 50px;
+}
+
+.good_bad .small {
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    float: right;
+}
+
+.good_bad button {
+    width: 49.6%;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    color: #fff;
+}
+
+
+.login_success .option p {
+    padding: 20px;
+    width: 100%;
+}    
+
+.option {
+    width: calc(100% - 40px);
+    height: 30px;
+    padding-left: 20px;
 }

@@ -22,6 +22,8 @@
 	</div>
 	<div id="contents">
 		<tiles:insertAttribute name="content" />
+		<tiles:insertAttribute name="left" />
+		<tiles:insertAttribute name="footer" />
 	</div>
 	
 	

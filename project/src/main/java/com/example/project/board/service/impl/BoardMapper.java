@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.VO.BoardVO;
-import com.example.project.board.service.VO.PagingVO;
+import com.example.project.paging.PagingVO;
 import com.example.project.board.service.VO.ReplyVO;
 
 @Mapper

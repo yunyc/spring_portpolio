@@ -6,7 +6,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.Factory;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,9 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.board.service.VO.ReplyVO;
+
+import ch.qos.logback.classic.Logger;
+
+import com.example.project.aop.LogAspect;
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.BoardVO;
-import com.example.project.board.service.VO.PagingVO;
+import com.example.project.paging.PagingVO;
 import com.example.project.board.service.VO.ReplyVO;
 
 @Controller
@@ -42,6 +52,8 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingVO", pagingVO);
+		
+		
 		
 		return "board/board";
 	}
@@ -110,13 +122,13 @@ public class BoardController {
 	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.DELETE)
 	public String boardDelete(@PathVariable int boardId, BoardVO boardVO,
 			ReplyVO replyVO) throws Exception {
-		System.out.println(boardId);
+
 		boardVO.setBoardId(boardId);
 		replyVO.setBoardId(boardId);
-		System.out.println(boardVO.getBoardId());
-		//boardService.deleteReplyList(replyVO);
+
 		boardService.deleteBoardList(boardVO);
 		
 		return "redirect:/board";
 	}
+
 }

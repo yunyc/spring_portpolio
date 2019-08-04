@@ -24,3 +24,22 @@ a {
     width: 90%;
     margin: auto;
 }
+
+.title {
+    padding: 10px;
+    border-bottom: 1px solid #000;
+    background: #ddd;
+}
+
+.title p {
+    font-size: 18px;
+}
+
+.title a {
+    float:right;
+    font-size: 13px;
+}
+
+.title span {
+    font-size: 13px;
+}

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.VO.BoardVO;
-import com.example.project.board.service.VO.PagingVO;
+import com.example.project.paging.PagingVO;
 import com.example.project.board.service.VO.ReplyVO;
 
 public interface BoardService {

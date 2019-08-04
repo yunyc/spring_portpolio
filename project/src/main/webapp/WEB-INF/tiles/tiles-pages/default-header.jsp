@@ -23,7 +23,7 @@
 	                		<li><a href="/login">로그인</a></li>
 	                	</sec:authorize>
 	                	<sec:authorize access="isAuthenticated()">
-	                		<li><a href="#">안녕하십니까</a>
+	                		<li><a href="#"><c:out value="${userId}님 환영합니다"/></a>
 	                	</sec:authorize>
 	                    <li><a href="/product">상품보기</a></li>
 	                    <li><a href="/quest">질문</a></li>

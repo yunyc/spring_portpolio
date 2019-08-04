@@ -12,16 +12,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form action="/common/login/check.do">
-		<p>아이디</p>
-		<input type="text" name="userId"/>
-		<p>비밀번호</p>
-		<input type="password" name="password"/>
-		
-		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" >
-		<input type="submit" />
-	
-	</form:form>
+	<footer id="footer">
+	</footer>
 	
 </body>
 </html>

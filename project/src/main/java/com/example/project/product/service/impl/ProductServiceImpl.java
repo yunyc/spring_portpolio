@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.project.product.service.ProductService;
 import com.example.project.product.service.VO.ProductVO;
@@ -16,23 +17,27 @@ public class ProductServiceImpl implements ProductService {
 	private ProductMapper productMapper;
 
 	@Override
-	public List<ProductVO> selectProductList() throws Exception {
-		return productMapper.selectProductList();
+	@Transactional
+	public List<ProductVO> selectProductList(ProductVO productVO) throws Exception {
+		return productMapper.selectProductList(productVO);
 	}
 
 	@Override
-	public void insertProduct() throws Exception {
-		productMapper.insertProduct();
+	@Transactional
+	public void insertProduct(ProductVO productVO) throws Exception {
+		productMapper.insertProduct(productVO);
 	}
 
 	@Override
-	public void updateProduct() throws Exception {
-		productMapper.updateProduct();	
+	@Transactional
+	public void updateProduct(ProductVO productVO) throws Exception {
+		productMapper.updateProduct(productVO);	
 	}
 
 	@Override
-	public void deleteProduct() throws Exception {
-		productMapper.deleteProduct();	
+	@Transactional
+	public void deleteProduct(ProductVO productVO) throws Exception {
+		productMapper.deleteProduct(productVO);	
 	}
 
 }

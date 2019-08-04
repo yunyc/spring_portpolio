@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.VO.BoardVO;
-import com.example.project.board.service.VO.PagingVO;
+import com.example.project.paging.PagingVO;
 import com.example.project.board.service.VO.ReplyVO;
 
 @Service

@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="com.example.project.product.service.impl.ProductMapper">
 	
-	<select id="selectProductList">
+	<select id="selectProductList" parameterType="ProductVO" resultType="map">
 		SELECT PRODUCT_ID
 	       ,PRODUCT_NAME
 	       ,PRODUCT_TITLE
@@ -18,18 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  FROM T_PRODUCT
 	</select>
 	
-	<insert id="insertProduct">
+	<insert id="insertProduct" parameterType="ProductVO">
 		INSERT INTO T_PRODUCT(PRODUCT_NAME, PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE)
                		   VALUES(#{productName}, #{productTitle}, #{productDescription}, #{productType})
     </insert>
     
-	<update id="updateProduct">
+	<update id="updateProduct" parameterType="ProductVO">
 		UPDATE T_PRODUCT
 		   SET PRODUCT_NAME = #{productName}
 		 WHERE PRODUCT_ID = #{productId}
 	</update>
 	
-	<delete id="deleteProduct">
+	<delete id="deleteProduct" parameterType="ProductVO">
 		DELETE T_PRODUCT
 		 WHERE PRODUCT_ID = #{productId}
 	</delete>

@@ -29,7 +29,8 @@ public class UserController {
 	
 	@Resource
 	private UserService userService;
-	// 로그인 화면 이동
+	// 로그인 여부 확인
+	@ResponseBody
 	@RequestMapping("/login")
 	public String loginInit() {
 		

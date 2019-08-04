@@ -1,4 +1,4 @@
-package com.example.project.board.service.VO;
+package com.example.project.paging;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -81,6 +81,15 @@ public class PagingVO {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
+
+	@Override
+	public String toString() {
+		return "PagingVO [boardCount=" + boardCount + ", startIndex=" + startIndex + ", endIndex=" + endIndex
+				+ ", pageSize=" + pageSize + ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage="
+				+ currentPage + ", currentPageNum=" + currentPageNum + "]";
+	}
+	
+	
 	
 	
 }

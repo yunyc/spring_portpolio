@@ -6,12 +6,12 @@ import com.example.project.product.service.VO.ProductVO;
 
 public interface ProductService {
 	
-	List<ProductVO> selectProductList() throws Exception;
+	List<ProductVO> selectProductList(ProductVO productVO) throws Exception;
 	
-	void insertProduct() throws Exception;
+	void insertProduct(ProductVO productVO) throws Exception;
 	
-	void updateProduct() throws Exception;
+	void updateProduct(ProductVO productVO) throws Exception;
 	
-	void deleteProduct() throws Exception;
+	void deleteProduct(ProductVO productVO) throws Exception;
 
 }
