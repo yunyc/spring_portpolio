@@ -13,10 +13,50 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p><a href="/product/1">상세 게시글</a></p>
-	<p><a href="/product/new">게시글 등록</a></p>
-	
-	
-	
+	<div class="main_content">
+                <div class="product_content">
+                    <div class="title">
+                        <p>상품 목록</p>
+                    </div>
+                    <div class="option">
+                        <form:form modelAttribute="productVO" method="get">
+                           <ul class="tab">
+                                <li><a href="#" style="background: #fff; color: #000 ">최신순</a></li>
+                                <li><a href="#" style="background: #fff; color: #000 ">추천순</a></li>
+                           </ul>
+                            <div class="search">
+                                <form:input path="keyword" placeholder="검색 키워드를 입력하세요" />
+                                <form:select path="productType">
+                                    <form:option value="">없음</form:option>
+                                    <form:option value="코드">코드</form:option>
+                                    <form:option value="강의">강의</form:option>
+                                    <form:option value="책">책</form:option>
+                                    <form:option value="문화상품권">문화상품권</form:option>
+                                </form:select>
+                                <input type="submit" value="검색">
+                            </div>
+                        </form:form>
+                    </div>
+                    <div class="product_list">
+                    	<c:forEach items="${productList}" var="varProductList" begin="0" end="5">
+	                    	<div class="product">
+	                            <a href="/product/${varProductList.productId}">
+	                                <p><c:out value="${varProductList.productTitle}"/></p>
+	                                <img class="thumnail" src="<c:url value='/resources/upload/${varProductList.productThumnail}'/>" />	                            </a>
+	                            <div class="info">
+	                                <label>좋아요 <c:out value="${varProductList.productGood}"/></label>
+	                                <span>0000-00-00</span>
+	                            </div>
+	                        </div>
+                    	</c:forEach>
+                    </div>
+                </div>
+                <ul class="pagination">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+                <a id="new_product" href="/product/regist">새 상품등록</a>
+            </div>
 </body>
 </html>

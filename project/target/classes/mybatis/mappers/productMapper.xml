@@ -6,9 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="com.example.project.product.service.impl.ProductMapper">
 	
-	<select id="selectProductList" parameterType="ProductVO" resultType="map">
+	<select id="selectProductList" parameterType="ProductVO" resultType="ProductVO">
 		SELECT PRODUCT_ID
-	       ,PRODUCT_NAME
 	       ,PRODUCT_TITLE
 	       ,PRODUCT_DESCRIPTION
 	       ,PRODUCT_THUMNAIL
@@ -16,16 +15,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	       ,PRODUCT_GOOD
 	       ,PRODUCT_BAD
 	  FROM T_PRODUCT
+	  <where>
+	  	<if test="keyword != null and keyword != ''">
+	  		AND PRODUCT_DESCRIPTION LIKE '%' ||'파이썬' ||'%' 
+	  		AND PRODUCT_TITLE LIKE '%' ||'파이썬' ||'%'
+	  	</if>
+	  	<if test="productType != null and productType != ''">
+	  		AND PRODUCT_TYPE = #{productType} 
+	  	</if>
+	  </where>
 	</select>
 	
 	<insert id="insertProduct" parameterType="ProductVO">
-		INSERT INTO T_PRODUCT(PRODUCT_NAME, PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE)
-               		   VALUES(#{productName}, #{productTitle}, #{productDescription}, #{productType})
+		INSERT INTO T_PRODUCT(PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE, PRODUCT_THUMNAIL)
+               		   VALUES(#{productTitle}, #{productDescription}, #{productType}, #{productThumnail})
     </insert>
     
 	<update id="updateProduct" parameterType="ProductVO">
 		UPDATE T_PRODUCT
-		   SET PRODUCT_NAME = #{productName}
+		   SET PRODUCT_TITLE = #{productTitle}
 		 WHERE PRODUCT_ID = #{productId}
 	</update>
 	
