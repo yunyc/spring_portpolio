@@ -8,8 +8,15 @@ public class QuestVO {
 	private String questDate;
 	private int questGood;
 	private int questBad;
+	private int answerCnt;
 	private String userId;
 	
+	public int getAnswerCnt() {
+		return answerCnt;
+	}
+	public void setAnswerCnt(int answerCnt) {
+		this.answerCnt = answerCnt;
+	}
 	public String getQuestContent() {
 		return questContent;
 	}
@@ -52,5 +59,13 @@ public class QuestVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	@Override
+	public String toString() {
+		return "QuestVO [questId=" + questId + ", questTitle=" + questTitle + ", questContent=" + questContent
+				+ ", questDate=" + questDate + ", questGood=" + questGood + ", questBad=" + questBad + ", answerCnt="
+				+ answerCnt + ", userId=" + userId + "]";
+	}
+	
+	
 	
 }

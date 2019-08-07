@@ -5,7 +5,7 @@ $(function() {
 		var method = $(this).attr("class");
 		
 		$("[name=_method]").val(method);
-		$(this).parent("form").submit();
+		$(".submit").submit();
 	});
 	
 });

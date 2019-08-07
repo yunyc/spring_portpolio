@@ -13,6 +13,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
+	
+
 	<div class="main_content">
                 <div class="title">
                     <p>상품 등록</p>
@@ -35,7 +38,12 @@
                         </div>
                         <input type="file" name="file" />
                         <p>상품 내용</p>
-                        <form:textarea path="productDescription" style="width: 100%; height: 300px;" placeholder="상품 설명을 해주세요"></form:textarea>
+                        <form:textarea id="ckeditor" path="productDescription" style="width: 100%; height: 300px;" placeholder="상품 설명을 해주세요"></form:textarea>
+                        <script>
+							CKEDITOR.replace("ckeditor", {
+								filebrowserUploadUrl: "<c:url value='/product/file?${_csrf.parameterName}=${_csrf.token}'/>"
+							});
+						</script>
                         <button class="button" type="button">취소</button>
                         <input class="button" type="submit" value="제출"/>
                         

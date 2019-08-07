@@ -24,7 +24,7 @@
                   <img class="product_img" src="<c:url value='/resources/upload/${productVO.productThumnail}'/>" />
                    <br/>
                    <div class="description">
-                       <p><c:out value='${productVO.productDescription}'/></p>
+                       ${productVO.productDescription}
                    </div>
                    <a href="/product">상품 목록</a>
                    <div class="button_group" style="float: right;">

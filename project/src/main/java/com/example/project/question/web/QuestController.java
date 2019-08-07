@@ -1,6 +1,8 @@
 package com.example.project.question.web;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,11 +16,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.project.question.service.QuestService;
 import com.example.project.question.service.VO.QuestVO;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
 
@@ -37,6 +43,25 @@ public class QuestController {
 		model.addAttribute("questList", questList);
 		
 		return "quest/quest";
+	}
+	
+	// 질문 ajax로 로딩
+	@ResponseBody
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public HashMap<String, Object> questLoad(QuestVO questVO, Model model) throws Exception {
+			
+		List<QuestVO> questList = questService.selectQuestList(questVO);
+		/*
+		Gson gson = new Gson();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("questList", questList);
+		String jsonstring = gson.toJson(map);
+		System.out.println(gson.toJson(questVO));
+		*/
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("questList", questList);
+		return map;
 	}
 	
 	// 질문 상세보기
@@ -64,20 +89,9 @@ public class QuestController {
 	
 	// 질문하기
 	@RequestMapping(value = "/post" , method = RequestMethod.POST)
-	public String questInsert(@ModelAttribute QuestVO questVO, MultipartHttpServletRequest mtfRequest, Model model) throws Exception {
+	public String questInsert(@ModelAttribute QuestVO questVO, 
+			Model model) throws Exception {
 		
-		String fileTag = "file";
-		String filePath = "C:\\temp\\";
-		System.out.println(fileTag);
-		
-		MultipartFile file = mtfRequest.getFile(fileTag);
-		String fileName = file.getOriginalFilename();
-		
-		try {
-			file.transferTo(new File(filePath + fileName));
-		} catch(Exception e) {
-			System.out.println("업로드 오류");
-		}
 		questService.insertQuest(questVO);
 		
 		return "redirect:/quest";

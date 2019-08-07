@@ -1,11 +1,16 @@
 package com.example.project.product.web;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.example.project.paging.PagingVO;
 import com.example.project.product.service.ProductService;
 import com.example.project.product.service.VO.ProductVO;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -75,22 +82,21 @@ public class ProdectController {
 	@Transactional
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String productInsert(@ModelAttribute ProductVO productVO,
-			HttpServletRequest request, MultipartHttpServletRequest mtf) throws Exception {
+			HttpServletRequest request, @RequestParam MultipartFile file) throws Exception {
 		
-		String fileTag = "file";
 		String projectPath = "/resources/upload";
 		String realPath = request.getSession().getServletContext().getRealPath(projectPath);
 		
 		File dir = new File(realPath);
 		 
-		MultipartFile file = mtf.getFile(fileTag);
+		
 		String fileName =  file.hashCode() + file.getOriginalFilename();
 		System.out.println(fileName);
 		String absolutePath = dir.getAbsolutePath() + File.separator  + fileName;
 		System.out.println(absolutePath);
 		// 파일 전송
 		try {
-		    file.transferTo(new File(absolutePath));
+			file.transferTo(new File(absolutePath));
 		} catch(Exception e) {
 		    System.out.println("업로드 오류");
 		    e.printStackTrace();
@@ -101,6 +107,7 @@ public class ProdectController {
 		return "redirect:/product";
 		
 	}
+	
 	// 상품 등록 정보 수정
 	@RequestMapping(value = "/regist/{productId}", method = RequestMethod.PATCH)
 	public String productUpdate(@PathVariable int productId, 

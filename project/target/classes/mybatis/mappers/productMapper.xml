@@ -16,9 +16,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	       ,PRODUCT_BAD
 	  FROM T_PRODUCT
 	  <where>
+	  	<if test="productId != null and productId != 0">
+	  		AND PRODUCT_ID = #{productId}
+	  	</if>
 	  	<if test="keyword != null and keyword != ''">
 	  		AND PRODUCT_DESCRIPTION LIKE '%' ||'파이썬' ||'%' 
-	  		AND PRODUCT_TITLE LIKE '%' ||'파이썬' ||'%'
+	  		OR PRODUCT_TITLE LIKE '%' ||'파이썬' ||'%'
 	  	</if>
 	  	<if test="productType != null and productType != ''">
 	  		AND PRODUCT_TYPE = #{productType} 
