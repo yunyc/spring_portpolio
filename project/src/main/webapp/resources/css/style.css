@@ -56,6 +56,18 @@
     padding: 20px;
 }
 
+.button_group button {
+    width: 48%;
+    float: left;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    background: #fff;
+    margin: 1%;
+    font-size: 20px;
+}
+
 #contents .main_content .regist p {
     margin: 5px;
     margin-top: 20px;
@@ -121,8 +133,6 @@
     border: none;
     float: right;
     margin-top: 10px;
-    position: relative;
-    top: 100px;
     background: #079125;
     color: #fff;
     font-size: 17px;
@@ -392,22 +402,12 @@
 }
 
 .search_banner .search_bar input[type=text] {
-	width:  500px;
+	width: 650px;
     height: 30px;
     padding: 5px;
     font-size: 15px;
     background: #eee;
     border: 2px solid #aaa;
-}
-
-.search_banner .search_bar a {
-    float: left;
-    background: #eee;
-    border: 1px solid #aaa;
-    padding: 10px 30px;
-    margin-right: 20px;
-    
-    
 }
 
 .search_banner .search_bar input[type=submit] {

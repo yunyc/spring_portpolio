@@ -28,10 +28,10 @@
                         <li><a href="#">내가 찜한 질문</a></li>
                     </ul>
                 </div>
-                <div class="quest_list">
+                <div id="questList" class="quest_list">
                     <c:forEach items="${questList}" var="varQuestList" begin="0" end="5">
                     	<div class="quest">
-                           <a href="#">
+                           <a href="/quest/${varQuestList.questId}">
                             <div class="title">
                                 <p><c:out value='${varQuestList.questTitle}' /></p>
                             </div>
@@ -49,40 +49,45 @@
                             </a>
                         </div>
                     </c:forEach>
-                    <button id="questLoad" type="button">더보기</button>
+                    
                 </div>
-
+				<button id="questLoad" type="button">더보기</button>
 
             </div>
 		
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script>
-		$(function() {
-			
-			$("#questLoad").click(function() {
-				alert(1);
-				$.ajax({
-					url: "",
-					type: "post",
-					success: function(data) {
-						$.each(data.questList, function(i, item) {
-							alert(i);
-							alert(item.questId);
+			<script>
+				$(function() {
+					// 질문 로딩 버튼
+					$("#questLoad").click(function() {
+						$.ajax({
+							url: "<c:url value='/quest' />",
+							type: "post",
+							success: function(data) {
+								$.each(data.questList, function(i, item) {
+									
+									if (i > 2) {
+										$("#questList").append("<div class='quest'><a href='#'>" +
+												"<div class='title'><p>" + item.questTitle + "</p></div>" +
+												"<div class='content'><p>" + item.questContent + "</p></div>" +
+												"<div class='response'> <div class='response_list'><p>답변 0개" +
+												"</p></div><div class='response_list'><p>추천" + 
+												item.questGood + "개</p></div></div></a></div>");
+									}
+									
+								});
+								
+							},
+							error: function(data, errorThrown) {
+								alert(errorThrown);
+								
+							},
+							beforeSend: function(xhr) {
+								xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+							}
+							
 						});
-						
-					},
-					error: function(data, errorThrown) {
-						alert("error" + errorThrown);
-						
-					},
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-					}
-					
+					});	
 				});
-			});
-			
-		});
-	</script>
+			</script>
 </body>
 </html>

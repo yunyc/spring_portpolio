@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.example.project.question.service.QuestService;
+import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
 
 
@@ -35,6 +36,28 @@ public class QuestServiceImpl implements QuestService {
 	@Override
 	public void deleteQuest(QuestVO questionVO) throws Exception {
 		questMapper.deleteQuest(questionVO);
+		
+	}
+
+	@Override
+	public List<QuestAnswerVO> selectAnswerList(QuestAnswerVO answerVO) throws Exception {
+		return questMapper.selectAnswerList(answerVO);
+	}
+
+	@Override
+	public void insertAnswer(QuestAnswerVO answerVO) throws Exception {
+		questMapper.insertAnswer(answerVO);
+		
+	}
+
+	@Override
+	public void updateAnswer(QuestAnswerVO answerVO) throws Exception {
+		questMapper.updateAnswer(answerVO);		
+	}
+
+	@Override
+	public void deleteAnswer(QuestAnswerVO answerVO) throws Exception {
+		questMapper.deleteAnswer(answerVO);
 		
 	}
 

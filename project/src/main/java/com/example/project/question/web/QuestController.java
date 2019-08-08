@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.project.question.service.QuestService;
+import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.google.gson.Gson;
@@ -34,7 +36,7 @@ public class QuestController {
 	
 	@Resource
 	private QuestService questService;
-	// 질문 목록
+	// 질문 목록 페이지로 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String questInit(QuestVO questVO, Model model) throws Exception {
 		
@@ -51,28 +53,33 @@ public class QuestController {
 	public HashMap<String, Object> questLoad(QuestVO questVO, Model model) throws Exception {
 			
 		List<QuestVO> questList = questService.selectQuestList(questVO);
-		/*
-		Gson gson = new Gson();
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("questList", questList);
-		String jsonstring = gson.toJson(map);
-		System.out.println(gson.toJson(questVO));
-		*/
-		HashMap<String, Object> map = new HashMap<String, Object>();
+
 		map.put("questList", questList);
 		return map;
 	}
 	
-	// 질문 상세보기
+	// 질문 상세보기 페이지로 이동
 	@RequestMapping(value = "/{questId}", method = RequestMethod.GET)
-	public String questDetailInit(@PathVariable int questId, 
-			QuestVO questVO, Model model) throws Exception {
+	public String questDetailInit(@PathVariable int questId, @RequestParam(defaultValue = "normal") String mode,
+			QuestVO questVO, @ModelAttribute QuestAnswerVO answerVO, Model model) throws Exception {
 		
 		questVO.setQuestId(questId);
 		List<QuestVO> questList = questService.selectQuestList(questVO);
 		
-		model.addAttribute("questVO", questList.get(0));
+		answerVO.setQuestId(questId);
+		List<QuestAnswerVO> answerList = questService.selectAnswerList(answerVO);
+
+		if (answerList.size() > 0 ) {
+			model.addAttribute("answerList", answerList);
+		}
+		
+		if (questList.size() > 0 ) {
+			model.addAttribute("questVO", questList.get(0));
+		}
+		model.addAttribute("answerVO", answerVO);
+		model.addAttribute("mode", mode);
 		
 		return "quest/questDetail";
 	}
@@ -87,7 +94,7 @@ public class QuestController {
 		return "quest/questInsert";
 	}
 	
-	// 질문하기
+	// 질문하기 양식 전송
 	@RequestMapping(value = "/post" , method = RequestMethod.POST)
 	public String questInsert(@ModelAttribute QuestVO questVO, 
 			Model model) throws Exception {
