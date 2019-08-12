@@ -11,11 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        		  ,QUEST_TITLE
        		  ,QUEST_CONTENT
               ,QUEST_DATE
+              ,QUEST_STATE
               ,USER_ID
   		  FROM T_QUESTION
   		  <where>
   		  	<if test="questId != null and questId != 0">
   		  		 AND QUEST_ID = #{questId}
+  		  	</if>
+  		  	<if test="questState != null and questState != ''">
+  		  		AND QUEST_STATE = #{questState}
   		  	</if>
   		  </where>
   		  ORDER BY QUEST_ID
@@ -50,6 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	          ,USER_ID
  		  FROM T_ANSWER
  		  <where>
+ 		  	<if test="answerId != null and answerId != 0">
+ 		  		AND ANSWER_ID = #{answerId}
+ 		  	</if>
  		  	<if test="questId != null and questId != 0">
  		  		AND QUEST_ID = #{questId}
  		  	</if>

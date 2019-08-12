@@ -24,7 +24,7 @@
         <!-- 폼 로그인 설정 -->
         <sec:form-login login-page="/login"
                         login-processing-url="/login/check"
-                        default-target-url="/main.do"
+                        default-target-url="/main"
                         username-parameter="userId" 
                         password-parameter="password"
                         authentication-failure-url="/login?error" 

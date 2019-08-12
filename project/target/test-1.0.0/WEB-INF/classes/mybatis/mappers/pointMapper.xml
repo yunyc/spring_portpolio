@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="com.example.project.point.service.impl.PointMapper">
+	
+	<update id="plusPoint" parameterType="String">
+		UPDATE T_USER
+		   SET USER_POINT = (SELECT USER_POINT
+                               FROM T_USER
+							   WHERE USER_ID = #{_parameter}) + 50
+		 WHERE USER_ID = #{_parameter}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

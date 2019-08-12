@@ -195,8 +195,7 @@
 
 #contents .product_banner .product {
     width: 50%;
-    height: 100%;
-    border-right: 1px solid #aaa;
+    height: 100px;
     box-sizing: border-box;
     padding: 10px;
 }

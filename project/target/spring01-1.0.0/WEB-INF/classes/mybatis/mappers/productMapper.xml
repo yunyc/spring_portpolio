@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="com.example.project.product.service.impl.ProductMapper">
+	
+	<select id="selectProductList" parameterType="ProductVO" resultType="ProductVO">
+		SELECT PRODUCT_ID
+	       ,PRODUCT_TITLE
+	       ,PRODUCT_DESCRIPTION
+	       ,PRODUCT_THUMNAIL
+	       ,PRODUCT_TYPE
+	       ,PRODUCT_GOOD
+	       ,PRODUCT_BAD
+	  FROM T_PRODUCT
+	  <where>
+	  	<if test="productId != null and productId != 0">
+	  		AND PRODUCT_ID = #{productId}
+	  	</if>
+	  	<if test="keyword != null and keyword != ''">
+	  		AND PRODUCT_DESCRIPTION LIKE '%' || #{keyword} ||'%' 
+	  		OR PRODUCT_TITLE LIKE '%' ||#{keyword} ||'%'
+	  	</if>
+	  	<if test="productType != null and productType != ''">
+	  		AND PRODUCT_TYPE = #{productType} 
+	  	</if>
+	  </where>
+	</select>
+	
+	<insert id="insertProduct" parameterType="ProductVO">
+		INSERT INTO T_PRODUCT(PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE, PRODUCT_THUMNAIL)
+               		   VALUES(#{productTitle}, #{productDescription}, #{productType}, #{productThumnail})
+    </insert>
+    
+	<update id="updateProduct" parameterType="ProductVO">
+		UPDATE T_PRODUCT
+		   SET PRODUCT_TITLE = #{productTitle}
+		 WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<delete id="deleteProduct" parameterType="ProductVO">
+		DELETE T_PRODUCT
+		 WHERE PRODUCT_ID = #{productId}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

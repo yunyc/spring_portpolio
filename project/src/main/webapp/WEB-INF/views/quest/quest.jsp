@@ -16,24 +16,25 @@
 	<div class="main_content">
                 <div class="search_banner">
                     <div class="search_bar">
-                        <a href="/quest/post">질문하기</a>
+                        <a href="<c:url value='/quest/post'/>">질문하기</a>
                         <form action="" method="post">
                             <input type="text" name="textfield" placeholder="검색 단어를 입력하세요">
                             <input type="submit" />
                        </form>
                     </div>
                     <ul class="tab">
-                        <li><a href="#">답변을 기다리는 질문</a></li>
-                        <li><a href="#">답변이 완료된 질문</a></li>
+                        <li><a href="<c:url value='/quest?mode=wait'/>">답변을 기다리는 질문</a></li>
+                        <li><a href="<c:url value='/quest?mode=finish'/>">답변이 완료된 질문</a></li>
                         <li><a href="#">내가 찜한 질문</a></li>
                     </ul>
                 </div>
                 <div id="questList" class="quest_list">
-                    <c:forEach items="${questList}" var="varQuestList" begin="0" end="5">
+                    <c:forEach items="${questList}" var="varQuestList" begin="0" end="4">
                     	<div class="quest">
-                           <a href="/quest/${varQuestList.questId}">
+                           <a href="<c:url value='/quest/${varQuestList.questId}'/>">
                             <div class="title">
                                 <p><c:out value='${varQuestList.questTitle}' /></p>
+                                <p><c:out value='${varQuestList.questState}' /></p>
                             </div>
                             <div class="content">
                                 <p>${varQuestList.questContent}</p>
@@ -51,7 +52,7 @@
                     </c:forEach>
                     
                 </div>
-				<button id="questLoad" type="button">더보기</button>
+				<button id="questLoad" type="button">5개 더보기</button>
 
             </div>
 		
@@ -59,19 +60,23 @@
 				$(function() {
 					// 질문 로딩 버튼
 					$("#questLoad").click(function() {
+						var count = 1;
+						
 						$.ajax({
 							url: "<c:url value='/quest' />",
 							type: "post",
 							success: function(data) {
 								$.each(data.questList, function(i, item) {
 									
-									if (i > 2) {
+									if (5 * count <= i < 5 * (count + 1)) {
 										$("#questList").append("<div class='quest'><a href='#'>" +
 												"<div class='title'><p>" + item.questTitle + "</p></div>" +
 												"<div class='content'><p>" + item.questContent + "</p></div>" +
 												"<div class='response'> <div class='response_list'><p>답변 0개" +
 												"</p></div><div class='response_list'><p>추천" + 
 												item.questGood + "개</p></div></div></a></div>");
+										
+										++count;
 									}
 									
 								});
@@ -87,6 +92,7 @@
 							
 						});
 					});	
+	
 				});
 			</script>
 </body>

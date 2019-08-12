@@ -21,7 +21,7 @@
 	       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	       <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
 	       <property name="username" value="yunyc"/>
-	       <property name="password" value="1024"/>
+	       <property name="password" value="btv4ue12!!"/>
 	</bean>
 	
 	<!-- SqlSessionFactory 객체 주입 -->

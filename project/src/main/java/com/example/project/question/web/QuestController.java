@@ -38,10 +38,19 @@ public class QuestController {
 	private QuestService questService;
 	// 질문 목록 페이지로 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String questInit(QuestVO questVO, Model model) throws Exception {
+	public String questInit(@RequestParam(defaultValue = "답변 대기") String mode, QuestVO questVO, Model model) throws Exception {
+		List<QuestVO> questList = null;
 		
-		List<QuestVO> questList = questService.selectQuestList(questVO);
-		
+		if (mode == "wait") {
+			questVO.setQuestState("답변 대기");
+		    questList = questService.selectQuestList(questVO);
+
+		} else if (mode == "finish") {
+			questVO.setQuestState("답변 완료");
+			questList = questService.selectQuestList(questVO);
+
+		}
+			
 		model.addAttribute("questList", questList);
 		
 		return "quest/quest";
@@ -62,8 +71,8 @@ public class QuestController {
 	
 	// 질문 상세보기 페이지로 이동
 	@RequestMapping(value = "/{questId}", method = RequestMethod.GET)
-	public String questDetailInit(@PathVariable int questId, @RequestParam(defaultValue = "normal") String mode,
-			QuestVO questVO, @ModelAttribute QuestAnswerVO answerVO, Model model) throws Exception {
+	public String questDetailInit(@PathVariable int questId, 
+			QuestVO questVO, QuestAnswerVO answerVO, Model model) throws Exception {
 		
 		questVO.setQuestId(questId);
 		List<QuestVO> questList = questService.selectQuestList(questVO);
@@ -78,9 +87,7 @@ public class QuestController {
 		if (questList.size() > 0 ) {
 			model.addAttribute("questVO", questList.get(0));
 		}
-		model.addAttribute("answerVO", answerVO);
-		model.addAttribute("mode", mode);
-		
+		model.addAttribute("answerVO",  answerVO);
 		return "quest/questDetail";
 	}
 	

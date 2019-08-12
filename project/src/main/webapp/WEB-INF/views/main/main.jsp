@@ -14,67 +14,51 @@
 	</head>
 	<body>
             <div class="main_content">
+            	<!--  이벤트 배너  -->
                 <div class="event_banner">
                     
                 </div>
                 <div class="quest_banner">
+                	<!--  질문 목록  -->
                    <div class="title">
                        <p>질문/답변 게시판<a>더보기</a></p>
                        <span>질문과 답변해서 포인트를 쌓자!</span>
                    </div>
+                   <!--  목록 내용  -->
                    <table>
-                       <tr>
-                           <td width="290px">아아아아아앙아아</td>
-                           <td>0000-00-00</td>
+                   	<c:forEach items="${questList}" var="questList" begin="0" end="6">
+                   		<tr>
+                           <td width="290px"><c:out value='${questList.questTitle}'/></td>
+                           <td><c:out value='${questList.questDate}'/></td>
                        </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                           <td>0000-00-00</td>
-                       </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                           <td>0000-00-00</td>
-                       </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                           <td>0000-00-00</td>
-                       </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                           <td>0000-00-00</td>
-                       </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                           <td>0000-00-00</td>
-                       </tr>
-                       
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                           <td>0000-00-00</td>
-                       </tr>
+                   	</c:forEach>
                    </table>
                 </div>
+                <!--  상품 목록  -->
                 <div class="product_banner">
                     <div class="title">
                        <p>상품 목록<a>더보기</a></p>
                         <span>쌓은 포인트로 원하는 상품을 구입하자!</span>
                    </div>
+                   <!--  목록 내용  -->
                    <div class="flex_list">
-                           <div class="product"> 
-                           dkdk  
-                           </div>
-                           <div class="product"> 
-                       </div>
-                           
-                       </div>
+                       <c:forEach items="${productList}" var="productList" begin="0" end="3">
+                   		    <div class="product">
+                   		    	<img src="<c:url value='resources/upload/${productList.productThumnail}'/>" />
+                        		<div class="product_content">
+                        			<p><c:out value='${productList.productTitle}'/></p>
+                   		    	</div>
+                   		
+                       
+                        </div>
+                   	</c:forEach>
+                   </div>
                 </div>
                 <div class="good_banner">
                     <div class="title">
-                       <p>랭킹</p>
+                       <p>안녕하하</p>
                    </div>
                 </div>
-            </div>
-            <c:redirect url="/user/login.jsp" />
-    
+            </div> 
 </body>
 </html>

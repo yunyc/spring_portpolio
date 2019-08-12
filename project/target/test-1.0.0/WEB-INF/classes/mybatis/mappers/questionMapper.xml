@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="com.example.project.question.service.impl.QuestMapper">
+	
+	<select id="selectQuestList" resultType="QuestVO">
+		SELECT QUEST_ID
+       		  ,QUEST_TITLE
+       		  ,QUEST_CONTENT
+              ,QUEST_DATE
+              ,USER_ID
+  		  FROM T_QUESTION
+  		  <where>
+  		  	<if test="questId != null and questId != 0">
+  		  		 AND QUEST_ID = #{questId}
+  		  	</if>
+  		  </where>
+  		  ORDER BY QUEST_ID
+	</select>
+	
+	<insert id="insertQuest" parameterType="QuestVO">
+		INSERT INTO T_QUESTION(QUEST_TITLE, QUEST_CONTENT, QUEST_DATE, USER_ID)
+                        VALUES(#{questTitle}, #{questContent}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userId})
+	</insert>
+	
+	<update id="updateQuest" parameterType="QuestVO">
+		UPDATE T_QUESTION 
+		   SET QUEST_TITLE = #{questTitle}
+			  ,QUEST_CONTENT = #{questContent}
+			  ,QUEST_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			WHERE QUEST_ID = #{questId}
+	</update>
+	
+	<delete id="deleteQuest" parameterType="QuestVO">
+		DELETE T_QUESTION
+		 WHERE QUEST_ID = #{questId}
+	</delete>
+	
+	
+	
+	<select id="selectAnswerList" parameterType="answerVO" resultType="answerVO">
+		SELECT ANSWER_ID
+       		  ,ANSWER_CONTENT
+	          ,ANSWER_SELECT
+	          ,ANSWER_DATE
+	          ,QUEST_ID
+	          ,USER_ID
+ 		  FROM T_ANSWER
+ 		  <where>
+ 		  	<if test="answerId != null and answerId != 0">
+ 		  		AND ANSWER_ID = #{answerId}
+ 		  	</if>
+ 		  	<if test="questId != null and questId != 0">
+ 		  		AND QUEST_ID = #{questId}
+ 		  	</if>
+ 	
+ 		  </where>
+	</select>
+	
+	<insert id="insertAnswer" parameterType="answerVO">
+		INSERT INTO T_ANSWER(ANSWER_CONTENT, ANSWER_DATE, QUEST_ID, USER_ID)
+               VALUES(#{answerContent}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{questId}, #{userId})
+	</insert>
+	
+	<update id="updateAnswer" parameterType="answerVO">
+		UPDATE T_ANSWER
+		   SET ANSWER_CONTENT = #{answerContent}
+		 WHERE ANSWER_ID = #{answerId}
+	</update>
+	
+	<delete id="deleteAnswer" parameterType="answerVO">
+		DELETE T_ANSWER
+		 WHERE ANSWER_ID = #{answerId}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

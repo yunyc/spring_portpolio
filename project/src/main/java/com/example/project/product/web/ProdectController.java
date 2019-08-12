@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,24 +41,22 @@ public class ProdectController {
 	
 	// 상품 페이지 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String productInit(@ModelAttribute ProductVO productVO, Model model) throws Exception {
+	public String productInit(@ModelAttribute ProductVO productVO, Model model,
+			PagingVO pagingVO) throws Exception {
 		
 		List<ProductVO> productList = productService.selectProductList(productVO);
 		
+		pagingVO.setBoardSize(6);
+		pagingVO.setBoardCount(productList.size());
+		
 		model.addAttribute("productList", productList);
 		model.addAttribute("productVO", productVO);
+		model.addAttribute("pagingVO", pagingVO);
 		
 		return "product/product";
 		
 	}
-	// 상품 페이지 게시글 페이징 처리
-	@ResponseBody
-	@RequestMapping(value = "", method = RequestMethod.PUT)
-	public String productBoardInit() {
-		
-		return null;
-			
-	}
+	
 	// 상품 상세 페이지 이동
 	@RequestMapping(value = "/{productId}", method = RequestMethod.GET)
 	public String productDetail(@PathVariable int productId, 

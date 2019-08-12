@@ -53,9 +53,13 @@
                 </div>
                 <ul class="pagination">
                     <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
+                    <c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
+                    	<li><a href="quest">${page}</a></li>
+                    </c:forEach>
+                    
                     <li><a href="#">&raquo;</a></li>
                 </ul>
+              
                 <a id="new_product" href="/product/regist">새 상품등록</a>
             </div>
 </body>

@@ -10,7 +10,16 @@ public class QuestVO {
 	private int questBad;
 	private int answerCnt;
 	private String userId;
+	private String questState;
 	
+	
+	
+	public String getQuestState() {
+		return questState;
+	}
+	public void setQuestState(String questState) {
+		this.questState = questState;
+	}
 	public int getAnswerCnt() {
 		return answerCnt;
 	}

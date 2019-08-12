@@ -16,18 +16,18 @@
 	<header id="header">
 	            <div class="container">
 	                <div class="logo_image">
-	                    <p>로고</p>
+	                	<a href="<c:url value='/main'/>"><p>로고</p></a>
 	                </div>
 	                <ul class="right_menu">
 	                	<sec:authorize access="isAnonymous()">
-	                		<li><a href="/login">로그인</a></li>
+	                		<li><a href="<c:url value='/login'/>">로그인</a></li>
 	                	</sec:authorize>
 	                	<sec:authorize access="isAuthenticated()">
 	                		<li><a href="#"><c:out value="${userId}님 환영합니다"/></a>
 	                	</sec:authorize>
-	                    <li><a href="/product">상품보기</a></li>
-	                    <li><a href="/quest">질문</a></li>
-	                    <li><a href="/board">문의사항</a></li>
+	                    <li><a href="<c:url value='/product'/>">상품보기</a></li>
+	                    <li><a href="<c:url value='/quest'/>">질문</a></li>
+	                    <li><a href="<c:url value='/board'/>">문의사항</a></li>
 	                </ul>
 	            </div>
 	        </header>

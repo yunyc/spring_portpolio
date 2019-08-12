@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PagingVO {
 	
-	private Integer boardCount;
-	private int startIndex = 0;
-	private int endIndex = 9;
-	private int pageSize = 10;
-	private int startPage;
+	private int boardCount;
+	private int boardSize;
+	private int startIndex;
+	private int endIndex;
+	private int startPage = 1;
 	private int endPage = 1;
-	private int currentPage = 1;
+	private int currentPage;
 	private int currentPageNum;
 	// 페이징 정보 초기화
 	public void pageInit() {
@@ -61,6 +61,10 @@ public class PagingVO {
 	}
 	public void setStartPage(int startPage) {
 		this.startPage = startPage;
+		
+		setStartIndex((this.startPage - 1) * 10);
+		setEndIndex((this.endPage * 10) - 1);
+		
 	}
 	public int getEndPage() {
 		return endPage;
@@ -68,26 +72,46 @@ public class PagingVO {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-	
+
 	public int getCurrentPage() {
 		return currentPage;
 	}
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
+		
+		if (currentPage > endPage) {
+			setStartPage(endPage + 1);
+			setEndPage(endPage + 10);
+		}
+	}
+	
+
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
+		
+		if (boardCount > 1) {
+			setEndPage((boardCount - 1) / boardSize + 1);
+		}
+	}
+
+	public int getBoardSize() {
+		return boardSize;
+	}
+
+	public void setBoardSize(int boardSize) {
+		this.boardSize = boardSize;
 	}
 
 	@Override
 	public String toString() {
-		return "PagingVO [boardCount=" + boardCount + ", startIndex=" + startIndex + ", endIndex=" + endIndex
-				+ ", pageSize=" + pageSize + ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage="
-				+ currentPage + ", currentPageNum=" + currentPageNum + "]";
+		return "PagingVO [boardCount=" + boardCount + ", boardSize=" + boardSize + ", startIndex=" + startIndex
+				+ ", endIndex=" + endIndex +  ", startPage=" + startPage + ", endPage="
+				+ endPage + ", currentPage=" + currentPage + ", currentPageNum=" + currentPageNum + "]";
 	}
+	
+	
+
+	
 	
 	
 	
