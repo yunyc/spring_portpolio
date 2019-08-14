@@ -13,25 +13,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		$(function() {
-			$("#select").click(function() {
-				$.ajax({
-					url: "<c:url value='/quest/select'/>",
-					type: "post",
-					success: function() {
-						alert("채택되었습니다.");
-						$("#select").text("채택됨");
-						$("#select").css("background", "#000");
-					},
-					error: function(errorThrown) {
-						alert(errorThrown);
-					}
-					
-				});
-			});
-		});
-	</script>
 	<div class="main_content">
                 <div class="user_quest">
                     <div class="title">
@@ -43,10 +24,11 @@
 
                     </div>
                     <div class="good_bad">
-                        <button type="button" style="background: #009a06">좋아요 <c:out value='${questVO.questGood}'/></button>
-                        <button type="button" style="background: #ba0000">싫어요 <c:out value='${questVO.questBad}'/></button>
+                        <button id="good" type="button" style="background: #009a06">좋아요 <span><c:out value='${questVO.questGood}'/></span></button>
+                        <button id="bad" type="button" style="background: #ba0000">싫어요 <span><c:out value='${questVO.questBad}'/></span></button>
                     </div>
                 </div>
+                
                 
           
                 		<!-- 댓글  -->
@@ -70,7 +52,7 @@
 		                </div>
 		                </c:forEach>
 		                
-		                <!-- 답변 폼 -->
+		                <!-- 답변 입력 폼 -->
 		                <div class="response_form">
 		                   <div class="title" style="background: none;">
 		                       <p>답변하기</p>
@@ -89,6 +71,23 @@
                 	
                 
             </div>
+            
+            <script>
+            	
+            		window.url = "<c:url value='/quest/${questId}'/>";
+                    window.questVO = {
+                    		"questId": ${questVO.questId},
+                    		"questTitle": "${questVO.questTitle}",
+                    		"questDate": "${questVO.questDate}",
+                    		"questGood": ${questVO.questGood},
+                    		"questBad": ${questVO.questBad},
+                    		"questState": "${questVO.questState}",
+                    		"userId": "${questVO.userId}"
+                    };
+                    
+            	
+            </script>
+     
             
          
 </body>

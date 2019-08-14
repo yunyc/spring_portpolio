@@ -48,7 +48,6 @@ public class BoardController {
 		
 		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
 		pagingVO.setBoardCount(boardList.size());
-		pagingVO.pageInit();
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingVO", pagingVO);

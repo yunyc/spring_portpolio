@@ -1,5 +1,6 @@
 package com.example.project.question.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,5 +27,5 @@ public interface QuestMapper {
 	void updateAnswer(QuestAnswerVO answerVO) throws Exception;
 	
 	void deleteAnswer(QuestAnswerVO answerVO) throws Exception;
-
+	
 }

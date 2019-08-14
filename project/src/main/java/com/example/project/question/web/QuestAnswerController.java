@@ -6,8 +6,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,8 +26,8 @@ public class QuestAnswerController {
 	@Resource
 	private QuestService questService;
 	
-	// 답변 정보 생성
-	@RequestMapping(value="/{questId}", method = RequestMethod.POST)
+	// 답변 추가 기능
+	@PostMapping("/{questId}")
 	public String answerInsert(@PathVariable int questId, 
 			@ModelAttribute QuestAnswerVO answerVO, Model model) throws Exception {
 		
@@ -32,8 +36,8 @@ public class QuestAnswerController {
 		return "redirect:/quest/" + questId;
 	}
 		
-	// 답변 정보 삭제 
-	@RequestMapping(value="/{questId}", method = RequestMethod.DELETE)
+	// 답변 삭제 기능 
+	@DeleteMapping("/{questId}")
 	public String answerDelete(@PathVariable int questId, 
 			@ModelAttribute QuestAnswerVO answerVO) throws Exception {
 		
@@ -43,8 +47,8 @@ public class QuestAnswerController {
 		return "redirect:/quest/" + questId;
 	}
 	
-	// 답변 수정 페이지로 이동 
-	@RequestMapping(value="/{questId}/answer/{answerId}", method = RequestMethod.GET)
+	// 답변 수정 페이지 초기화 
+	@GetMapping("/{questId}/answer/{answerId}")
 	public String answerUpdateInit(@PathVariable int questId, @PathVariable int answerId, 
 			QuestVO questVO, QuestAnswerVO answerVO, Model model) throws Exception {
 			
@@ -60,8 +64,8 @@ public class QuestAnswerController {
 		return "quest/answerUpdate";
 	}
 	
-	// 답변 정보 수정
-	@RequestMapping(value="/{questId}/answer/{answerId}", method = RequestMethod.PATCH)
+	// 답변 수정 기능
+	@PatchMapping("/{questId}/answer/{answerId}")
 	public String answerUpdate(@PathVariable int questId, @PathVariable int answerId,
 			@ModelAttribute QuestAnswerVO answerVO) throws Exception {
 		
@@ -69,13 +73,5 @@ public class QuestAnswerController {
 		questService.updateAnswer(answerVO);
 		
 		return "redirect:/quest/" + questId;
-	}
-	
-	// 답변 채택 처리
-	@RequestMapping(value="/select", method = RequestMethod.POST)
-	public void answerSelect() throws Exception {
-		
-	    System.out.println("성공");
-	}
-		
+	}	
 }

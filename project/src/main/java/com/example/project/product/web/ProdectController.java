@@ -39,14 +39,14 @@ public class ProdectController {
 	@Resource
 	private ProductService productService;
 	
-	// 상품 페이지 이동
+	// 상품 목록 페이지 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String productInit(@ModelAttribute ProductVO productVO, Model model,
-			PagingVO pagingVO) throws Exception {
+			@ModelAttribute PagingVO pagingVO) throws Exception {
 		
 		List<ProductVO> productList = productService.selectProductList(productVO);
 		
-		pagingVO.setBoardSize(6);
+	
 		pagingVO.setBoardCount(productList.size());
 		
 		model.addAttribute("productList", productList);

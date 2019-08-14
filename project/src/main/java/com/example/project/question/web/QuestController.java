@@ -12,8 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,19 +42,18 @@ public class QuestController {
 	
 	@Resource
 	private QuestService questService;
-	// 질문 목록 페이지로 이동
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String questInit(@RequestParam(defaultValue = "답변 대기") String mode, QuestVO questVO, Model model) throws Exception {
+	// 질문 조회 페이지 초기화
+	@GetMapping("")
+	public String questInit(@RequestParam(defaultValue = "wait") String mode, QuestVO questVO, Model model) throws Exception {
 		List<QuestVO> questList = null;
 		
-		if (mode == "wait") {
+		if (mode.equals("wait")) {
 			questVO.setQuestState("답변 대기");
 		    questList = questService.selectQuestList(questVO);
 
-		} else if (mode == "finish") {
+		} else if (mode.equals("finish")) {
 			questVO.setQuestState("답변 완료");
 			questList = questService.selectQuestList(questVO);
-
 		}
 			
 		model.addAttribute("questList", questList);
@@ -56,9 +61,9 @@ public class QuestController {
 		return "quest/quest";
 	}
 	
-	// 질문 ajax로 로딩
+	// (Ajax 처리) 질문 조회 페이지 5개 더보기 기능 
 	@ResponseBody
-	@RequestMapping(value = "", method = RequestMethod.POST)
+	@PostMapping("")
 	public HashMap<String, Object> questLoad(QuestVO questVO, Model model) throws Exception {
 			
 		List<QuestVO> questList = questService.selectQuestList(questVO);
@@ -69,8 +74,8 @@ public class QuestController {
 		return map;
 	}
 	
-	// 질문 상세보기 페이지로 이동
-	@RequestMapping(value = "/{questId}", method = RequestMethod.GET)
+	// 질문 상세보기 페이지 초기화
+	@GetMapping("/{questId}")
 	public String questDetailInit(@PathVariable int questId, 
 			QuestVO questVO, QuestAnswerVO answerVO, Model model) throws Exception {
 		
@@ -91,8 +96,8 @@ public class QuestController {
 		return "quest/questDetail";
 	}
 	
-	// 질문하기 페이지로 이동
-	@RequestMapping(value = "/post" , method = RequestMethod.GET)
+	// 질문 추가 페이지 초기화(생성용)
+	@GetMapping("/post")
 	public String questInsertInit(QuestVO questVO, Model model) throws Exception {
 		
 		model.addAttribute("questVO", questVO);
@@ -101,8 +106,8 @@ public class QuestController {
 		return "quest/questInsert";
 	}
 	
-	// 질문하기 양식 전송
-	@RequestMapping(value = "/post" , method = RequestMethod.POST)
+	// 질문 추가 기능
+	@PostMapping("/post")
 	public String questInsert(@ModelAttribute QuestVO questVO, 
 			Model model) throws Exception {
 		
@@ -111,8 +116,8 @@ public class QuestController {
 		return "redirect:/quest";
 	}
 	
-	// 질문 쓰기 페이지로 이동
-	@RequestMapping(value = "/post/{questId}" , method = RequestMethod.POST)
+	// 질문 수정 페이지 초기화(수정용)
+	@PostMapping("/post/{questId}")
 	public String questUpdateInit(@PathVariable int questId, QuestVO questVO, Model model) throws Exception {
 		
 		questVO.setQuestId(questId);
@@ -124,16 +129,17 @@ public class QuestController {
 		return "quest/questInsert";
 	}
 		
-	// 질문 수정
-	@RequestMapping(value = "/post/{questId}", method = RequestMethod.PATCH)
+	// 질문 수정 기능
+	@PatchMapping("/post/{questId}")
 	public String questUpdate(@ModelAttribute QuestVO questVO, Model model) throws Exception {
 		
 		questService.updateQuest(questVO);
 		
 		return "redirect:/quest";
 	}
-	// 질문 삭제
-	@RequestMapping(value = "/post/{questId}", method = RequestMethod.DELETE)
+	
+	// 질문 삭제 기능
+	@DeleteMapping("/post/{questId}")
 	public String questDeleteInit(@PathVariable int questId, 
 			QuestVO questVO, Model model) throws Exception {
 		

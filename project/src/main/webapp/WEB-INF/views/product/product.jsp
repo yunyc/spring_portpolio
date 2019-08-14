@@ -38,7 +38,7 @@
                         </form:form>
                     </div>
                     <div class="product_list">
-                    	<c:forEach items="${productList}" var="varProductList" begin="0" end="5">
+                    	<c:forEach items="${productList}" var="varProductList" begin="${pagingVO.startIndex}" end="${pagingVO.endIndex}">
 	                    	<div class="product">
 	                            <a href="/product/${varProductList.productId}">
 	                                <p><c:out value="${varProductList.productTitle}"/></p>
@@ -52,12 +52,11 @@
                     </div>
                 </div>
                 <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="<c:url value='/product?currentPage=${pagingVO.currentPage - 1}'/>">&laquo;</a></li>
                     <c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
-                    	<li><a href="quest">${page}</a></li>
+                    	<li><a href="<c:url value='/product?currentPage=${page}'/>">${page}</a></li>
                     </c:forEach>
-                    
-                    <li><a href="#">&raquo;</a></li>
+                    <li><a href="<c:url value='/product?currentPage=${pagingVO.currentPage + 1}'/>">&raquo;</a></li>
                 </ul>
               
                 <a id="new_product" href="/product/regist">새 상품등록</a>
