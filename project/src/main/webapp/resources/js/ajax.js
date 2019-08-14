@@ -6,7 +6,15 @@ $(function() {
     $(document).ajaxSend(function(e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
-    
+	
+	// POST, PATCH, DELETE용 버튼
+	$(".post, .patch, .delete").click(function() {
+		var method = $(this).attr("class");
+		
+		$("[name=_method]").val(method);
+		$(this).parent("form").submit();
+	});
+	
     // 질문 5개 더보기 버튼
 	$("#questLoad").click(function() {
 		var count = 1;
@@ -40,47 +48,37 @@ $(function() {
 	});	
 	
     // 좋아요, 싫어요, 채택 버튼
-	$(".good_bad").find("button").click(function() {
-		var id = $(this).attr("id");
+	$("#good").add("#bad").add("#select").click(function() {
+		var tagId = $(this).attr("id");
 		
-		if (id == "good") {
-			++questVO.questGood;
+		if (tagId == "good") {
+			++config.good;
 			
-		} else if (id == "bad") {
-			++questVO.questBad;
+		} else if (tagId == "bad") {
+			++config.bad;
 			
-		} else if (id == "select") {
-			questVO.questState = "답변 완료";
+		} else if (tagId == "select") {
+			config.state = "답변 완료";
 			alert("채택되었습니다.");
 			$("#select").text("채택됨");
 			$("#select").css("background", "#000");
 		}
 		
-		var best = {
-			"questId": questVO.questId,
-			"questGood": questVO.questGood,
-			"questBad": questVO.questBad,
-			"questState": questVO.questState
-		};
-		
 		$.ajax({
-			url: "/point/quest",
-			type: "put",
+			url: "/point/state",
+			type: "patch",
 			contentType: "application/json",
-			data: JSON.stringify(best),
+			data: JSON.stringify(config),
 			success: function(data) {
-				$("#good").find("span").text(best.questGood);
-				$("#bad").find("span").text(best.questBad);
+				$("#good").find("span").text(config.good);
+				$("#bad").find("span").text(config.bad);
 			},
 			error: function(errorThrown) {
 				alert(errorThrown.statusText);
 			},
 			
 		});
-		
-		
-		
+
 	});
-	
 	
 });

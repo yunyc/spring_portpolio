@@ -1,13 +1,3 @@
-
-$(function() {
-	// POST, PATCH, DELETE용 버튼
-	$(".post, .patch, .delete").click(function() {
-		var method = $(this).attr("class");
-		
-		$("[name=_method]").val(method);
-		$(this).parent("form").submit();
-	});
-	
-	
-	
-});
+function fn_point(point){
+	alert(point + "포인트가 충전되었습니다.");
+};

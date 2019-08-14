@@ -17,8 +17,8 @@
     	<div class="search_banner">
         	<div class="search_bar">
                 <a href="<c:url value='/quest/post'/>">질문하기</a>
-                <form action="" method="post">
-                    <input type="text" name="textfield" placeholder="검색 단어를 입력하세요">
+                <form method="get">
+                    <input type="text" name="keyword" placeholder="검색 단어를 입력하세요">
                     <input type="submit" />
                 </form>
             </div>
@@ -26,7 +26,7 @@
                     <ul class="tab">
                         <li><a href="<c:url value='/quest?mode=wait'/>">답변을 기다리는 질문</a></li>
                         <li><a href="<c:url value='/quest?mode=finish'/>">답변이 완료된 질문</a></li>
-                        <li><a href="#">내가 찜한 질문</a></li>
+                        <li><a href="<c:url value='/quest?mode=good'/>">좋아요가 높은 질문</a></li>
                     </ul>
                 </div>
                 <!-- 질문 목록 -->

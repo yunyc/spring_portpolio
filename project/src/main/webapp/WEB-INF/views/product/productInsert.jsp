@@ -21,10 +21,10 @@
                     <p>상품 등록</p>
                 </div>
                 <div class="regist">
-                    <form:form modelAttribute="productVO" action="/product/regist?${_csrf.parameterName}=${_csrf.token}" 
-                    	  method="post" enctype="multipart/form-data">
+                    <form:form modelAttribute="productVO" action="?${_csrf.parameterName}=${_csrf.token}" 
+                    	  enctype="multipart/form-data">
                        <p>상품 제목</p>
-                        <form:input path="productTitle" style="width: 300px; height: 30px;" placeholder="제목을 입력하세요" />
+                        <form:input path="productTitle" value="${productVO.productTitle}" style="width: 300px; height: 30px;" placeholder="제목을 입력하세요" />
                         <p>상품타입</p>
                         <form:select path="productType" style="width: 150px; height: 30px;">
                             <form:option value="코드">코드</form:option>
@@ -36,9 +36,9 @@
                         <div class="thumnail_preview">
                             
                         </div>
-                        <input type="file" name="file" />
+                        <input type="file" name="file" value="${productVO.productThumnail}"/>
                         <p>상품 내용</p>
-                        <form:textarea id="ckeditor" path="productDescription" style="width: 100%; height: 300px;" placeholder="상품 설명을 해주세요"></form:textarea>
+                        <form:textarea id="ckeditor" path="productDescription" value="${productVO.productDescription}" style="width: 100%; height: 300px;" placeholder="상품 설명을 해주세요"></form:textarea>
                         <script>
 							CKEDITOR.replace("ckeditor", {
 								filebrowserUploadUrl: "<c:url value='/product/file?${_csrf.parameterName}=${_csrf.token}'/>"
@@ -46,7 +46,8 @@
 						</script>
                         <button class="button" type="button">취소</button>
                         <input class="button" type="submit" value="제출"/>
-                        
+                        <button class="delete" type="button">수정</button>
+                        <input type="hidden" name="_method" value=""/>
                     </form:form>
                 </div>
             </div>

@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,11 +33,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.example.project.paging.PagingVO;
 import com.example.project.product.service.ProductService;
 import com.example.project.product.service.VO.ProductVO;
-import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping(value = "/product")
-public class ProdectController {
+public class ProductController {
 	
 	@Resource
 	private ProductService productService;
@@ -43,10 +45,16 @@ public class ProdectController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String productInit(@ModelAttribute ProductVO productVO, Model model,
 			@ModelAttribute PagingVO pagingVO) throws Exception {
+		List<ProductVO> productList = null;
 		
-		List<ProductVO> productList = productService.selectProductList(productVO);
+		if (productVO.getProductGood() != 0) {
+		    productList = productService.selectProductList(productVO);
+			
+		} else {
+		    productList = productService.selectProductList(productVO);
+		}
 		
-	
+		
 		pagingVO.setBoardCount(productList.size());
 		
 		model.addAttribute("productList", productList);
@@ -109,24 +117,37 @@ public class ProdectController {
 	}
 	
 	// 상품 등록 정보 수정
-	@RequestMapping(value = "/regist/{productId}", method = RequestMethod.PATCH)
+	@GetMapping("/regist/{productId}")
+	public String productUpdateInit(@PathVariable int productId, 
+		 ProductVO productVO, Model model) throws Exception {
+			
+		productVO.setProductId(productId);
+		ProductVO product = productService.selectProductList(productVO).get(0);
+		model.addAttribute("productVO", product);
+			
+		return "product/productInsert";
+			
+	}
+	
+	// 상품 등록 정보 수정
+	@PostMapping("/regist/{productId}")
 	public String productUpdate(@PathVariable int productId, 
 			@ModelAttribute ProductVO productVO) throws Exception {
 		
 		productVO.setProductId(productId);
 		productService.updateProduct(productVO);
-		return null;
+		return "redirect:/product/" + productId;
 		
 	}
 	
 	// 상품 등록 정보 삭제
-	@RequestMapping(value = "/regist/{productId}", method = RequestMethod.DELETE)
-	public String productDelete(@ModelAttribute ProductVO productVO, 
-			@PathVariable int productId) throws Exception {
+	@RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
+	public String productDelete(@PathVariable int productId, 
+			ProductVO productVO) throws Exception {
 		
 		productVO.setProductId(productId);
 		productService.deleteProduct(productVO);
-		return null;
+		return "redirect:/product";
 			
 		}
 

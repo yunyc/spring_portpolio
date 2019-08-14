@@ -9,7 +9,12 @@ import com.example.project.question.service.VO.QuestVO;
 
 public interface QuestService {
 	
-	// 질문 조회, 생성, 수정, 삭제
+	/**
+	 * 글을 등록한다.
+	 * @param vo - 등록할 정보가 담긴 SampleVO
+	 * @return 등록 결과
+	 * @exception Exception
+	 */
 	List<QuestVO> selectQuestList(QuestVO questVO) throws Exception;
 	
 	void insertQuest(QuestVO questVO) throws Exception;

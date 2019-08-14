@@ -6,7 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.project.point.service.PointService;
 import com.example.project.question.service.QuestService;
 import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
@@ -18,6 +20,9 @@ public class QuestServiceImpl implements QuestService {
 	@Resource
 	private QuestMapper questMapper;
 	
+	@Resource
+	private PointService pointService;
+	
 	// 질문 조회
 	@Override
 	public List<QuestVO> selectQuestList(QuestVO questVO) throws Exception {
@@ -26,8 +31,15 @@ public class QuestServiceImpl implements QuestService {
 	
 	// 질문 생성
 	@Override
+	@Transactional
 	public void insertQuest(QuestVO questVO) throws Exception {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", questVO.getUserId());
+		map.put("point", 100);
+		
 		questMapper.insertQuest(questVO);
+		pointService.plusPoint(map);
 	}
 	
 	// 질문 수정
@@ -53,7 +65,12 @@ public class QuestServiceImpl implements QuestService {
 	// 답변 생성
 	@Override
 	public void insertAnswer(QuestAnswerVO answerVO) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", answerVO.getUserId());
+		map.put("point", 200);
+		
 		questMapper.insertAnswer(answerVO);
+		pointService.plusPoint(map);
 		
 	}
 	
@@ -68,12 +85,6 @@ public class QuestServiceImpl implements QuestService {
 	public void deleteAnswer(QuestAnswerVO answerVO) throws Exception {
 		questMapper.deleteAnswer(answerVO);
 		
-	}
-	
-	// 질문 상태 변경
-	@Override
-	public void updateState(HashMap<String, Object> map) throws Exception {
-		questMapper.updateState(map);
 	}
 
 }

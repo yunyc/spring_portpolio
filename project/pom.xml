@@ -8,7 +8,6 @@
 	<version>1.0.0</version> <!-- 프로젝트 버전 -->
 	<properties>
 		<java-version>1.8</java-version>
-		<!-- 2019년 1월 현재 최신 버전 5.1.4, 에러가 날 경우 호환성을 위해 버전을 내려야 함 -->
 		<org.springframework-version>5.1.4.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.9.2</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
@@ -64,18 +63,18 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.13</version>
 		</dependency>
-
+		<!-- 마이바티스 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.4.6</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		<!--  오라클 드라이버 -->
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
@@ -93,21 +92,12 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-
-		<!-- Logging -->
-		<!-- logback 로깅 관련 -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-
+		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -204,7 +194,6 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
-		<!-- Spring Security 사용을 위한 dependency -->
 		
 		<!-- Tiles -->
 		<dependency>
@@ -217,8 +206,7 @@
 		    <artifactId>tiles-jsp</artifactId>
 		    <version>3.0.7</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<!-- JSR-303 -->
 		<dependency>
 		    <groupId>javax.validation</groupId>
 		    <artifactId>validation-api</artifactId>
@@ -242,7 +230,6 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
-		
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>javax.mail-api</artifactId>
@@ -267,18 +254,27 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.3.1</version>
 		</dependency>
-		<!-- Gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.5</version>
-		</dependency>
 		<!-- Apache Commons IO -->
 		<dependency>
 		    <groupId>commons-io</groupId>
 		    <artifactId>commons-io</artifactId>
 		    <version>2.4</version>
 		</dependency>
+		<!--  Swagger -->
+		<dependency> 
+			<groupId>io.springfox</groupId> 
+			<artifactId>springfox-swagger2</artifactId> 
+			<version>2.7.0</version> </dependency> 
+		<dependency> 
+			<groupId>io.springfox</groupId> 
+			<artifactId>springfox-swagger-ui</artifactId> 
+			<version>2.7.0</version> </dependency> 
+		<dependency> 
+			<groupId>com.fasterxml</groupId> 
+			<artifactId>classmate</artifactId> 
+			<version>1.3.3</version> 
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

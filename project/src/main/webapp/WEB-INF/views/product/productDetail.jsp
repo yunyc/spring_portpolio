@@ -15,10 +15,13 @@
 <body>
     <div class="main_content">
                <div class="title">
-                   <p><c:out value='${productVO.productTitle}'/><a href="#">삭제</a><a href="#">수정</a></p>
+                   <p><c:out value='${productVO.productTitle}'/>
+                   <form:form method="delete">
+                   	<button class="delete" type="button">삭제</button>
+                   </form:form><a href="/product/regist/${productVO.productId}">수정</a></p>
                    <span>작성자</span>
                    <span>등급</span>
-                   <span>0000-00-00</span>
+                   <span><c:out value='${productVO.productDate}'/></span>
                </div>
                <div class="product_content">
                   <img class="product_img" src="<c:url value='/resources/upload/${productVO.productThumnail}'/>" />
@@ -28,12 +31,19 @@
                    </div>
                    <a href="/product">상품 목록</a>
                    <div class="button_group" style="float: right;">
-                          <button type="button" style="background: #009a06;">좋아요 <c:out value='${productVO.productGood}'/></button>
-                           <button type="button" style="background: #ba0000;">싫어요 <c:out value='${productVO.productBad}'/></button>
+                          <button id="good" type="button" style="background: #009a06;">좋아요 <span><c:out value='${productVO.productGood}'/></span></button>
+                           <button id="bad" type="button" style="background: #ba0000;">싫어요 <span><c:out value='${productVO.productBad}'/></span></button>
                        </div>
                </div>
             
             </div>
+            <script>
+                window.config = {
+                    "productId": ${productVO.productId},
+                    "good": ${productVO.productGood},
+                    "bad": ${productVO.productBad}
+                };
+            </script>
 	
 	
 </body>

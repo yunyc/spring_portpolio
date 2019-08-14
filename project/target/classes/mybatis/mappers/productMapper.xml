@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	       ,PRODUCT_TYPE
 	       ,PRODUCT_GOOD
 	       ,PRODUCT_BAD
+	       ,PRODUCT_DATE
 	  FROM T_PRODUCT
 	  <where>
 	  	<if test="productId != null and productId != 0">
@@ -21,22 +22,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	</if>
 	  	<if test="keyword != null and keyword != ''">
 	  		AND PRODUCT_DESCRIPTION LIKE '%' || #{keyword} ||'%' 
-	  		OR PRODUCT_TITLE LIKE '%' ||#{keyword} ||'%'
+	  		OR PRODUCT_TITLE LIKE '%' || #{keyword} ||'%'
 	  	</if>
 	  	<if test="productType != null and productType != ''">
 	  		AND PRODUCT_TYPE = #{productType} 
 	  	</if>
 	  </where>
+	  <choose>
+	  	<when test="productGood != null and productGood != 0">
+	  		ORDER BY PRODUCT_GOOD DESC
+	  	</when>
+	  	<otherwise>
+	  		ORDER BY PRODUCT_DATE DESC
+	  	</otherwise>
+	  </choose>
 	</select>
 	
 	<insert id="insertProduct" parameterType="ProductVO">
-		INSERT INTO T_PRODUCT(PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE, PRODUCT_THUMNAIL)
-               		   VALUES(#{productTitle}, #{productDescription}, #{productType}, #{productThumnail})
+		INSERT INTO T_PRODUCT(PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE, PRODUCT_THUMNAIL, PRODUCT_DATE)
+               		   VALUES(#{productTitle}, #{productDescription}, #{productType}, #{productThumnail}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
     </insert>
     
 	<update id="updateProduct" parameterType="ProductVO">
 		UPDATE T_PRODUCT
 		   SET PRODUCT_TITLE = #{productTitle}
+		      ,PRODUCT_DESCRIPTION = #{productDescription}
 		 WHERE PRODUCT_ID = #{productId}
 	</update>
 	

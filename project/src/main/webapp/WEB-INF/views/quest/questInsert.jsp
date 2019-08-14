@@ -47,10 +47,10 @@
                     
                         <c:choose>
 							<c:when test="${method eq 'post'}">
-								<button class="post" type="button">제출</button>
+								<button id="fn_point(100)" class="post" type="button">제출</button>
 							</c:when>
 							<c:otherwise>
-								<button class="patch" type="button">제출</button>
+								<button class="patch" type="button">수정</button>
 							</c:otherwise>
 						</c:choose>
 						<button type="button">취소</button>

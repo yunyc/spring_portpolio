@@ -43,11 +43,11 @@
 		                    </div>
 		                    <div class="good_bad">
 		                        <button id="select" type="button" style="width: 100px; margin: 10px; background: #3985dd; float: left;">채택하기</button>
-		                        <form:form modelAttribute="answerVO">
+		                        <form method="post" action="<c:url value='/quest/${questVO.questId}/answer/${varAnswerList.answerId}'/>">
 		                        	<a href="<c:url value='/quest/${questVO.questId}/answer/${varAnswerList.answerId}'/>">수정</a>
 		           					<button class="delete" type="button">삭제</button>
 		                        	<input type="hidden" name="_method" value=""/>
-		                        </form:form>
+		                        </form>
 		                    </div>
 		                </div>
 		                </c:forEach>
@@ -65,7 +65,7 @@
 										filebrowserUploadUrl: "<c:url value='/file?${_csrf.parameterName}=${_csrf.token}'/>"
 									});
 								</script>
-		                        <button class="post" type="button">제출</button>
+		                        <button onclick="fn_point(200)" class="post" type="button">제출</button>
 		                    </form:form>
 		                </div>
                 	
@@ -73,19 +73,12 @@
             </div>
             
             <script>
-            	
-            		window.url = "<c:url value='/quest/${questId}'/>";
-                    window.questVO = {
-                    		"questId": ${questVO.questId},
-                    		"questTitle": "${questVO.questTitle}",
-                    		"questDate": "${questVO.questDate}",
-                    		"questGood": ${questVO.questGood},
-                    		"questBad": ${questVO.questBad},
-                    		"questState": "${questVO.questState}",
-                    		"userId": "${questVO.userId}"
+                    window.config = {
+                    	"questId": ${questVO.questId},
+                    	"good": ${questVO.questGood},
+                    	"bad": ${questVO.questBad},
+                    	"state": "${questVO.questState}"
                     };
-                    
-            	
             </script>
      
             

@@ -35,17 +35,6 @@ public class QuestAnswerController {
 		
 		return "redirect:/quest/" + questId;
 	}
-		
-	// 답변 삭제 기능 
-	@DeleteMapping("/{questId}")
-	public String answerDelete(@PathVariable int questId, 
-			@ModelAttribute QuestAnswerVO answerVO) throws Exception {
-		
-		answerVO.setQuestId(questId);
-		questService.deleteAnswer(answerVO);
-		
-		return "redirect:/quest/" + questId;
-	}
 	
 	// 답변 수정 페이지 초기화 
 	@GetMapping("/{questId}/answer/{answerId}")
@@ -74,4 +63,15 @@ public class QuestAnswerController {
 		
 		return "redirect:/quest/" + questId;
 	}	
+	
+	// 답변 삭제 기능 
+	@DeleteMapping("/{questId}/answer/{answerId}")
+	public String answerDelete(@PathVariable int questId, @PathVariable int answerId, 
+		QuestAnswerVO answerVO) throws Exception {
+			
+		answerVO.setAnswerId(answerId);
+		questService.deleteAnswer(answerVO);
+			
+		return "redirect:/quest/" + questId;
+	}
 }

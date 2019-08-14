@@ -9,7 +9,14 @@ public class ProductVO {
 	private int productGood = 0;
 	private int productBad = 0;
 	private String productThumnail;
+	private String productDate;
 	
+	public String getProductDate() {
+		return productDate;
+	}
+	public void setProductDate(String productDate) {
+		this.productDate = productDate;
+	}
 	public String getProductThumnail() {
 		return productThumnail;
 	}

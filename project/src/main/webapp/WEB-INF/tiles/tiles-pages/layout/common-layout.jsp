@@ -12,14 +12,12 @@
 <head>
 	<tiles:insertAttribute name="head" />
 </head>
-<body>
-	<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
-	
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
+<body>	
 	<script src="<c:url value='/resources/js/form.js'/>"></script>
 	
-	<script src="<c:url value='/resources/js/ajax.js'/>"></script>
+	<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
+	
+	
 	<div id="wrapper">
 		<tiles:insertAttribute name="header" />
 	</div>
@@ -29,6 +27,10 @@
 		<tiles:insertAttribute name="footer" />
 	</div>
 	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	
+	<script src="<c:url value='/resources/js/ajax.js'/>"></script>
 	
 	
 	

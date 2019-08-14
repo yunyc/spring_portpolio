@@ -23,7 +23,7 @@ public class PointController {
 	private PointService pointService;
 	
 	// (Ajax 처리) 질문 상세보기 페이지 좋아요, 싫어요, 채택하기 기능
-	@PutMapping("/quest")
+	@PatchMapping("/state")
 	public HashMap<String, Object> updateQuest(@RequestBody HashMap<String, Object> map) throws Exception {
 		
 		pointService.updateState(map);

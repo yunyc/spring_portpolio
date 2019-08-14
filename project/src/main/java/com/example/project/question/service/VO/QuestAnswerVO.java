@@ -10,6 +10,7 @@ public class QuestAnswerVO {
 	private String answerDate;
 	private int questId;
 	private String userId;
+	
 	public int getAnswerId() {
 		return answerId;
 	}

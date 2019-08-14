@@ -24,8 +24,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		  	<if test="questState != null and questState != ''">
   		  		AND QUEST_STATE = #{questState}
   		  	</if>
+  		  	<if test="keyword != null and keyword != ''">
+  		  		AND QUEST_CONTENT LIKE '%' || #{keyword} || '%'
+  		  		 OR QUEST_TITLE LIKE '%' || #{keyword} || '%'
+  		  	</if>
   		  </where>
-  		  ORDER BY QUEST_ID
+  		  <choose>
+  		  	<when test="questGood != null and questGood != ''">
+  		  		ORDER BY QUEST_GOOD DESC
+  		  	</when>
+  		  	<otherwise>
+  		  		ORDER BY QUEST_ID
+  		  	</otherwise>
+  		  </choose>
 	</select>
 	
 	<!-- 질문 추가 -->

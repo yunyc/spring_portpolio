@@ -22,13 +22,8 @@ public class PointServiceImpl implements PointService {
 	}
 
 	@Override
-	public void plusPoint(String userId) throws Exception {
-		pointMapper.plusPoint(userId);
-	}
-
-	@Override
-	public void minusPoint() throws Exception {
-		// TODO Auto-generated method stub
+	public void plusPoint(HashMap<String, Object> map) throws Exception {
+		pointMapper.plusPoint(map);
 		
 	}
 

@@ -1,7 +1,10 @@
 package com.example.project.question.service.VO;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 public class QuestVO {
-	
+	/** 아이디 */
 	private int questId;
 	private	String questTitle;
 	private String questContent;
@@ -11,9 +14,14 @@ public class QuestVO {
 	private int answerCnt;
 	private String userId;
 	private String questState;
+	private String keyword;
 	
-	
-	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public String getQuestState() {
 		return questState;
 	}

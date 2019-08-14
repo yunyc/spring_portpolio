@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import javax.mail.Multipart;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,20 +30,49 @@ import com.example.project.question.service.QuestService;
 import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
 
 @Controller
 @RequestMapping("/quest")
 public class QuestController {
 	
+	/** QuestService 주입 */
 	@Resource
 	private QuestService questService;
-	// 질문 조회 페이지 초기화
+	
+	/**
+	 * 질문 목록을 조회
+	 * @param QuestVO - 질문 정보가 담긴 QuestVO
+	 * @param model
+	 * @param mode - 조회 모드
+	 * @return "quest"
+	 * @exception Exception
+	 */
 	@GetMapping("")
-	public String questInit(@RequestParam(defaultValue = "wait") String mode, QuestVO questVO, Model model) throws Exception {
+	public String questInit(@RequestParam(defaultValue = "wait") String mode, 
+			QuestVO questVO, Model model) throws Exception {
 		List<QuestVO> questList = null;
 		
 		if (mode.equals("wait")) {
@@ -54,6 +82,9 @@ public class QuestController {
 		} else if (mode.equals("finish")) {
 			questVO.setQuestState("답변 완료");
 			questList = questService.selectQuestList(questVO);
+		} else if (mode.equals("good")) {
+			questVO.setQuestGood(1);
+			questList = questService.selectQuestList(questVO);
 		}
 			
 		model.addAttribute("questList", questList);
@@ -61,10 +92,15 @@ public class QuestController {
 		return "quest/quest";
 	}
 	
-	// (Ajax 처리) 질문 조회 페이지 5개 더보기 기능 
+	/**
+	 * 질문 목록 5개 더보기
+	 * @param QuestVO - 질문 정보가 담긴 QuestVO
+	 * @return map
+	 * @exception Exception
+	 */
 	@ResponseBody
 	@PostMapping("")
-	public HashMap<String, Object> questLoad(QuestVO questVO, Model model) throws Exception {
+	public HashMap<String, Object> questLoad(QuestVO questVO) throws Exception {
 			
 		List<QuestVO> questList = questService.selectQuestList(questVO);
 		
@@ -74,7 +110,14 @@ public class QuestController {
 		return map;
 	}
 	
-	// 질문 상세보기 페이지 초기화
+	/**
+	 * 질문 상세정보를 조회
+	 * @param QuestVO - 질문 정보가 담긴 QuestVO
+	 * @param model
+	 * @param mode - 조회 모드
+	 * @return "quest"
+	 * @exception Exception
+	 */
 	@GetMapping("/{questId}")
 	public String questDetailInit(@PathVariable int questId, 
 			QuestVO questVO, QuestAnswerVO answerVO, Model model) throws Exception {
