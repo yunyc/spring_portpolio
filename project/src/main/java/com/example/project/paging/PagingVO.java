@@ -5,13 +5,58 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PagingVO {
 	
+	/** 게시물 총 개수 */
 	private int boardCount;
-	private int boardSize = 6;
+	
+	/** 한 페이지 당 게시물 개수 */
+	private int indexSize;
+	
+	/** 게시물 시작 인덱스 */
 	private int startIndex;
+	
+	/** 게시물 종료 인덱스 */
 	private int endIndex;
+	
+	/** 게시물 시작 페이지 */
 	private int startPage = 1;
+	
+	/** 게시물 종료 페이지 */
 	private int endPage = 1;
+	
+	/** 게시물 현재 페이지 */
 	private int currentPage = 1;
+	
+	/** 게시판 총 페이지 */
+	private int totalPage;
+	
+	/** 게시판 페이지 크기 */
+	private int pageSize;
+	
+	public int getIndexSize() {
+		return indexSize;
+	}
+
+	public void setIndexSize(int indexSize) {
+		this.indexSize = indexSize;
+		
+		startIndex = ((currentPage - 1) * indexSize);
+		endIndex = (currentPage * indexSize) - 1;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+		
+		startPage = ((currentPage - 1) / pageSize) * pageSize + 1;
+		endPage  = ((currentPage - 1) / pageSize) * pageSize + pageSize;
+		
+		if (endPage > totalPage) {
+			endPage = totalPage;
+		}
+	}
 
 	public int getStartIndex() {
 		return startIndex;
@@ -40,10 +85,6 @@ public class PagingVO {
 	}
 	public void setStartPage(int startPage) {
 		this.startPage = startPage;
-		
-		setStartIndex((currentPage - 1) * boardSize);
-		setEndIndex((currentPage * boardSize) - 1);
-		
 	}
 	public int getEndPage() {
 		return endPage;
@@ -63,28 +104,20 @@ public class PagingVO {
 	public void setBoardCount(int boardCount) {
 		this.boardCount = boardCount;
 		
-		if (boardCount > 1) {
-			setEndPage((boardCount - 1) / boardSize + 1);
+		if (boardCount % indexSize == 0) {
+			totalPage = boardCount / indexSize;
+		} else {
+			totalPage = boardCount / indexSize + 1;
 		}
-		
-		if (currentPage > endPage) {
-			setStartPage(endPage + 1);
-			setEndPage(endPage + 10);
-		}
-		setStartPage(startPage);
 	}
 
 	public int getBoardSize() {
-		return boardSize;
-	}
-
-	public void setBoardSize(int boardSize) {
-		this.boardSize = boardSize;
+		return indexSize;
 	}
 
 	@Override
 	public String toString() {
-		return "PagingVO [boardCount=" + boardCount + ", boardSize=" + boardSize + ", startIndex=" + startIndex
+		return "PagingVO [boardCount=" + boardCount + ", boardSize=" + ", startIndex=" + startIndex
 				+ ", endIndex=" + endIndex +  ", startPage=" + startPage + ", endPage="
 				+ endPage + ", currentPage=" + currentPage + ", currentPageNum="  + "]";
 	}

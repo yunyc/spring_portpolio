@@ -38,37 +38,21 @@
 										</a>
 									</td>
 									<td><c:out value="${varBoardList.userId}"/></td>
-									<td><c:out value="${varBoardList.boardType}"/></td>
 									<td><c:out value="${varBoardList.boardDate}"/></td>
+									<td><c:out value="${varBoardList.boardType}"/></td>
 								</tr>
 							</c:forEach>
                        </tbody>
                    </table>
                </div>
                <ul class="pagination">
-                <li><a href="<c:url value='/board?currentPage=${pagingVO.currentPage - 1}'/>">&laquo;</a></li>
+                <li><a href="<c:url value='/board?currentPage=${pagingVO.startPage - 1}'/>">&laquo;</a></li>
                 <c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
 					<li><a href="<c:url value='/board?currentPage=${page}'/>">${page}</a></li>
 				</c:forEach>
-                <li><a href="<c:url value='/board?currentPage=${pagingVO.currentPage + 1}'/>">&raquo;</a></li>
+                <li><a href="<c:url value='/board?currentPage=${pagingVO.endPage + 1}'/>">&raquo;</a></li>
             </ul> 
             <a href="<c:url value='/board/post'/>">새 글 쓰기</a>    
-            </div>
-
-
-
-
-
-
-
-
-
-
-		
-		
-		
-		
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
+            </div>	
 </body>
 </html>

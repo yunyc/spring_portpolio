@@ -58,35 +58,23 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/quest")
 public class QuestController {
 	
-	/** QuestService 주입 */
+	/** QuestService 인터페이스 */
 	@Resource
 	private QuestService questService;
 	
 	/**
 	 * 질문 목록을 조회
-	 * @param QuestVO - 질문 정보가 담긴 QuestVO
+	 * @param questVO - 질문 정보가 담긴 QuestVO
 	 * @param model
-	 * @param mode - 조회 모드
 	 * @return "quest"
 	 * @exception Exception
 	 */
 	@GetMapping("")
-	public String questInit(@RequestParam(defaultValue = "wait") String mode, 
-			QuestVO questVO, Model model) throws Exception {
-		List<QuestVO> questList = null;
+	public String questInit(@ModelAttribute QuestVO questVO, 
+			Model model) throws Exception {
 		
-		if (mode.equals("wait")) {
-			questVO.setQuestState("답변 대기");
-		    questList = questService.selectQuestList(questVO);
-
-		} else if (mode.equals("finish")) {
-			questVO.setQuestState("답변 완료");
-			questList = questService.selectQuestList(questVO);
-		} else if (mode.equals("good")) {
-			questVO.setQuestGood(1);
-			questList = questService.selectQuestList(questVO);
-		}
-			
+		List<QuestVO> questList = questService.selectQuestList(questVO);
+		
 		model.addAttribute("questList", questList);
 		
 		return "quest/quest";
@@ -94,8 +82,8 @@ public class QuestController {
 	
 	/**
 	 * 질문 목록 5개 더보기
-	 * @param QuestVO - 질문 정보가 담긴 QuestVO
-	 * @return map
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @return map - 조회한 질문 정보
 	 * @exception Exception
 	 */
 	@ResponseBody
@@ -105,17 +93,17 @@ public class QuestController {
 		List<QuestVO> questList = questService.selectQuestList(questVO);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-
 		map.put("questList", questList);
+		
 		return map;
 	}
 	
 	/**
 	 * 질문 상세정보를 조회
-	 * @param QuestVO - 질문 정보가 담긴 QuestVO
-	 * @param model
-	 * @param mode - 조회 모드
-	 * @return "quest"
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @param questId - 질문 번호
+	 * @param answerVO - 답변 정보가 담긴 QuestAnswerVO
+	 * @return "questDetail"
 	 * @exception Exception
 	 */
 	@GetMapping("/{questId}")
@@ -123,23 +111,31 @@ public class QuestController {
 			QuestVO questVO, QuestAnswerVO answerVO, Model model) throws Exception {
 		
 		questVO.setQuestId(questId);
-		List<QuestVO> questList = questService.selectQuestList(questVO);
-		
 		answerVO.setQuestId(questId);
+		
+		try {
+			questVO = questService.selectQuestList(questVO).get(0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		List<QuestAnswerVO> answerList = questService.selectAnswerList(answerVO);
 
-		if (answerList.size() > 0 ) {
-			model.addAttribute("answerList", answerList);
-		}
-		
-		if (questList.size() > 0 ) {
-			model.addAttribute("questVO", questList.get(0));
-		}
+		model.addAttribute("answerList", answerList);
+		model.addAttribute("questVO", questVO);
 		model.addAttribute("answerVO",  answerVO);
+		
 		return "quest/questDetail";
 	}
 	
-	// 질문 추가 페이지 초기화(생성용)
+	/**
+	 * 질문 추가 페이지로 이동(생성용)
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @param model
+	 * @return "questInsert"
+	 * @exception Exception
+	 */
 	@GetMapping("/post")
 	public String questInsertInit(QuestVO questVO, Model model) throws Exception {
 		
@@ -149,7 +145,13 @@ public class QuestController {
 		return "quest/questInsert";
 	}
 	
-	// 질문 추가 기능
+	/**
+	 * 질문 추가 기능
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @param model
+	 * @return "quest"
+	 * @exception Exception
+	 */
 	@PostMapping("/post")
 	public String questInsert(@ModelAttribute QuestVO questVO, 
 			Model model) throws Exception {
@@ -159,9 +161,17 @@ public class QuestController {
 		return "redirect:/quest";
 	}
 	
-	// 질문 수정 페이지 초기화(수정용)
+	/**
+	 * 질문 수정 페이지로 이동(수정용)
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @param questId - 질문 번호
+	 * @param model
+	 * @return "questInsert"
+	 * @exception Exception
+	 */
 	@PostMapping("/post/{questId}")
-	public String questUpdateInit(@PathVariable int questId, QuestVO questVO, Model model) throws Exception {
+	public String questUpdateInit(@PathVariable int questId, QuestVO questVO, 
+			Model model) throws Exception {
 		
 		questVO.setQuestId(questId);
 		List<QuestVO> questList = questService.selectQuestList(questVO);
@@ -172,16 +182,31 @@ public class QuestController {
 		return "quest/questInsert";
 	}
 		
-	// 질문 수정 기능
+	/**
+	 * 질문 수정 기능
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @param questId - 질문 번호
+	 * @param model
+	 * @return "quest"
+	 * @exception Exception
+	 */
 	@PatchMapping("/post/{questId}")
-	public String questUpdate(@ModelAttribute QuestVO questVO, Model model) throws Exception {
+	public String questUpdate(@ModelAttribute QuestVO questVO, 
+			@PathVariable int questId, Model model) throws Exception {
 		
 		questService.updateQuest(questVO);
 		
 		return "redirect:/quest";
 	}
 	
-	// 질문 삭제 기능
+	/**
+	 * 질문 삭제 기능
+	 * @param questVO - 질문 정보가 담긴 QuestVO
+	 * @param questId - 질문 번호
+	 * @param model
+	 * @return "quest"
+	 * @exception Exception
+	 */
 	@DeleteMapping("/post/{questId}")
 	public String questDeleteInit(@PathVariable int questId, 
 			QuestVO questVO, Model model) throws Exception {

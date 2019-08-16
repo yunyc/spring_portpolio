@@ -54,15 +54,15 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional
-	public void insertReplyList(ReplyVO replyVO) throws Exception {
-		boardMapper.insertReplyList(replyVO);
+	public void insertReplyList(HashMap<String, Object> map) throws Exception {
+		boardMapper.insertReplyList(map);
 		
 	}
 
 	@Override
 	@Transactional
-	public void updateReplyList(ReplyVO replyVO) throws Exception {
-		boardMapper.updateReplyList(replyVO);
+	public void updateReplyList(HashMap<String, Object> map) throws Exception {
+		boardMapper.updateReplyList(map);
 		
 	}
 

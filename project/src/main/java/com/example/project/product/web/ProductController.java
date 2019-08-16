@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,33 +31,53 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.project.file_upload.FileVO;
 import com.example.project.paging.PagingVO;
 import com.example.project.product.service.ProductService;
 import com.example.project.product.service.VO.ProductVO;
 
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
+
 @Controller
 @RequestMapping(value = "/product")
 public class ProductController {
-	
+	/** QuestService 주입 */
 	@Resource
 	private ProductService productService;
 	
-	// 상품 목록 페이지 이동
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String productInit(@ModelAttribute ProductVO productVO, Model model,
-			@ModelAttribute PagingVO pagingVO) throws Exception {
-		List<ProductVO> productList = null;
+	/**
+	 * 상품 목록을 조회
+	 * @param pagingVO - 페이징 정보가 담긴 PagingVO
+	 * @param productVO - 상품 정보가 담긴 ProductVO
+	 * @param model
+	 * @return "product"
+	 * @exception Exception
+	 */
+	@GetMapping("")
+	public String productInit(@ModelAttribute PagingVO pagingVO, 
+			@ModelAttribute ProductVO productVO, Model model) throws Exception {
 		
-		if (productVO.getProductGood() != 0) {
-		    productList = productService.selectProductList(productVO);
-			
-		} else {
-		    productList = productService.selectProductList(productVO);
-		}
+		List<ProductVO> productList = productService.selectProductList(productVO);
 		
-		
+		pagingVO.setIndexSize(6);
 		pagingVO.setBoardCount(productList.size());
-		
+		pagingVO.setPageSize(10);
+	
 		model.addAttribute("productList", productList);
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("pagingVO", pagingVO);
@@ -65,90 +86,139 @@ public class ProductController {
 		
 	}
 	
-	// 상품 상세 페이지 이동
-	@RequestMapping(value = "/{productId}", method = RequestMethod.GET)
-	public String productDetail(@PathVariable int productId, 
+	/**
+	 * 상품 상세 페이지로 이동
+	 * @param productId - 상품 번호
+	 * @param productVO - 상품 정보가 담긴 ProductVO
+	 * @param model
+	 * @return "productDetail"
+	 * @exception Exception
+	 */
+	@GetMapping("/{productId}")
+	public String productDetailInit(@PathVariable int productId, 
 			ProductVO productVO, Model model) throws Exception {
 		
-		productVO.setProductId(productId);
-		List<ProductVO> productList = productService.selectProductList(productVO);
+		try {
+			productVO.setProductId(productId);
+			productVO = productService.selectProductList(productVO).get(0);
 		
-		model.addAttribute("productVO", productList.get(0));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("productVO", productVO);
 		
 		return "product/productDetail";
 		
 	}
-	// 상품 등록 페이지 이동
-	@RequestMapping(value = "/regist", method = RequestMethod.GET)
-	public String productInsertInit(ProductVO productVO, Model model) {
+
+	/**
+	 * 상품 등록 페이지로 이동
+	 * @param productVO - 상품 정보가 담긴 ProductVO
+	 * @param model
+	 * @return "productInsert"
+	 * @exception Exception
+	 */
+	@GetMapping("/regist")
+	public String productRegistInit(ProductVO productVO, Model model) {
 		
 		model.addAttribute("productVO", productVO);
+		
 		return "product/productInsert";
-		
 	}
-	// 상품 등록 정보 전송
+
+	/**
+	 * 상품 등록 정보 전송
+	 * @param productVO - 상품 정보가 담긴 ProductVO
+	 * @param file - 전송된 파일 정보 MultipartFile
+	 * @param request - 요청 정보 HttpServletRequest
+	 * @param fileVO - 파일 처리 관련 정보 FileVO
+	 * @return "product"
+	 * @exception Exception
+	 */
 	@Transactional
-	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String productInsert(@ModelAttribute ProductVO productVO,
-			HttpServletRequest request, @RequestParam MultipartFile file) throws Exception {
+	@PostMapping("/regist")
+	public String productInsert(@ModelAttribute ProductVO productVO, FileVO fileVO,
+			HttpServletRequest req, @RequestParam MultipartFile file) throws Exception {
 		
-		String projectPath = "/resources/upload";
-		String realPath = request.getSession().getServletContext().getRealPath(projectPath);
+		fileVO.setUpload(file);
+		fileVO.setFileUpload(req);
 		
-		File dir = new File(realPath);
-		 
-		
-		String fileName =  file.hashCode() + file.getOriginalFilename();
-		System.out.println(fileName);
-		String absolutePath = dir.getAbsolutePath() + File.separator  + fileName;
-		System.out.println(absolutePath);
-		// 파일 전송
 		try {
-			file.transferTo(new File(absolutePath));
+			file.transferTo(new File(fileVO.getUploadPath()));
+			
 		} catch(Exception e) {
 		    System.out.println("업로드 오류");
 		    e.printStackTrace();
 		}
 		
-		productVO.setProductThumnail(fileName);
+		productVO.setProductThumnail(fileVO.getFileName());
+		
 		productService.insertProduct(productVO);
+		
 		return "redirect:/product";
 		
 	}
 	
-	// 상품 등록 정보 수정
+	/**
+	 * 상품 정보 수정 페이지 이동
+	 * @param productId - 상품 번호
+	 * @param productVO - 상품 관련 정보 ProductVO
+	 * @param model
+	 * @return "productInsert"
+	 * @exception Exception
+	 */
 	@GetMapping("/regist/{productId}")
 	public String productUpdateInit(@PathVariable int productId, 
 		 ProductVO productVO, Model model) throws Exception {
 			
-		productVO.setProductId(productId);
-		ProductVO product = productService.selectProductList(productVO).get(0);
-		model.addAttribute("productVO", product);
+		try {
+			productVO.setProductId(productId);
+			productVO = productService.selectProductList(productVO).get(0);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("productVO", productVO);
 			
 		return "product/productInsert";
 			
 	}
 	
-	// 상품 등록 정보 수정
+	/**
+	 * 상품 정보 수정
+	 * @param productId - 상품 번호
+	 * @param productVO - 상품 관련 정보 ProductVO
+	 * @return "product"
+	 * @exception Exception
+	 */
 	@PostMapping("/regist/{productId}")
 	public String productUpdate(@PathVariable int productId, 
 			@ModelAttribute ProductVO productVO) throws Exception {
 		
 		productVO.setProductId(productId);
 		productService.updateProduct(productVO);
-		return "redirect:/product/" + productId;
+		return "redirect:/product";
 		
 	}
 	
-	// 상품 등록 정보 삭제
-	@RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
+	/**
+	 * 상품 정보 수정
+	 * @param productId - 상품 번호
+	 * @param productVO - 상품 관련 정보 ProductVO
+	 * @return "product"
+	 * @exception Exception
+	 */
+	@DeleteMapping("/{productId}")
 	public String productDelete(@PathVariable int productId, 
 			ProductVO productVO) throws Exception {
 		
 		productVO.setProductId(productId);
+		
 		productService.deleteProduct(productVO);
+		
 		return "redirect:/product";
-			
-		}
+	}
 
 }

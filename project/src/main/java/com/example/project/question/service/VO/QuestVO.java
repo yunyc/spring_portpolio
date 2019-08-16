@@ -1,19 +1,51 @@
 package com.example.project.question.service.VO;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
 
 public class QuestVO {
-	/** 아이디 */
+	/** 질문 식별 번호 */
 	private int questId;
+	
+	/** 질문 제목 */
 	private	String questTitle;
+	
+	/** 질문 내용 */
 	private String questContent;
+	
+	/** 질문 날짜 */
 	private String questDate;
+	
+	/** 질문 좋아요 개수 */
 	private int questGood;
+	
+	/** 질문 싫어요 개수 */
 	private int questBad;
+	
+	/** 답변 개수 */
 	private int answerCnt;
+	
+	/** 질문을 작성한 사용자 ID */
 	private String userId;
+	
+	/** 질문 답변 상태 */
 	private String questState;
+	
+	/** 질문 검색 키워드 */
 	private String keyword;
 	
 	public String getKeyword() {

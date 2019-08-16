@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,57 +28,99 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.board.service.VO.ReplyVO;
 
-import ch.qos.logback.classic.Logger;
-
-import com.example.project.aop.LogAspect;
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.BoardVO;
 import com.example.project.paging.PagingVO;
 import com.example.project.board.service.VO.ReplyVO;
 
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
+
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 	
+	/** BoardService 인터페이스 */
 	@Resource
 	private BoardService boardService;
 	
-	// 게시글 목록
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	/**
+	 * 게시글 목록을 조회
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @param pagingVO - 페이징 정보가 담긴 PagingVO
+	 * @param model
+	 * @return "board"
+	 * @exception Exception
+	 */
+	@GetMapping("")
 	public String boardInit(BoardVO boardVO, @ModelAttribute PagingVO pagingVO,
 			Model model) throws Exception {
 		
 		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
+		
+		pagingVO.setIndexSize(10);
 		pagingVO.setBoardCount(boardList.size());
+		pagingVO.setPageSize(10);
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingVO", pagingVO);
 		
-		
-		
 		return "board/board";
 	}
 	
-	// 게시글 상세
-	@RequestMapping(value = "/{boardId}", method = RequestMethod.GET)
+	/**
+	 * 게시글 상세 정보 조회
+	 * @param boardId - 게시글 식별 번호
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @param replyVO - 페이징 정보가 담긴 ReplyVO
+	 * @param model
+	 * @return "boardDetail"
+	 * @exception Exception
+	 */
+	@GetMapping("/{boardId}")
 	public String boardDetail(@PathVariable int boardId, Model model,
 			BoardVO boardVO, ReplyVO replyVO) throws Exception {
 
 		boardVO.setBoardId(boardId);
 		replyVO.setBoardId(boardId);
-
-		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
+		
+		try {
+			boardVO = boardService.selectBoardList(boardVO).get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		List<ReplyVO> replyList = boardService.selectReplyList(replyVO);
 		
-		model.addAttribute("boardVO", boardList.get(0));
+		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("replyVO", replyVO);
 		
 		return "board/boardDetail";
 	}
 	
-	// 작성 페이지 이동
-	@RequestMapping(value = "/post", method = RequestMethod.GET)
+	/**
+	 * 게시글 작성 페이지 이동
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @param model
+	 * @return "boardInsert"
+	 * @exception Exception
+	 */
+	@GetMapping("/post")
 	public String boardInsertInit(BoardVO boardVO, Model model) throws Exception {
 		
 		model.addAttribute("BoardVO", boardVO);
@@ -85,8 +129,13 @@ public class BoardController {
 		return "board/boardInsert";
 	}
 	
-	// 게시글 작성
-	@RequestMapping(value = "/post", method = RequestMethod.POST)
+	/**
+	 * 게시글 작성
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @return "redirect:/board"
+	 * @exception Exception
+	 */
+	@PostMapping("/post")
 	public String boardInsertSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
 		
 		boardService.insertBoardList(boardVO);
@@ -94,31 +143,56 @@ public class BoardController {
 		return "redirect:/board";
 	}
 	
-	// 작성 페이지 이동
-	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.POST)
+	/**
+	 * 게시글 수정 페이지 이동
+	 * @param boardId - 게시글 식별 번호
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @param model
+	 * @return "boardInsert"
+	 * @exception Exception
+	 */
+	@GetMapping("/post/{boardId}")
 	public String boardUpdateInit(@PathVariable int boardId,
 			BoardVO boardVO, Model model) throws Exception {
 		
 		boardVO.setBoardId(boardId);
-		List<BoardVO> boardList = boardService.selectBoardList(boardVO);
 		
-		model.addAttribute("BoardVO", boardList.get(0));
+		try {
+			boardVO = boardService.selectBoardList(boardVO).get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("BoardVO", boardVO);
 		model.addAttribute("method", "patch");
 			
 		return "board/boardInsert";
 	}
 	
-	// 글 수정
-	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.PATCH)
-	public String boardUpdateSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
+	/**
+	 * 게시글 수정
+	 * @param boardId - 게시글 식별 번호
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @return "redirect:/board/" + boardId
+	 * @exception Exception
+	 */
+	@PatchMapping("/post/{boardId}")
+	public String boardUpdateSubmit(@ModelAttribute BoardVO boardVO,
+			@PathVariable int boardId) throws Exception {
 		
 		boardService.updateBoardList(boardVO);
 		
-		return "redirect:/board";
+		return "redirect:/board/" + boardId;
 	}
 	
-	//글 삭제
-	@RequestMapping(value = "/post/{boardId}", method = RequestMethod.DELETE)
+	/**
+	 * 게시글 삭제
+	 * @param boardId - 게시글 식별 번호
+	 * @param boardVO - 질문 정보가 담긴 BoardVO
+	 * @return "redirect:/board/" + boardId
+	 * @exception Exception
+	 */
+	@DeleteMapping("/post/{boardId}")
 	public String boardDelete(@PathVariable int boardId, BoardVO boardVO,
 			ReplyVO replyVO) throws Exception {
 
@@ -127,7 +201,7 @@ public class BoardController {
 
 		boardService.deleteBoardList(boardVO);
 		
-		return "redirect:/board";
+		return "redirect:/board" + boardId;
 	}
 
 }

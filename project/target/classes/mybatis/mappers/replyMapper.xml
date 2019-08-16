@@ -20,12 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   </where>
 	</select>
 	
-	<insert id="insertReplyList" parameterType="BoardReplyVO">
+	<insert id="insertReplyList" parameterType="map">
 		INSERT INTO T_REPLY (REPLY_CONTENT, BOARD_ID, USER_ID)
         			VALUES (#{replyContent}, #{boardId}, #{userId})
 	</insert>
 	
-	<update id="updateReplyList" parameterType="BoardReplyVO">
+	<update id="updateReplyList" parameterType="map">
 		 UPDATE T_REPLY
 			SET REPLY_CONTENT = #{replyContent}
 			WHERE REPLY_ID = #{replyId}

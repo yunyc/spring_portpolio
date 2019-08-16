@@ -25,9 +25,9 @@ public interface BoardMapper {
 	//답변
 	List<ReplyVO> selectReplyList(ReplyVO replyVO) throws Exception;
 	
-	void insertReplyList(ReplyVO replyVO) throws Exception;
+	void insertReplyList(HashMap<String, Object> map) throws Exception;
 	
-	void updateReplyList(ReplyVO replyVO) throws Exception;
+	void updateReplyList(HashMap<String, Object> map) throws Exception;
 	
 	void deleteReplyList(ReplyVO replyVO) throws Exception;
 	

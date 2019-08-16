@@ -52,11 +52,11 @@
                     </div>
                 </div>
                 <ul class="pagination">
-                    <li><a href="<c:url value='/product?currentPage=${pagingVO.currentPage - 1}'/>">&laquo;</a></li>
+                    <li><a href="<c:url value='/product?currentPage=${pagingVO.startPage - 1}'/>">&laquo;</a></li>
                     <c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
                     	<li><a href="<c:url value='/product?currentPage=${page}'/>">${page}</a></li>
                     </c:forEach>
-                    <li><a href="<c:url value='/product?currentPage=${pagingVO.currentPage + 1}'/>">&raquo;</a></li>
+                    <li><a href="<c:url value='/product?currentPage=${pagingVO.endPage + 1}'/>">&raquo;</a></li>
                 </ul>
               
                 <a id="new_product" href="/product/regist">새 상품등록</a>

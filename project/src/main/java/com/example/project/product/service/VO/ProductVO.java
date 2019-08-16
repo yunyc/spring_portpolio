@@ -1,14 +1,46 @@
 package com.example.project.product.service.VO;
 
+
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
+
 public class ProductVO {
-	
+	/** 상품 글 번호 */
 	private int productId;
+	
+	/** 상품 글 제목 */
 	private String productTitle;
+	
+	/** 상품 글 내용 */
 	private String productDescription;
+	
+	/** 상품 글 종류 */
 	private String productType;
+	
+	/** 상품 글 좋아요 개수 */
 	private int productGood = 0;
+	
+	/** 상품 글 싫어요 개수 */
 	private int productBad = 0;
+	
+	/** 상품 글 썸네일 */
 	private String productThumnail;
+	
+	/** 상품 글 작성 날짜 */
 	private String productDate;
 	
 	public String getProductDate() {

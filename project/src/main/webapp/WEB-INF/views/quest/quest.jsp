@@ -24,9 +24,9 @@
             </div>
             	<!-- 질문 상태 탭 -->
                     <ul class="tab">
-                        <li><a href="<c:url value='/quest?mode=wait'/>">답변을 기다리는 질문</a></li>
-                        <li><a href="<c:url value='/quest?mode=finish'/>">답변이 완료된 질문</a></li>
-                        <li><a href="<c:url value='/quest?mode=good'/>">좋아요가 높은 질문</a></li>
+                        <li><a href="<c:url value='/quest'/>">답변을 기다리는 질문</a></li>
+                        <li><a href="<c:url value='/quest?questState=답변 완료'/>">답변이 완료된 질문</a></li>
+                        <li><a href="<c:url value='/quest?questGood=1'/>">좋아요가 높은 질문</a></li>
                     </ul>
                 </div>
                 <!-- 질문 목록 -->

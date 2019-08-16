@@ -9,14 +9,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
+
 @Aspect
 @Component
-public class LogAspect {
+public class Logging {
+	/** 로깅 */
+	private static final Logger logger = LoggerFactory.getLogger(Logging.class);
 	
-	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
-	
+	/**
+	 * 컨트롤러 메서드 시작, 종료 로그 출력
+	 * @param jp - jointpoint ProceedingJoinPoint
+	 * @exception Exception
+	 */
 	@Around("execution(* com.example.project.*.web.*Controller.*(..))")
-    public Object measure(ProceedingJoinPoint jp) throws Throwable {
+    public Object controller(ProceedingJoinPoint jp) throws Throwable {
 		// 메서드가 호출되기 전에 먼저 실행되는 코드
 		   logger.info(jp.getSignature().getName() + " 시작");
 		   // 메서드가 호출되는 시점
@@ -26,8 +48,13 @@ public class LogAspect {
 		   return result;
     }
 	
+	/**
+	 * 서비스 메서드 시작, 종료 로그 출력
+	 * @param jp - jointpoint ProceedingJoinPoint
+	 * @exception Exception
+	 */
 	@Around("execution(* com.example.project.*.service..impl.*ServiceImpl.*(..))")
-    public Object meas(ProceedingJoinPoint jp) throws Throwable {
+    public Object service(ProceedingJoinPoint jp) throws Throwable {
 		// 메서드가 호출되기 전에 먼저 실행되는 코드
 		   logger.info("메서드 명: " + jp.getSignature().getName() + " 시작");
 	       logger.info("파라미터: " + Arrays.toString(jp.getArgs()));

@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  </where>
 	  <choose>
 	  	<when test="productGood != null and productGood != 0">
-	  		ORDER BY PRODUCT_GOOD DESC
+	  		ORDER BY PRODUCT_GOOD
 	  	</when>
 	  	<otherwise>
 	  		ORDER BY PRODUCT_DATE DESC

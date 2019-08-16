@@ -1,42 +1,47 @@
 package com.example.project.board.web;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.ReplyVO;
 
-@Controller
+@RestController
 @RequestMapping("/board")
 public class ReplyController {
 	
 	@Resource
 	private BoardService boardService;
 	// 댓글 쓰기
-	@RequestMapping(value = "/{boardId}/reply", method = RequestMethod.POST)
-	public String replyInsert(@ModelAttribute ReplyVO replyVO, 
+	@PostMapping("/{boardId}/reply/*")
+	public HashMap<String, Object> replyInsert(@RequestBody HashMap<String, Object> map, 
 			@PathVariable String boardId) throws Exception {
 		
-		boardService.insertReplyList(replyVO);
+		boardService.insertReplyList(map);
 		
-		return "redirect:/board/" + boardId;
+		return map;
 	}
 	// 댓글 수정
-	@RequestMapping(value = "/{boardId}/reply/{replyId}", method = RequestMethod.PATCH)
-	public String replyUpdate(@ModelAttribute ReplyVO replyVO, 
+	@PatchMapping("/{boardId}/reply/{replyId}")
+	public HashMap<String, Object> replyUpdate(@RequestBody HashMap<String, Object> map, 
 			@PathVariable String boardId, @PathVariable int replyId) throws Exception {
 		
-		replyVO.setReplyId(replyId);
-		System.out.println(replyVO.getReplyContent());
-		boardService.updateReplyList(replyVO);
 		
-		return "redirect:/board/" + boardId;
+		boardService.updateReplyList(map);
+		
+		return map;
 	}
 	// 댓글 삭제
 	@RequestMapping(value = "/{boardId}/reply/{replyId}", method = RequestMethod.DELETE)
