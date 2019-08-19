@@ -11,7 +11,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        	,USER_PASSWORD
        	,ENABLED
        	,USER_EMAIL
-       	,USER_NICKNAME
        	,USER_POINT
        	,USER_DATE
        	,USER_AUTHKEY
@@ -21,17 +20,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		      <if test="authKey != null and authKey != 0">
   		      	AND USER_AUTHKEY = #{userAuthKey} 
   		      </if>
-  		  </where>
-  		  <where>
-  		  	<if test="userEmail != null and userEmail != ''">
+  		      <if test="userEmail != null and userEmail != ''">
   		  		AND USER_EMAIL = #{userEmail}
-  		  	</if>
+  		  	  </if>
+  		  	  <if test="userId != null and userId != ''">
+  		  		AND USER_ID = #{userId}
+  		  	  </if>
   		  </where>
 	</select>
 	
 	<insert id="insertUserList" parameterType="UserVO">
-		INSERT INTO T_USER (USER_ID, USER_PASSWORD, ENABLED, USER_EMAIL, USER_DATE, USER_NICKNAME, USER_AUTHKEY)
-                         VALUES (#{userId}, #{password}, 1, #{userEmail}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userNickname}, #{authKey})
+		INSERT INTO T_USER (USER_ID, USER_PASSWORD, ENABLED, USER_EMAIL, USER_DATE, USER_AUTHKEY)
+                         VALUES (#{userId}, #{userPassword}, 1, #{userEmail}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{authKey})
         
 	</insert>
 	

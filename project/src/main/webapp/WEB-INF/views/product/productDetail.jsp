@@ -17,11 +17,14 @@
                <div class="title">
                    <p><c:out value='${productVO.productTitle}'/>
                    <form:form method="delete">
-                   	<button class="delete" type="button">삭제</button>
-                   </form:form><a href="/product/regist/${productVO.productId}">수정</a></p>
+                        <button class="delete" type="button">삭제</button>
+                        <a href="/product/regist/${productVO.productId}">수정</a>
+                   </form:form>
+                   </p>
                    <span>작성자</span>
                    <span>등급</span>
                    <span><c:out value='${productVO.productDate}'/></span>
+                   <span><c:out value='${productVO.productPoint}'/>포인트</span>
                </div>
                <div class="product_content">
                   <img class="product_img" src="<c:url value='/resources/upload/${productVO.productThumnail}'/>" />
@@ -29,7 +32,8 @@
                    <div class="description">
                        ${productVO.productDescription}
                    </div>
-                   <a href="/product">상품 목록</a>
+                   <a class="list" href="<c:url value='/product'/>">상품 목록</a>
+                   <a id="purchase" class="list" href="#">상품 구매</a>
                    <div class="button_group" style="float: right;">
                           <button id="good" type="button" style="background: #009a06;">좋아요 <span><c:out value='${productVO.productGood}'/></span></button>
                            <button id="bad" type="button" style="background: #ba0000;">싫어요 <span><c:out value='${productVO.productBad}'/></span></button>
@@ -40,8 +44,12 @@
             <script>
                 window.config = {
                     "productId": ${productVO.productId},
+                    "productTitle": ${productVO.productTitle},
                     "good": ${productVO.productGood},
-                    "bad": ${productVO.productBad}
+                    "bad": ${productVO.productBad},
+                    "point": ${productVO.productPoint},
+                    "userId": "${userId}",
+                    "userPoint": ${userPoint}
                 };
             </script>
 	

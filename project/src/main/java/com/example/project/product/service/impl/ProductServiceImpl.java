@@ -1,5 +1,6 @@
 package com.example.project.product.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -77,5 +78,40 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteProduct(ProductVO productVO) throws Exception {
 		productMapper.deleteProduct(productVO);	
 	}
+	
+	/**
+	 * 주문 조회
+	 * @param userId - 사용자 아이디
+	 * @return void
+	 * @exception Exception
+	 */
+	@Override
+	public void selectOrder(String userId) throws Exception {
+		productMapper.selectOrder(userId);
+	}
+	
+	/**
+	 * 주문 생성
+	 * @param map - 사용자 정보와 상품 정보가 담긴 HashMap
+	 * @return void
+	 * @exception Exception
+	 */
+	@Override
+	public void insertOrder(HashMap<String, Object> map) throws Exception {
+		productMapper.insertOrder(map);		
+	}
+	
+	/**
+	 * 주문 취소, 삭제
+	 * @param userId - 사용자 아이디
+	 * @return void
+	 * @exception Exception
+	 */
+	@Override
+	public void deleteOrder(String userId) throws Exception {
+		productMapper.deleteOrder(userId);		
+	}
+	
+	
 
 }

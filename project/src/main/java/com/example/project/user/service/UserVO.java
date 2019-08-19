@@ -3,31 +3,95 @@ package com.example.project.user.service;
 import java.sql.Date;
 
 import javax.validation.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
+
 public class UserVO {
 	
-	@Size(min=1, max=20, message = "아이디는 1~20자 영문,숫자이어야 합니다")
+	/** 사용자 ID */
+	@NotBlank
+	@Size(min=4, max=20)
 	private String userId;
 	
-	@Size(min=1, max=10, message = "비밀번호는 1~20자 영문이어야 합니다")
+	/** 사용자 비밀번호 */
+	@NotBlank
+	@Size(min=4, max=20)
 	private String userPassword;
 	
+	/** 사용자 비밀번호 확인 */
+	@NotBlank
 	private String passwordConfirm;
+	
+	/** 사용자 이메일 앞부분 */
 	
 	private String emailPrefix;
 	
+	/** 사용자 이메일 뒷부분 */
+	
 	private String emailSuffix;
 	
+	/** 사용자 이메일 */
 	private String userEmail;
-	
-	@Size(min=1, max=10, message = "오류가 났습니다")
-	private String userNickname;
+
+	/** 사용자 인증키 */
 	private int userAuthKey;
+	
+	/** 사용자 활성화 여부 */
 	private int enabled;
+	
+	/** 가입 일자 */
 	private Date userDate;
 	
+	/** 사용자 포인트 */
+	private int userPoint;
+	
+	/** 사용자 등급 */
+	private String userLevel;
+	
+	
+	public String getUserPassword() {
+		return userPassword;
+	}
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+	public int getUserAuthKey() {
+		return userAuthKey;
+	}
+	public void setUserAuthKey(int userAuthKey) {
+		this.userAuthKey = userAuthKey;
+	}
+	public int getUserPoint() {
+		return userPoint;
+	}
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
+	public String getUserLevel() {
+		return userLevel;
+	}
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
+	}
 	public String getEmailSuffix() {
 		return emailSuffix;
 	}
@@ -53,12 +117,7 @@ public class UserVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getPassword() {
-		return userPassword;
-	}
-	public void setPassword(String password) {
-		this.userPassword = password;
-	}
+	
 	public String getPasswordConfirm() {
 		return passwordConfirm;
 	}
@@ -71,12 +130,6 @@ public class UserVO {
 	}
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
-	}
-	public String getUserNickname() {
-		return userNickname;
-	}
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
 	}
 	public int getEnabled() {
 		return enabled;
@@ -94,7 +147,7 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", password=" + userPassword + ", userEmail=" + userEmail + ", userNickname="
-				+ userNickname + ", authKey=" + userAuthKey + ", enabled=" + enabled + ", userDate=" + userDate + "]";
+				 + ", authKey=" + userAuthKey + ", enabled=" + enabled + ", userDate=" + userDate + "]";
 	}
 
 }

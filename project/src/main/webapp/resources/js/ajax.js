@@ -4,11 +4,47 @@ $(function() {
     var header = "X-CSRF-TOKEN";
     window.count = 1;
     
-    
-    
     $(document).ajaxSend(function(e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
+    
+    // 상품 구매하기
+    $("#purchase").click(function() {
+    	
+    	if (config.userId !== "") {
+    		
+    		if(config.point > config.userPoint) {
+    			alert("포인트가 부족합니다")
+    		} else {
+    			config.point *= -1;
+    			
+    			$.ajax({
+            		url: "/product/purchase",
+            		type: "post",
+            		data: JSON.stringify(config),
+            		contentType: "application/json",
+            		success: function(data) {
+            			alert("주문이 완료되었습니다.")
+            		},
+            		error: function(errorThrown) {
+            			alert(errorThrown.textStatus);
+            		}
+            	});
+    		}
+    	} else {
+    		alert("로그인 하세요");
+    	}
+    	
+    	
+    });
+    
+    $("#find").add("#signup").click(function() {
+    	
+    	var id = $(this).attr("id");
+    
+		window.open("/" + id, "새 창",
+			"width=400, height=300ar=no, resizable=yes" ); 
+	});
 	
 	// POST, PATCH, DELETE용 버튼
 	$(".post, .patch, .delete").click(function() {

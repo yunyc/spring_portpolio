@@ -169,7 +169,7 @@ public class QuestController {
 	 * @return "questInsert"
 	 * @exception Exception
 	 */
-	@PostMapping("/post/{questId}")
+	@GetMapping("/post/{questId}")
 	public String questUpdateInit(@PathVariable int questId, QuestVO questVO, 
 			Model model) throws Exception {
 		
@@ -207,7 +207,7 @@ public class QuestController {
 	 * @return "quest"
 	 * @exception Exception
 	 */
-	@DeleteMapping("/post/{questId}")
+	@DeleteMapping("/{questId}")
 	public String questDeleteInit(@PathVariable int questId, 
 			QuestVO questVO, Model model) throws Exception {
 		

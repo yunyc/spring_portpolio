@@ -7,28 +7,32 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-	    <meta charset="UTF-8">
-	    <title>이름</title>
+<head>
+	    
 	   
-	</head>
-	<body>
+</head>
+<body>
+<script>
+	if ("${param.error}" === "loginError") {
+		alert("아이디와 비밀번호가 일치하지 않습니다");
+	}
+</script>
             <div class="main_content">
-            	<!--  이벤트 배너  -->
-                <div class="event_banner">
-                    
-                </div>
                 <div class="quest_banner">
                 	<!--  질문 목록  -->
                    <div class="title">
-                       <p>질문/답변 게시판<a>더보기</a></p>
+                       <p>질문/답변 게시판<a href="<c:url value='/quest'/>">더보기</a></p>
                        <span>질문과 답변해서 포인트를 쌓자!</span>
                    </div>
                    <!--  목록 내용  -->
                    <table>
                    	<c:forEach items="${questList}" var="questList" begin="0" end="6">
                    		<tr>
-                           <td width="290px"><c:out value='${questList.questTitle}'/></td>
+                           <td>
+                               <a href="<c:url value='/quest/${questVO.questId}'/>">
+                                   <c:out value='${questList.questTitle}'/>
+                               </a>
+                           </td>
                            <td><c:out value='${questList.questDate}'/></td>
                        </tr>
                    	</c:forEach>
@@ -37,18 +41,19 @@
                 <!--  상품 목록  -->
                 <div class="product_banner">
                     <div class="title">
-                       <p>상품 목록<a>더보기</a></p>
+                       <p>상품 목록<a href="<c:url value='/product'/>">더보기</a></p>
                         <span>쌓은 포인트로 원하는 상품을 구입하자!</span>
                    </div>
                    <!--  목록 내용  -->
                    <div class="flex_list">
-                       <c:forEach items="${productList}" var="productList" begin="0" end="3">
+                       <c:forEach items="${productList}" var="productList" begin="0" end="5">
                    		    <div class="product">
-                   		    	<img src="<c:url value='resources/upload/${productList.productThumnail}'/>" />
+                   		    <a href="<c:url value='/product/${productList.productId}'/>">
+                   		    	<img class="product_img" src="<c:url value='resources/upload/${productList.productThumnail}'/>" />
                         		<div class="product_content">
                         			<p><c:out value='${productList.productTitle}'/></p>
                    		    	</div>
-                   		
+                   		</a>
                        
                         </div>
                    	</c:forEach>

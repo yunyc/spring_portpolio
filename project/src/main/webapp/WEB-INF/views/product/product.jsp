@@ -21,8 +21,8 @@
                     <div class="option">
                         <form:form modelAttribute="productVO" method="get">
                            <ul class="tab">
-                                <li><a href="<c:url value='/product'/>" style="background: #fff; color: #000 ">최신순</a></li>
-                                <li><a href="<c:url value='/product?productGood=1'/>" style="background: #fff; color: #000 ">추천순</a></li>
+                                <li><a href="<c:url value='/product'/>" style="color: #000 ">최신순</a></li>
+                                <li><a href="<c:url value='/product?productGood=1'/>" style="color: #000 ">추천순</a></li>
                            </ul>
                             <div class="search">
                                 <form:input path="keyword" placeholder="검색 키워드를 입력하세요" />
@@ -45,7 +45,7 @@
 	                                <img class="thumnail" src="<c:url value='/resources/upload/${varProductList.productThumnail}'/>" />	                            </a>
 	                            <div class="info">
 	                                <label>좋아요 <c:out value="${varProductList.productGood}"/></label>
-	                                <span><c:out value='${varProductVO.productDate}'/></span>
+	                                <span style="float: right;"><c:out value='${varProductList.productDate}'/></span>
 	                            </div>
 	                        </div>
                     	</c:forEach>

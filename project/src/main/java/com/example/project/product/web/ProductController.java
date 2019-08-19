@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.project.file_upload.FileVO;
 import com.example.project.paging.PagingVO;
+import com.example.project.point.service.PointService;
 import com.example.project.product.service.ProductService;
 import com.example.project.product.service.VO.ProductVO;
 
@@ -54,11 +56,14 @@ import com.example.project.product.service.VO.ProductVO;
  */
 
 @Controller
-@RequestMapping(value = "/product")
+@RequestMapping("/product")
 public class ProductController {
-	/** QuestService 주입 */
+	/** QuestService 인터페이스 */
 	@Resource
 	private ProductService productService;
+	
+	@Resource
+	private PointService pointService;
 	
 	/**
 	 * 상품 목록을 조회
@@ -190,24 +195,41 @@ public class ProductController {
 	 * 상품 정보 수정
 	 * @param productId - 상품 번호
 	 * @param productVO - 상품 관련 정보 ProductVO
-	 * @return "product"
+	 * @param file - 전송된 파일 정보 FileVO
+	 * @param fileVO - 파일 처리 관련 정보 MultipartFile
+	 * @param req - 요청 정보 HttpServletRequest
+	 * @return "redirect:/product/" + productId
 	 * @exception Exception
 	 */
+	@Transactional
 	@PostMapping("/regist/{productId}")
-	public String productUpdate(@PathVariable int productId, 
-			@ModelAttribute ProductVO productVO) throws Exception {
+	public String productUpdate(@PathVariable int productId, @RequestParam MultipartFile file, 
+			@ModelAttribute ProductVO productVO, FileVO fileVO, HttpServletRequest req) throws Exception {
 		
+		fileVO.setUpload(file);
+		fileVO.setFileUpload(req);
+		
+		try {
+			file.transferTo(new File(fileVO.getUploadPath()));
+			
+		} catch(Exception e) {
+		    System.out.println("업로드 오류");
+		    e.printStackTrace();
+		}
+		
+		productVO.setProductThumnail(fileVO.getFileName());
 		productVO.setProductId(productId);
+		
 		productService.updateProduct(productVO);
-		return "redirect:/product";
+		return "redirect:/product/" + productId;
 		
 	}
 	
 	/**
-	 * 상품 정보 수정
+	 * 상품 정보 삭제
 	 * @param productId - 상품 번호
 	 * @param productVO - 상품 관련 정보 ProductVO
-	 * @return "product"
+	 * @return "redirect:/product"
 	 * @exception Exception
 	 */
 	@DeleteMapping("/{productId}")
@@ -220,5 +242,24 @@ public class ProductController {
 		
 		return "redirect:/product";
 	}
+	
+	/**
+	 * 상품 구매하기
+	 * @param productId - 상품 번호
+	 * @param productVO - 상품 관련 정보 ProductVO
+	 * @return "redirect:/product"
+	 * @exception Exception
+	 */
+	@Transactional
+	@ResponseBody
+	@PostMapping("/purchase")
+	public HashMap<String, Object> productPurchase(@RequestBody HashMap<String, Object> orderMap) throws Exception {
+		
+		// 포인트 차감
+		pointService.plusPoint(orderMap);
+		// 주문 추가
+		productService.insertOrder(orderMap);
 
+		return orderMap;
+	}
 }

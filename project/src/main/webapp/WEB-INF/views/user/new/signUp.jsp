@@ -8,13 +8,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<style>
+	p {
+		margin: 0;
+	}
+	
+	#sign {
+    margin: 20px 0;
+    width: 350px;
+}
+</style>
 </head>
 <body>
 	<script>
 		$(function() {
-			$("[type=submit]").click(function() {
+			$("#sign").click(function() {
 				$.ajax({
 					url: "/signUp",
 					type: "post",
@@ -32,23 +40,26 @@
 		});
 		
 	</script>
+	<div class="main_content">
+                <div class="content_title">
+                    <p>회원가입</p>
+                </div>
 	<form:form method="post" modelAttribute="userVO">
 		<p>아이디</p>
 		<form:input path="userId" />
 		<form:errors path="userId" cssClass="err" />
 		<input type="button" value="아이디 중복 확인" />
 		<p>비밀번호</p>
-		<form:input path="password"/>
-		<form:errors path="password" />
+		<form:input path="userPassword"/>
+		<form:errors path="userPassword" />
 		<p>비밀번호 확인</p>
 		<form:input path="passwordConfirm"/>
 		<p>이메일</p>
 		<form:input path="emailPrefix"/>@<form:input path="emailSuffix"/>
-		<p>닉네임</p>
-		<form:input path="userNickname"/>
-		<form:errors path="userNickname" />
-		<input type="submit" />
+		<input id="sign" type="submit" />
 	</form:form>
+	</div>
+
 
 </body>
 </html>

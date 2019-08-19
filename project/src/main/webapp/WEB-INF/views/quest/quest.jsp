@@ -15,8 +15,8 @@
 <body>	
 	<div class="main_content">
     	<div class="search_banner">
-        	<div class="search_bar">
-                <a href="<c:url value='/quest/post'/>">질문하기</a>
+    	<a href="<c:url value='/quest/post'/>" style="float:left;">질문하기</a>
+        	<div class="search_bar" style="float:right; margin-bottom: 10px;">
                 <form method="get">
                     <input type="text" name="keyword" placeholder="검색 단어를 입력하세요">
                     <input type="submit" />
@@ -35,8 +35,8 @@
                     	<div class="quest">
                            <a href="<c:url value='/quest/${varQuestList.questId}'/>">
                             <div class="title">
-                                <p><c:out value='${varQuestList.questTitle}' /></p>
-                                <p><c:out value='${varQuestList.questState}' /></p>
+                                <label><c:out value='${varQuestList.questTitle}' /></label>
+                                <span style="float:right;"><c:out value='${varQuestList.questState}' /></span>
                             </div>
                             <div class="content">
                                 <p>${varQuestList.questContent}</p>

@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	       ,PRODUCT_GOOD
 	       ,PRODUCT_BAD
 	       ,PRODUCT_DATE
+	       ,PRODUCT_POINT
 	  FROM T_PRODUCT
 	  <where>
 	  	<if test="productId != null and productId != 0">
@@ -39,20 +40,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertProduct" parameterType="ProductVO">
-		INSERT INTO T_PRODUCT(PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE, PRODUCT_THUMNAIL, PRODUCT_DATE)
-               		   VALUES(#{productTitle}, #{productDescription}, #{productType}, #{productThumnail}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+		INSERT INTO T_PRODUCT(PRODUCT_TITLE, PRODUCT_DESCRIPTION, PRODUCT_TYPE, PRODUCT_THUMNAIL, PRODUCT_DATE, PRODUCT_POINT)
+               		   VALUES(#{productTitle}, #{productDescription}, #{productType}, #{productThumnail}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{productPoint})
     </insert>
     
 	<update id="updateProduct" parameterType="ProductVO">
 		UPDATE T_PRODUCT
 		   SET PRODUCT_TITLE = #{productTitle}
 		      ,PRODUCT_DESCRIPTION = #{productDescription}
+		      ,PRODUCT_THUMNAIL = #{productThumnail}
+		      ,PRODUCT_POINT = #{productPoint}
 		 WHERE PRODUCT_ID = #{productId}
 	</update>
 	
 	<delete id="deleteProduct" parameterType="ProductVO">
 		DELETE T_PRODUCT
 		 WHERE PRODUCT_ID = #{productId}
+	</delete>
+	
+	<select id="selectOrder" parameterType="String" resultType="map">
+		SELECT ORDER_ID
+		      ,PRODUCT_ID
+		      ,ORDER_TITLE
+		      ,USER_ID
+		      ,ORDER_DATE
+		 FROM T_ORDER
+	
+	</select>
+	
+	<insert id="insertOrder" parameterType="map">
+		INSERT INTO T_ORDER(USER_ID, PRODUCT_ID, ORDER_TITLE, ORDER_DATE)
+            VALUES (#{userId}, #{productId}, #{productTile}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+	</insert>
+	
+	<delete id="deleteOrder" parameterType="String">
+		DELETE T_ORDER
+		    WHERE USER_ID = #{value}
 	</delete>
 </mapper>
 

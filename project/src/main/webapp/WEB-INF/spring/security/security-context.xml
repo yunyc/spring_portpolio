@@ -8,6 +8,7 @@
     
     <bean id="authLoginSuccessHandler"
     	  class="com.example.project.security.AuthLoginSuccessHandler"></bean>
+    	  
     
     <!-- 정적 리소스 파일 -->
     <sec:http pattern="/css/**" security="none" />
@@ -24,16 +25,16 @@
         <!-- 폼 로그인 설정 -->
         <sec:form-login login-page="/login"
                         login-processing-url="/login/check"
-                        default-target-url="/main"
+                        default-target-url="/main.do"
                         username-parameter="userId" 
                         password-parameter="password"
-                        authentication-failure-url="/login?error" 
+                        authentication-failure-url="/main.do?error=loginError" 
                         always-use-default-target='true'
                         authentication-success-handler-ref="authLoginSuccessHandler" />
         <!-- 로그아웃 설정 -->
         <sec:logout invalidate-session="true"
                     logout-url="/logout"   
-                    logout-success-url="/login" />
+                    logout-success-url="/main.do" />
         <!-- 세션 관련 설정 -->
         <sec:session-management>
         	<sec:concurrency-control max-sessions="1"

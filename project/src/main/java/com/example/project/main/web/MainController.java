@@ -32,7 +32,14 @@ public class MainController {
 	@Resource
 	private ProductService productService;
 	
-	// 메인 화면 초기화
+	/**
+	 * 메인 화면 초기화
+	 * @param questVO - 사용자 정보가 담긴 QuestVO
+	 * @param productVO - 상품 정보가 담긴 ProductVO
+	 * @param model
+	 * @return "main"
+	 * @exception Exception
+	 */
 	@RequestMapping("/main")
 	public String mainInit(QuestVO questVO, ProductVO productVO, Model model) throws Exception {
 		

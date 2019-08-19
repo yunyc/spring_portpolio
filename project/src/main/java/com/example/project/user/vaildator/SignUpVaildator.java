@@ -16,8 +16,8 @@ public class SignUpVaildator implements Validator{
 	public void validate(Object target, Errors errors) {
 		UserVO userVO = (UserVO) target;
 		
-		if (userVO.getPasswordConfirm() == userVO.getPassword()) {
-			errors.rejectValue("password", "비밀번호가 일치하지 않습니다.");
+		if (!userVO.getPasswordConfirm().equals(userVO.getUserPassword())) {
+			errors.rejectValue("userPassword", "error");
 		}
 		
 	}

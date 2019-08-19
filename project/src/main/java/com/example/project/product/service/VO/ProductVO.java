@@ -1,6 +1,5 @@
 package com.example.project.product.service.VO;
 
-
 /**
  * @Class Name : QuestController.java
  * @Description : EgovSample Controller Class
@@ -43,6 +42,15 @@ public class ProductVO {
 	/** 상품 글 작성 날짜 */
 	private String productDate;
 	
+	/** 상품 구매 포인트 */
+	private int productPoint;
+	
+	public int getProductPoint() {
+		return productPoint;
+	}
+	public void setProductPoint(int productPoint) {
+		this.productPoint = productPoint;
+	}
 	public String getProductDate() {
 		return productDate;
 	}

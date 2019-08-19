@@ -2,6 +2,22 @@ package com.example.project.paging;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * @Class Name : QuestController.java
+ * @Description : EgovSample Controller Class
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
+ * @author yunyc
+ * @since 2009. 03.16
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by MOPAS All right reserved.
+ */
 
 public class PagingVO {
 	
@@ -32,21 +48,41 @@ public class PagingVO {
 	/** 게시판 페이지 크기 */
 	private int pageSize;
 	
-	public int getIndexSize() {
-		return indexSize;
-	}
-
+	/**
+	 * 페이지 당 게시글 개수 설정
+	 * @param indexSize
+	 * @return "void"
+	 * @exception Exception
+	 */
 	public void setIndexSize(int indexSize) {
 		this.indexSize = indexSize;
 		
 		startIndex = ((currentPage - 1) * indexSize);
 		endIndex = (currentPage * indexSize) - 1;
 	}
-
-	public int getPageSize() {
-		return pageSize;
+	
+	/**
+	 * 게시글 총 개수 설정
+	 * @param boardCount
+	 * @return "void"
+	 * @exception Exception
+	 */
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
+		
+		if (boardCount % indexSize == 0) {
+			totalPage = boardCount / indexSize;
+		} else {
+			totalPage = boardCount / indexSize + 1;
+		}
 	}
-
+	
+	/**
+	 * 페이징 번호 최대 개수 설정
+	 * @param pageSize
+	 * @return "void"
+	 * @exception Exception
+	 */
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 		
@@ -56,6 +92,14 @@ public class PagingVO {
 		if (endPage > totalPage) {
 			endPage = totalPage;
 		}
+	}
+	
+	public int getIndexSize() {
+		return indexSize;
+	}
+
+	public int getPageSize() {
+		return pageSize;
 	}
 
 	public int getStartIndex() {
@@ -98,17 +142,6 @@ public class PagingVO {
 	}
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
-	}
-	
-
-	public void setBoardCount(int boardCount) {
-		this.boardCount = boardCount;
-		
-		if (boardCount % indexSize == 0) {
-			totalPage = boardCount / indexSize;
-		} else {
-			totalPage = boardCount / indexSize + 1;
-		}
 	}
 
 	public int getBoardSize() {

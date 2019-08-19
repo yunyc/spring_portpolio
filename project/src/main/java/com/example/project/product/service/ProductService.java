@@ -1,5 +1,6 @@
 package com.example.project.product.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.example.project.product.service.VO.ProductVO;
 
@@ -53,5 +54,29 @@ public interface ProductService {
 	 * @exception Exception
 	 */
 	void deleteProduct(ProductVO productVO) throws Exception;
+	
+	/**
+	 * 주문 조회
+	 * @param userId - 사용자 아이디
+	 * @return void
+	 * @exception Exception
+	 */
+	List<HashMap<String, Object>> selectOrder(String userId) throws Exception;
+	
+	/**
+	 * 주문 생성
+	 * @param map - 사용자 정보와 상품 정보가 담긴 HashMap
+	 * @return HashMap
+	 * @exception Exception
+	 */
+	void insertOrder(HashMap<String, Object> map) throws Exception;
+	
+	/**
+	 * 주문 취소, 삭제
+	 * @param userId - 사용자 아이디
+	 * @return void
+	 * @exception Exception
+	 */
+	void deleteOrder(String userId) throws Exception;
 
 }

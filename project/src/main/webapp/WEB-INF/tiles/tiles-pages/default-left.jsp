@@ -17,31 +17,39 @@
                         <p>로그인</p>
                     </div>
                     <div class="login_form">
-                    	<form:form action="<c:url value='/login/check'/>">
+                    	<form:form action="/login/check">
                         	<input type="text" name="userId" placeholder="아이디" />
                         	<input type="password" name="password" placeholder="비밀번호" />
                         	<input type="submit" value="로그인" />
                     	</form:form>
-                    <label>자동로그인<input id="remember" type="checkbox" name="checkbox" /></label>
                     <label>
-                    	<a href="<c:url value='/signUp'/>">회원가입</a> 
-                    	<a href="<c:url value='/find'/>">  정보 찾기</a>
+                    	<a id="signup" href="#" style="float:left; margin:7px;">회원가입</a> 
+                    	<a id="find" href="#" style="float:left; margin:7px;">  정보 찾기</a>
                     </label>
                     </div>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
 	                		<div class="login_success">
-                       <div class="profile">
+                       <img src="<c:url value='/resources/upload/kakao_1.jpg'/>" class="profile">
                            
-                       </div>
+                       </img>
                         <ul style="float: left;">
                             <li style="float: none;margin: 4px;">${userId}님</li>
-                            <li style="float: none;margin: 4px;">일반등급</li>
-                            <li style="float: none;margin: 4px;">00포인트</li>
+                            <li id="level"style="float: none;margin: 4px;">${userLevel}등급</li>
+                            <li id="point" style="float: none;margin: 4px;">${userPoint}포인트</li>
                         </ul>
                     </div>
                     <div class="option">
-                            <p><a href="#"><span style="float: right;">마이페이지</span></a></p>
+                    	<form:form action="/logout">
+                    	<sec:authorize access="hasAuthority('ROLE_USER')">
+                    		<a href="<c:url value='/mypage/user'/>" style="margin: 0; padding: 0;"><span style="float:right; color:#000">마이페이지</span></a>
+                    		</sec:authorize>
+                    		<sec:authorize access="hasAuthority('ROLE_ADMIN')">
+                    			<a href="/admin/user" style="margin: 0; padding: 0;"><span style="float:right; color:#000">관리자 페이지</span></a>
+                    		</sec:authorize>
+                        	<input type="submit" style="width:100px; float:left; color:#000" value="로그아웃"/>
+                    	</form:form>
+                            
                         </div>
 	                	</sec:authorize>
 

@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<p>회원 가입시에 등록했던 이메일을 입력해주세요.</p>
 	<form:form>
 		<input type="text" name="userEmail" />
 		<input type="submit" value="제출" />

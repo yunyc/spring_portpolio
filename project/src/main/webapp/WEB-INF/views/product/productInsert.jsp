@@ -32,10 +32,9 @@
                             <form:option value="책">책</form:option>
                             <form:option value="문화상품권">문화상품권</form:option>
                         </form:select>
-                        <p>상품 미리보기 이미지</p>
-                        <div class="thumnail_preview">
-                            
-                        </div>
+                        <p>상품 구매 포인트<p>
+                        <form:input path="productPoint" value="${productVO.productPoint}"/>
+                        <p>상품 썸네일 이미지</p>
                         <input type="file" name="file" value="${productVO.productThumnail}"/>
                         <p>상품 내용</p>
                         <form:textarea id="ckeditor" path="productDescription" value="${productVO.productDescription}" style="width: 100%; height: 300px;" placeholder="상품 설명을 해주세요"></form:textarea>
