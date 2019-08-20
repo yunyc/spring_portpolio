@@ -28,12 +28,10 @@ import javax.validation.constraints.Size;
 public class UserVO {
 	
 	/** 사용자 ID */
-	@NotBlank
 	@Size(min=4, max=20)
 	private String userId;
 	
 	/** 사용자 비밀번호 */
-	@NotBlank
 	@Size(min=4, max=20)
 	private String userPassword;
 	
@@ -42,11 +40,11 @@ public class UserVO {
 	private String passwordConfirm;
 	
 	/** 사용자 이메일 앞부분 */
-	
+	@NotBlank
 	private String emailPrefix;
 	
 	/** 사용자 이메일 뒷부분 */
-	
+	@NotBlank
 	private String emailSuffix;
 	
 	/** 사용자 이메일 */

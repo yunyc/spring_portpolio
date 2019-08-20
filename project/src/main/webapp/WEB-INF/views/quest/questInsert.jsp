@@ -36,6 +36,7 @@
                     <form:hidden path="userId" value="yunyc1010"/>
                     <p>질문 제목</p>
                     <form:input path="questTitle" value="${questVO.questTitle}" placeholder="제목을 입력하세요" />
+                    <form:errors path="questTitle"/>
                     <p>질문 내용</p>
                     <form:textarea id="ckeditor" path="questContent" value="${questVO.questContent}" placeholder="내용을 입력하세요" style="width: 100%; min-height: 300px"></form:textarea>
                     <script >

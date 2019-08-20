@@ -58,8 +58,10 @@
                     </c:forEach>
                     <li><a href="<c:url value='/product?currentPage=${pagingVO.endPage + 1}'/>">&raquo;</a></li>
                 </ul>
-              
-                <a id="new_product" href="/product/regist">새 상품등록</a>
+              	<sec:authorize access="hasRole('ROLE_ADMIN')">
+              		<a id="new_product" href="/product/regist">새 상품등록</a>
+              	</sec:authorize>
+                
             </div>
 </body>
 </html>

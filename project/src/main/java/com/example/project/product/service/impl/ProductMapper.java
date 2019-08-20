@@ -65,7 +65,7 @@ public interface ProductMapper {
 	 * @return void
 	 * @exception Exception
 	 */
-	void selectOrder(String userId) throws Exception;
+	List<HashMap<String, Object>> selectOrder(String userId) throws Exception;
 	
 	/**
 	 * 주문 생성

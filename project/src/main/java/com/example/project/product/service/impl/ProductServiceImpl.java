@@ -86,8 +86,8 @@ public class ProductServiceImpl implements ProductService {
 	 * @exception Exception
 	 */
 	@Override
-	public void selectOrder(String userId) throws Exception {
-		productMapper.selectOrder(userId);
+	public List<HashMap<String, Object>> selectOrder(String userId) throws Exception {
+		return productMapper.selectOrder(userId);
 	}
 	
 	/**

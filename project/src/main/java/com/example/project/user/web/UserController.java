@@ -64,7 +64,7 @@ public class UserController {
 	}
 
 	/**
-	 * 회원가입 창 띄우기
+	 * 회원가입 페이지 이동
 	 * @param userVO - 사용자 정보가 담긴 UserVO
 	 * @param model
 	 * @return "signUp"
@@ -75,7 +75,7 @@ public class UserController {
 		
         model.addAttribute("userVO", userVO);
 		
-		return "user/new/signUp";
+		return "user/signUp";
 	}
 
 	/**
@@ -92,12 +92,18 @@ public class UserController {
 	@PostMapping("/signup")
 	public String userInsert(HttpServletRequest req, HttpServletResponse res, 
 			@ModelAttribute @Valid UserVO userVO, BindingResult result ,Random random) throws Exception {
-		
+				
 		new SignUpVaildator().validate(userVO, result);
-		
+
+		try {
+			userService.insertUserList(userVO);
+		} catch (Exception e) {
+			result.rejectValue("userId", "userId.error");
+		}
+
 		// 유효성 검사 불통과 시
 		if (result.hasErrors()) {
-			return "user/new/signUp";
+			return "user/signUp";
 		
 		// 유효성 검사 통과 시
 		} else {
@@ -110,7 +116,6 @@ public class UserController {
 			userVO.setAuthKey(authKey);
 			
 			// 데이터베이스 업데이트
-			userService.insertUserList(userVO);
 			userService.insertAuthority(userVO);
 			
 			// 메일 보내기
@@ -119,7 +124,7 @@ public class UserController {
 			res.setContentType("text/html;charset=utf-8");
 			userService.sendAuthKey(email, userVO.getUserId(), userVO.getAuthKey());
 			
-			return "메일을 전송했습니다.";
+			return "redirect:/main.do";
 		}
 	
 	}

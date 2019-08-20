@@ -23,7 +23,7 @@
                         	<input type="submit" value="로그인" />
                     	</form:form>
                     <label>
-                    	<a id="signup" href="#" style="float:left; margin:7px;">회원가입</a> 
+                    	<a id="signup" href="/signup" style="float:left; margin:7px;">회원가입</a> 
                     	<a id="find" href="#" style="float:left; margin:7px;">  정보 찾기</a>
                     </label>
                     </div>

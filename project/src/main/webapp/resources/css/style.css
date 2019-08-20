@@ -692,3 +692,19 @@ td a:hover, .product a:hover {
     float: none;
     padding: 0 20px 10px 10px;
 }
+
+.err {
+		color: red;
+		font-size: 13px;
+	}
+	
+.good_bad #button {
+    float: right;
+    width: 70px;
+    background: #d1d1d1;
+    margin: 10px;
+    padding: 13px;
+    text-align: center;
+    font-size: 15px;
+    color: #fff;
+}

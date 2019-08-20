@@ -65,7 +65,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,USER_ID
 		      ,ORDER_DATE
 		 FROM T_ORDER
-	
+		<where>
+			<if test="_parameter != null and _parameter != ''">
+				AND USER_ID = #{_parameter}
+			</if>
+		</where>
 	</select>
 	
 	<insert id="insertOrder" parameterType="map">

@@ -18,10 +18,13 @@
                     <div class="title">
                         <p style="font-size: 30px"><c:out value='${questVO.questTitle}'/></p>
                         <span style="padding: 10px; font-size: 15px;"><c:out value='${questVO.userId}'/></span><span>${questVO.questDate}</span>
-                        <form:form>
-                        	<a href="<c:url value='/quest/post/${questVO.questId}'/>">수정</a>
-                        	<button class="delete" type="button">삭제</button>
-                        </form:form>
+                        <c:if test="${userId eq questVO.userId}">
+                        	<form:form>
+                        		<a href="<c:url value='/quest/post/${questVO.questId}'/>">수정</a>
+                        		<button class="delete" type="button">삭제</button>
+                        	</form:form>
+                        </c:if>
+                        
                     </div>
                     <div class="quest_content">
                         <p>${questVO.questContent}</p>
@@ -47,11 +50,13 @@
 		                    </div>
 		                    <div class="good_bad">
 		                        <button id="select" type="button" style="width: 100px; margin: 10px; background: #3985dd; float: left;">채택하기</button>
-		                        <form method="post" action="<c:url value='/quest/${questVO.questId}/answer/${varAnswerList.answerId}'/>">
-		                        	<a href="<c:url value='/quest/${questVO.questId}/answer/${varAnswerList.answerId}'/>">수정</a>
-		           					<button class="delete" type="button">삭제</button>
+		                        <c:if test="${userId eq varAnswerList.userId}">
+		                        <form:form action="/quest/${questVO.questId}/answer/${varAnswerList.answerId}">
+		                        	<a id="button" href="<c:url value='/quest/${questVO.questId}/answer/${varAnswerList.answerId}'/>">수정</a>
+		           					<button id="button" class="delete" type="button">삭제</button>
 		                        	<input type="hidden" name="_method" value=""/>
-		                        </form>
+		                        </form:form>
+		                        </c:if>
 		                    </div>
 		                </div>
 		                </c:forEach>

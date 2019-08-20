@@ -18,6 +18,7 @@
 		<form:hidden path="userId" value="${userId}"/>
 		<p>제목</p>
 		<form:input path="boardTitle" value="${boardVO.boardTitle}" />
+		<form:errors path="boardTitle"/>
 		<p>글내용</p>
 		<form:textarea path="boardContent" value="${boardVO.boardContent}"/>
 		<p>글분류</p>

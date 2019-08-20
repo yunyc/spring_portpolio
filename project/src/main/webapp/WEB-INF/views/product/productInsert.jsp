@@ -25,6 +25,7 @@
                     	  enctype="multipart/form-data">
                        <p>상품 제목</p>
                         <form:input path="productTitle" value="${productVO.productTitle}" style="width: 300px; height: 30px;" placeholder="제목을 입력하세요" />
+                        <form:errors path="productTitle"/>
                         <p>상품타입</p>
                         <form:select path="productType" style="width: 150px; height: 30px;">
                             <form:option value="코드">코드</form:option>
@@ -43,10 +44,15 @@
 								filebrowserUploadUrl: "<c:url value='/product/file?${_csrf.parameterName}=${_csrf.token}'/>"
 							});
 						</script>
-                        <button class="button" type="button">취소</button>
-                        <input class="button" type="submit" value="제출"/>
-                        <button class="delete" type="button">수정</button>
+						<c:if test="${mode eq 'insert'}">
+							<button class="button" type="button">취소</button>
+                        	<input class="button" type="submit" value="제출"/>
+						</c:if>
+                        <c:if test="${mode eq 'update'}">
+                            <button class="button delete" type="button">수정</button>
+                        </c:if>
                         <input type="hidden" name="_method" value=""/>
+                        
                     </form:form>
                 </div>
             </div>

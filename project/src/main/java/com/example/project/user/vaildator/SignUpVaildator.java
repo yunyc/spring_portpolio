@@ -1,11 +1,21 @@
 package com.example.project.user.vaildator;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.example.project.user.service.UserService;
 import com.example.project.user.service.UserVO;
 
 public class SignUpVaildator implements Validator{
+	
+	@Resource
+	private UserService userService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -17,9 +27,8 @@ public class SignUpVaildator implements Validator{
 		UserVO userVO = (UserVO) target;
 		
 		if (!userVO.getPasswordConfirm().equals(userVO.getUserPassword())) {
-			errors.rejectValue("userPassword", "error");
-		}
-		
+			errors.rejectValue("userPassword", "passwordConfirm.error");
+		}	
 	}
 
 }

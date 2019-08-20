@@ -16,13 +16,14 @@
     <div class="main_content">
                <div class="title">
                    <p><c:out value='${productVO.productTitle}'/>
+                	<sec:authorize access="hasRole('ROLE_ADMIN')">
                    <form:form method="delete">
                         <button class="delete" type="button">삭제</button>
                         <a href="/product/regist/${productVO.productId}">수정</a>
                    </form:form>
+                   </sec:authorize>
                    </p>
-                   <span>작성자</span>
-                   <span>등급</span>
+                   <span>관리자</span>
                    <span><c:out value='${productVO.productDate}'/></span>
                    <span><c:out value='${productVO.productPoint}'/>포인트</span>
                </div>

@@ -14,9 +14,10 @@
 	}
 	
 	#sign {
-    margin: 20px 0;
-    width: 350px;
-}
+    	margin: 20px 0;
+    	width: 350px;
+	}
+	
 </style>
 </head>
 <body>
@@ -48,14 +49,16 @@
 		<p>아이디</p>
 		<form:input path="userId" />
 		<form:errors path="userId" cssClass="err" />
-		<input type="button" value="아이디 중복 확인" />
 		<p>비밀번호</p>
 		<form:input path="userPassword"/>
-		<form:errors path="userPassword" />
+		<form:errors path="userPassword" cssClass="err" />
 		<p>비밀번호 확인</p>
 		<form:input path="passwordConfirm"/>
+		<form:errors path="passwordConfirm" cssClass="err" />
 		<p>이메일</p>
 		<form:input path="emailPrefix"/>@<form:input path="emailSuffix"/>
+		<form:errors path="emailPrefix" cssClass="err" />
+		<form:errors path="emailSuffix" cssClass="err" />
 		<input id="sign" type="submit" />
 	</form:form>
 	</div>

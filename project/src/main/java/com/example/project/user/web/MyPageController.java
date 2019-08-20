@@ -85,8 +85,9 @@ public class MyPageController {
 	public String mypageOrderInit(HttpServletRequest req, Model model) throws Exception {
 		
 		HttpSession session = req.getSession();
+		String userId = (String)session.getAttribute("userId");
 		
-		List<HashMap<String, Object>> orderList = productService.selectOrder((String)session.getAttribute("userId"));
+		List<HashMap<String, Object>> orderList = productService.selectOrder(userId);
 		
 		model.addAttribute("orderList", orderList);
 				

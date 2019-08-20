@@ -9,6 +9,9 @@
     <bean id="authLoginSuccessHandler"
     	  class="com.example.project.security.AuthLoginSuccessHandler"></bean>
     	  
+    	  <bean id="authLogoutSuccessHandler"
+    	  class="com.example.project.security.AuthLogoutSuccessHandler"></bean>
+    	  
     
     <!-- 정적 리소스 파일 -->
     <sec:http pattern="/css/**" security="none" />
@@ -34,7 +37,7 @@
         <!-- 로그아웃 설정 -->
         <sec:logout invalidate-session="true"
                     logout-url="/logout"   
-                    logout-success-url="/main.do" />
+                    success-handler-ref="authLogoutSuccessHandler" />
         <!-- 세션 관련 설정 -->
         <sec:session-management>
         	<sec:concurrency-control max-sessions="1"

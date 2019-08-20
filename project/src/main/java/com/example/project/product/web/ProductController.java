@@ -128,7 +128,7 @@ public class ProductController {
 	public String productRegistInit(ProductVO productVO, Model model) {
 		
 		model.addAttribute("productVO", productVO);
-		
+		model.addAttribute("mode", "insert");
 		return "product/productInsert";
 	}
 
@@ -186,6 +186,7 @@ public class ProductController {
 		}
 		
 		model.addAttribute("productVO", productVO);
+		model.addAttribute("mode", "update");
 			
 		return "product/productInsert";
 			

@@ -21,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertReplyList" parameterType="map">
-		INSERT INTO T_REPLY (REPLY_CONTENT, BOARD_ID, USER_ID)
-        			VALUES (#{replyContent}, #{boardId}, #{userId})
+		INSERT INTO T_REPLY (REPLY_CONTENT, BOARD_ID, USER_ID, REPLY_DATE)
+        			VALUES (#{replyContent}, #{boardId}, #{userId}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
 	</insert>
 	
 	<update id="updateReplyList" parameterType="map">

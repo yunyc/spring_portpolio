@@ -118,6 +118,8 @@ public class QuestController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			questVO.setQuestState("답변 완료");
+			questVO = questService.selectQuestList(questVO).get(0);
 		}
 		
 		List<QuestAnswerVO> answerList = questService.selectAnswerList(answerVO);

@@ -37,12 +37,10 @@ $(function() {
     	
     	
     });
+    // 새 창 띄우기
+    $("#find").click(function() {
     
-    $("#find").add("#signup").click(function() {
-    	
-    	var id = $(this).attr("id");
-    
-		window.open("/" + id, "새 창",
+		window.open("/find", "정보 찾기",
 			"width=400, height=300ar=no, resizable=yes" ); 
 	});
 	

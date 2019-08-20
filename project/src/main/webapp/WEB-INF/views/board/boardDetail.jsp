@@ -34,7 +34,9 @@
 						<div class="reply" style="min-height: 200px;">
 							<p>${varReply.userId}</p>
 							<p>${varReply.replyContent}</p>
+							<c:if test="${userId eq varReply.userId}">
 							<button id="slide">댓글 수정/삭제</button>
+							</c:if>
 						</div>
 						<div id="regist" style="display: none;">
 					    	<form>
