@@ -4,20 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : UserService.java
+ * @Description : UserService interface
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 public interface UserService {
@@ -28,7 +26,7 @@ public interface UserService {
 	 * @return "List<UserVO>"
 	 * @exception Exception
 	 */
-	List<UserVO> selectUserList(HashMap<String, Object> map) throws Exception;
+	List<UserVO> selectUserList(HashMap<String, Object> map);
 	
 	/**
 	 * 사용자 등록
@@ -73,5 +71,12 @@ public interface UserService {
 	 * @exception Exception
 	 */
 	void sendUserInfo(String email, String userId, String userPassword);
-
+	
+	/**
+	 * 인증기 n자리 생성
+	 * @param email - 사용자 이메일
+	 * @return authKey
+	 * @exception Exception
+	 */
+	int getAuthKey(int num);
 }

@@ -17,6 +17,9 @@
     	margin: 20px 0;
     	width: 350px;
 	}
+	.form_tag {
+	    margin: 10px;
+	}
 	
 </style>
 </head>
@@ -46,20 +49,30 @@
                     <p>회원가입</p>
                 </div>
 	<form:form method="post" modelAttribute="userVO">
-		<p>아이디</p>
-		<form:input path="userId" />
-		<form:errors path="userId" cssClass="err" />
-		<p>비밀번호</p>
-		<form:input path="userPassword"/>
-		<form:errors path="userPassword" cssClass="err" />
-		<p>비밀번호 확인</p>
-		<form:input path="passwordConfirm"/>
-		<form:errors path="passwordConfirm" cssClass="err" />
-		<p>이메일</p>
-		<form:input path="emailPrefix"/>@<form:input path="emailSuffix"/>
-		<form:errors path="emailPrefix" cssClass="err" />
-		<form:errors path="emailSuffix" cssClass="err" />
-		<input id="sign" type="submit" />
+		<div class="form_tag">
+			<p>아이디(아이디는 4~20자리의 영문이어야 합니다.)</p>
+		    <form:input path="userId" />
+			<form:errors path="userId" cssClass="err" />
+		</div>
+		<div class="form_tag">
+		    <p>비밀번호(비밀번호는 4~20자리의 영문,숫자이어야 합니다.)</p>
+		    <form:password path="userPassword"/>
+		    <form:errors path="userPassword" cssClass="err" />
+		</div>
+		<div class="form_tag">
+		    <p>비밀번호 확인</p>
+			<form:password path="passwordConfirm"/>
+			<form:errors path="passwordConfirm" cssClass="err" />
+		</div>
+		<div class="form_tag">
+			<p>이메일</p>
+			<form:input path="emailPrefix"/>@<form:input path="emailSuffix"/>
+			<form:errors path="emailPrefix" cssClass="err" />
+			<form:errors path="emailSuffix" cssClass="err" />
+		</div>
+		<div class="form_tag">
+			<input id="sign" type="submit" />
+		</div>
 	</form:form>
 	</div>
 

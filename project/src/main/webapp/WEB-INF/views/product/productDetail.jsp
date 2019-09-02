@@ -45,7 +45,7 @@
             <script>
                 window.config = {
                     "productId": ${productVO.productId},
-                    "productTitle": ${productVO.productTitle},
+                    "productTitle": "${productVO.productTitle}",
                     "good": ${productVO.productGood},
                     "bad": ${productVO.productBad},
                     "point": ${productVO.productPoint},

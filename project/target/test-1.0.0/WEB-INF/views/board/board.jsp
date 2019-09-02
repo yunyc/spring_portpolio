@@ -21,11 +21,10 @@
                    <table>
                        <thead>
                            <tr width="100px">
-                               <td width="60px">번호</td>
-                               <td width="300px">제목</td>
-                               <td width="100px">작성자</td>
+                               <td width="40px">번호</td>
+                               <td width="500px">제목</td>
+                               <td width="200px">작성자</td>
                                <td width="100px">날짜</td>
-                               <td width="50px">답변여부</td>
                            </tr>
                        </thead>
                        <tbody>
@@ -35,10 +34,12 @@
 									<td>
 										<a href="/board/${varBoardList.boardId}">
 											<c:out value="${varBoardList.boardTitle}"/>
+											<c:if test="${varBoardList.replyCnt != 0}">
+												<span class="replyCnt">[<c:out value='${varBoardList.replyCnt}'/>]</span>
+											</c:if>
 										</a>
 									</td>
 									<td><c:out value="${varBoardList.userId}"/></td>
-									<td><c:out value="${varBoardList.boardType}"/></td>
 									<td><c:out value="${varBoardList.boardDate}"/></td>
 								</tr>
 							</c:forEach>
@@ -46,29 +47,13 @@
                    </table>
                </div>
                <ul class="pagination">
-                <li><a href="<c:url value='/board?currentPage=${pagingVO.currentPage - 1}'/>">&laquo;</a></li>
+                <li><a href="<c:url value='/board?currentPage=${pagingVO.startPage - 1}'/>">&laquo;</a></li>
                 <c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
 					<li><a href="<c:url value='/board?currentPage=${page}'/>">${page}</a></li>
 				</c:forEach>
-                <li><a href="<c:url value='/board?currentPage=${pagingVO.currentPage + 1}'/>">&raquo;</a></li>
+                <li><a href="<c:url value='/board?currentPage=${pagingVO.endPage + 1}'/>">&raquo;</a></li>
             </ul> 
-            <a href="<c:url value='/board/post'/>">새 글 쓰기</a>    
-            </div>
-
-
-
-
-
-
-
-
-
-
-		
-		
-		
-		
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
+            <a class="new_post" href="<c:url value='/board/post'/>">새 글 쓰기</a>    
+            </div>	
 </body>
 </html>

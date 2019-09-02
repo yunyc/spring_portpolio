@@ -14,7 +14,7 @@
 	<header id="header">
 	            <div class="container">
 	                <div class="logo_image">
-	                	<a href="<c:url value='/main'/>"><p>로고</p></a>
+	                	<a href="<c:url value='/main'/>"><p>메인 화면</p></a>
 	                </div>
 	                <ul class="right_menu">
 	                	<sec:authorize access="isAnonymous()">

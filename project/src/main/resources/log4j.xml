@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.example.project">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -31,6 +31,11 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+	<logger name="jdbc.sqltiming" additivity="false">
+        <level value="debug" />
+        <appender-ref ref="console" />
+    </logger>
 
 	<!-- Root Logger -->
 	<root>

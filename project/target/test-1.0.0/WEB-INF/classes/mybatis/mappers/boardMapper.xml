@@ -7,19 +7,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.example.project.board.service.impl.BoardMapper">
 	
 	<select id="selectBoardList" parameterType="BoardVO" resultType="BoardVO">
-		 SELECT BOARD_ID
-		       ,BOARD_TITLE
-		       ,BOARD_CONTENT
-		       ,BOARD_TYPE
-		       ,BOARD_DATE
-		       ,USER_ID
-		  FROM T_BOARD
+		 SELECT B.BOARD_ID
+       		  ,B.BOARD_TITLE
+       		  ,B.BOARD_CONTENT
+              ,B.BOARD_DATE
+              ,B.USER_ID
+              ,CNT.REPLY_CNT
+  		  FROM T_BOARD B 
+          LEFT JOIN (SELECT B.BOARD_ID
+                           ,COUNT(R.REPLY_ID) REPLY_CNT
+                       FROM T_BOARD B LEFT JOIN T_REPLY R 
+                         ON B.BOARD_ID = R.BOARD_ID 
+                   GROUP BY B.BOARD_ID) CNT
+          ON B.BOARD_ID = CNT.BOARD_ID
 		  <where>
 		  	<if test="boardId != null and boardId != 0">
-		  		AND BOARD_ID = #{boardId}
+		  		AND B.BOARD_ID = #{boardId}
+		  	</if>
+		  	<if test="userId != null and userId != ''">
+		  		AND B.USER_ID = #{userId}
 		  	</if>
 		  </where>
-		  ORDER BY BOARD_ID DESC
+		  ORDER BY B.BOARD_ID DESC
 	</select>
 	
 	<select id="countBoardList" resultType="map">
@@ -28,15 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertBoardList" parameterType="BoardVO">
-		INSERT INTO T_BOARD (BOARD_TITLE ,BOARD_CONTENT, BOARD_TYPE, BOARD_DATE, USER_ID)
-                      VALUES(#{boardTitle}, #{boardContent}, #{boardType}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userId})
+		INSERT INTO T_BOARD (BOARD_TITLE ,BOARD_CONTENT, BOARD_DATE, USER_ID)
+                      VALUES(#{boardTitle}, #{boardContent}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{userId})
 	</insert>
 	
 	<update id="updateBoardList" parameterType="BoardVO">
 		UPDATE T_BOARD 
 		   SET BOARD_TITLE = #{boardTitle}
 		      ,BOARD_CONTENT = #{boardContent}
-		      ,BOARD_TYPE = #{boardType}
 		      ,BOARD_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		WHERE BOARD_ID = #{boardId}
 		           

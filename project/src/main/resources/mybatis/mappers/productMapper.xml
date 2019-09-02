@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertOrder" parameterType="map">
 		INSERT INTO T_ORDER(USER_ID, PRODUCT_ID, ORDER_TITLE, ORDER_DATE)
-            VALUES (#{userId}, #{productId}, #{productTile}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+            VALUES (#{userId}, #{productId}, #{productTitle}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
 	</insert>
 	
 	<delete id="deleteOrder" parameterType="String">

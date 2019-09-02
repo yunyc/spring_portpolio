@@ -8,6 +8,21 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
 
+/**
+ * @Class Name : QuestMapper.java
+ * @Description : QuestMapper interface
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2019.09.02               버그 수정
+ *
+ * @author yunyc
+ * @since 2019. 07.01
+ * @version 1.0
+ * @see
+ *
+ */
+
 @Mapper
 public interface QuestMapper {
 	

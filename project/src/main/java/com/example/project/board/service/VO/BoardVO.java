@@ -1,14 +1,51 @@
 package com.example.project.board.service.VO;
 
+import javax.validation.constraints.Size;
+
+/**
+ * @Class Name : BoardVO.java
+ * @Description : BoardVO Class
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2019.09.02               버그 수정
+ *
+ * @author yunyc
+ * @since 2019. 07.01
+ * @version 1.0
+ * @see
+ *
+ */
+
 public class BoardVO {
 	
+	/** 문의사항 식별 번호 */
 	private int boardId;
-	private String boardTitle;
-	private String boardContent;
-	private String boardType;
-	private String boardDate;
-	private String userId = "yunyc";
 	
+	/** 문의사항 제목 */
+	@Size(min = 1, max = 80)
+	private String boardTitle;
+	
+	/** 문의사항 내용 */
+	private String boardContent;
+	
+	/** 문의사항 작성 날짜 */
+	private String boardDate;
+	
+	/** 사용자 아이디 */
+	private String userId;
+	
+	/** 문의사항 답변 개수 */
+	private int replyCnt;
+	
+	
+	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 	public int getBoardId() {
 		return boardId;
 	}
@@ -27,12 +64,6 @@ public class BoardVO {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public String getBoardType() {
-		return boardType;
-	}
-	public void setBoardType(String boardType) {
-		this.boardType = boardType;
-	}
 	public String getBoardDate() {
 		return boardDate;
 	}
@@ -49,7 +80,7 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardType=" + boardType + ", boardDate=" + boardDate + ", userId=" + userId + "]";
+				+ ", boardType="  + ", boardDate=" + boardDate + ", userId=" + userId + "]";
 	}
 	
 	

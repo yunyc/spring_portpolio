@@ -16,20 +16,18 @@ import com.example.project.user.service.UserService;
 import com.example.project.user.service.UserVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : UserServiceImpl.java
+ * @Description : UserServiceImpl Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Service
@@ -50,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	 * @exception Exception
 	 */
 	@Override
-	public List<UserVO> selectUserList(HashMap<String, Object> map) throws Exception {
+	public List<UserVO> selectUserList(HashMap<String, Object> map) {
 		return userMapper.selectUserList(map);
 	}
 	
@@ -142,6 +140,25 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 인증기 n자리 생성
+	 * @param email - 사용자 이메일
+	 * @return authKey
+	 * @exception Exception
+	 */
+	@Override
+	public int getAuthKey(int num) {
+		
+		int max = (int) Math.pow(10, num);
+		int min = (int) Math.pow(10, (num - 1));
+		int authKey = (int) Math.floor(Math.random() * max) + min;
+		
+		if(authKey > max){
+			authKey -= min;
+		} 
+		return authKey;
 	}
 
 }

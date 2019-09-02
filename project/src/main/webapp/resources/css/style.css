@@ -22,6 +22,8 @@
 }
 #header .logo_image {
     float: left;
+    padding: 20px;
+    font-size: 30px;
 }
 
 #header .right_menu {
@@ -84,7 +86,7 @@
 #contents .main_content .product {
     width: 30%;
     height: 200px;
-    margin: 13px;
+    margin: 30px 13px;
 }
 
 #contents .main_content .thumnail {
@@ -97,11 +99,6 @@
 
 #contents .main_content .info span {
     float: right;
-}
-
-#contents .main_content .user_quest {
-    height: 450px;
-    
 }
 
 #contents .main_content .user_response {
@@ -152,7 +149,7 @@
 
 #contents .quest_banner {
     width: 408px;
-    height: 305px;
+    height: 373px;
     border: 1px solid #aaa;
     margin-top: 20px;
     display: inline-block;
@@ -203,7 +200,7 @@
 
 #contents .good_banner {
      width: 408px;
-     height: 370px;
+     height: 283px;
      border: 1px solid #aaa;
     margin-top: 20px;
 }
@@ -238,8 +235,8 @@
 
 
 #contents .main_content .pagination {
-    position: relative;
-    left: 400px;
+    margin: auto;
+    width: fit-content;
     
 }
 
@@ -280,10 +277,18 @@
 }
 
 #contents .reply {
-    width: 840px;
+    width: 800px;
     min-height: 150px;
     border-bottom: 1px solid #000;
+    background: #eee;
+    padding: 10px;
     
+}
+
+p#userId {
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 #contents .reply .user {
@@ -376,7 +381,7 @@
 
 #contents .sidebar .recent {
     width: 250px;
-    height: 255px;
+    height: 250px;
     background: #fff;
     border: #aaa solid 1px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -511,7 +516,7 @@
 .quest_content {
     padding: 10px;
     width: calc(100% - 20px);
-    min-height: 300px;
+    min-height: 200px;
     
 }
 
@@ -624,7 +629,7 @@ td a {
 }
 
 .product_content p {
-	width: 184px;
+	width: 254px;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -696,6 +701,8 @@ td a:hover, .product a:hover {
 .err {
 		color: red;
 		font-size: 13px;
+		display: block;
+        margin: 10px 0;
 	}
 	
 .good_bad #button {
@@ -707,4 +714,73 @@ td a:hover, .product a:hover {
     text-align: center;
     font-size: 15px;
     color: #fff;
+}
+
+.form_tag input {
+    width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+}
+
+input#sign {
+    width: 450px;
+}
+
+.board {
+    margin-bottom: 20px;
+}
+
+.new_post {
+    background: #4f6cff;
+    width: 100px;
+    color: #fff;
+    text-align: center;
+    float: right;
+    padding: 7px;
+}
+
+p#notify {
+    padding: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+
+button#delete {
+    position: relative;
+    top: -100px;
+}
+
+button#questLoad {
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    background: #0877ee;
+    color: #fff;
+    border: none;
+}
+
+.button_group {
+    float: right;
+    width: 320px;
+    margin-top: 30px;
+}
+
+.button_group > button {
+    color: #fff;
+    width: 150px;
+    float: left;
+}
+
+.replyCnt {
+	color: red;
+}
+
+p#content {
+    padding: 5px;
+}
+
+p#date {
+    padding: 0 20px;
+    font-weight: 100;
 }

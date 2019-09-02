@@ -28,11 +28,12 @@ a {
 .title {
     padding: 10px;
     border-bottom: 1px solid #000;
-    background: #ddd;
+    background: #eee;
 }
 
 .title p {
     font-size: 18px;
+    font-weight: 700;
 }
 
 .title a {

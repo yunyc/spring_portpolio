@@ -14,12 +14,14 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.example.project" />
+	
 	<!-- 아파치 DBCP 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 	       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-	       <property name="url" value="jdbc:oracle:thin:@database-1.cy8yovrasnmu.us-east-2.rds.amazonaws.com:1521:ORCL" />
+	       <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
 	       <property name="username" value="yunyc"/>
 	       <property name="password" value="btv4ue12!!"/>
 	</bean>

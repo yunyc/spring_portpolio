@@ -13,7 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form modelAttribute="BoardVO">
+	<div class="main_content">
+		<form:form modelAttribute="BoardVO">
 		<form:hidden path="boardId" value="${boardVO.boardId}"/>
 		<form:hidden path="userId" value="${userId}"/>
 		<p>제목</p>
@@ -21,13 +22,10 @@
 		<form:errors path="boardTitle"/>
 		<p>글내용</p>
 		<form:textarea path="boardContent" value="${boardVO.boardContent}"/>
-		<p>글분류</p>
-		<form:input path="boardType" value="${boardVO.boardType}"/>
 		<button class="post" type="button">글 생성</button>
 		<button class="patch" type="button">글 수정</button>
 		<input type="hidden" name="_method" value="" />
 	</form:form>
-	
-	
+	</div>
 </body>
 </html>

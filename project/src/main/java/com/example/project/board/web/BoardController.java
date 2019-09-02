@@ -5,10 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.taglibs.standard.lang.jstl.test.beans.Factory;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,23 +30,25 @@ import com.example.project.board.service.VO.ReplyVO;
 import com.example.project.board.service.BoardService;
 import com.example.project.board.service.VO.BoardVO;
 import com.example.project.paging.PagingVO;
-import com.example.project.board.service.VO.ReplyVO;
+import com.example.project.product.service.ProductService;
+import com.example.project.product.service.VO.ProductVO;
+import com.example.project.question.service.QuestService;
+import com.example.project.question.service.VO.QuestVO;
+
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : BoardController.java
+ * @Description : BoardController Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
@@ -57,6 +58,27 @@ public class BoardController {
 	/** BoardService 인터페이스 */
 	@Resource
 	private BoardService boardService;
+	
+	@Resource
+	private QuestService questService;
+	
+	@Resource
+	private ProductService productService;
+	
+	@ModelAttribute("bestQuestList")
+	public List<QuestVO> sideQuestInit(QuestVO questVO) throws Exception {
+		
+		questVO.setQuestGood(1);
+		return questService.selectQuestList(questVO);
+		
+	}
+	
+	@ModelAttribute("bestProductList")
+	public List<ProductVO> sideProductInit(ProductVO productVO) throws Exception {
+		
+		productVO.setProductGood(1);
+		return productService.selectProductList(productVO);
+	}
 	
 	/**
 	 * 게시글 목록을 조회
@@ -136,7 +158,7 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@PostMapping("/post")
-	public String boardInsertSubmit(@ModelAttribute BoardVO boardVO) throws Exception {
+	public String boardInsertSubmit(@ModelAttribute @Valid BoardVO boardVO) throws Exception {
 		
 		boardService.insertBoardList(boardVO);
 		
@@ -177,7 +199,7 @@ public class BoardController {
 	 * @exception Exception
 	 */
 	@PatchMapping("/post/{boardId}")
-	public String boardUpdateSubmit(@ModelAttribute BoardVO boardVO,
+	public String boardUpdateSubmit(@ModelAttribute @Valid BoardVO boardVO,
 			@PathVariable int boardId) throws Exception {
 		
 		boardService.updateBoardList(boardVO);

@@ -9,8 +9,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<style>
+.quest_content {
+    padding: 10px;
+    width: calc(100% - 20px);
+    min-height: 300px;
+    margin-top: 70px;
+    
+}
+
+</style>
 </head>
 <body>
 	<div class="title" style="width: 862px; position: absolute; z-index: 99;">
@@ -31,32 +39,40 @@
                        <p>댓글</p>
                    </div>
                     <c:forEach items="${replyList}" var="varReply">
-						<div class="reply" style="min-height: 200px;">
-							<p>${varReply.userId}</p>
-							<p>${varReply.replyContent}</p>
+						<div class="reply" style="min-height: 150px;">
+							<p id="userId">${varReply.userId}님의 댓글</p>
+							<p id="date">${varReply.replyDate}작성</p>
+							<p id="content">${varReply.replyContent}</p>
 							<c:if test="${userId eq varReply.userId}">
-							<button id="slide">댓글 수정/삭제</button>
+							<button class="slide">댓글 수정/삭제</button>
 							</c:if>
 						</div>
-						<div id="regist" style="display: none;">
+						<div class="regist" style="display: none;">
 					    	<form>
-								<textarea id="update_text" rows="" cols=""></textarea>
-								<input id="replyId" type="hidden" value="${varReply.replyId}"/>
-								<input id="boardId" type="hidden" value="${boardVO.boardId}"/>
+								<textarea class="update_text"></textarea>
+								<input class="replyId" type="hidden" value="${varReply.replyId}"/>
 								<button id="patch" type="button">수정</button>
-								<button type="button">삭제</button>
+								<button id="delete" type="button">삭제</button>
 							</form>
 						</div>
-						
-                   
+
 				</c:forEach>
-				<div id="new">
-					<form>
-						<textarea id="submit" rows="" cols=""></textarea>
-						<input id="userId" type="hidden" value="yunyc1010"/>
-						<button id="post">댓글 달기</button>
-					</form>
-				</div>
+				<c:choose>
+					<c:when test="${userId eq null}">
+						<p id="notify">로그인을 해야 댓글을 달 수 있습니다</p>
+					</c:when>
+					<c:otherwise>
+						<div id="new">
+							<form>
+								<textarea class="update_text"></textarea>
+								<input id="userIdId" type="hidden" value="${userId}"/>
+								<input id="boardId" type="hidden" value="${boardVO.boardId}"/>
+								<button id="post">댓글 달기</button>
+							</form>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				
 					
                 </div>
             </div>

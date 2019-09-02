@@ -8,40 +8,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 질문 조회 -->
 	<select id="selectQuestList" resultType="QuestVO">
-		SELECT QUEST_ID
-       		  ,QUEST_TITLE
-       		  ,QUEST_CONTENT
-              ,QUEST_DATE
-              ,QUEST_STATE
-              ,QUEST_GOOD
-              ,QUEST_BAD
-              ,USER_ID
-  		  FROM T_QUESTION
+		SELECT Q.QUEST_ID
+       		  ,Q.QUEST_TITLE
+       		  ,Q.QUEST_CONTENT
+              ,Q.QUEST_DATE
+              ,Q.QUEST_STATE
+              ,Q.QUEST_GOOD
+              ,Q.QUEST_BAD
+              ,Q.USER_ID
+              ,CNT.ANSWER_CNT
+  		  FROM T_QUESTION Q 
+          LEFT JOIN (SELECT Q.QUEST_ID
+                           ,COUNT(A.ANSWER_ID) ANSWER_CNT
+                       FROM T_QUESTION Q LEFT JOIN T_ANSWER A 
+                         ON Q.QUEST_ID = A.QUEST_ID 
+                   GROUP BY Q.QUEST_ID) CNT
+          ON Q.QUEST_ID = CNT.QUEST_ID
   		  <where>
   		  	<if test="questId != null and questId != 0">
-  		  		 AND QUEST_ID = #{questId}
+  		  		 AND Q.QUEST_ID = #{questId}
   		  	</if>
-  		  	<if test="questState != null and questState != ''">
-  		  		AND QUEST_STATE = #{questState}
+  		  	<if test="questState == '답변 대기'">
+  		  		AND Q.QUEST_STATE = '답변 대기'
   		  	</if>
-  		  	<if test="questState == null or questState == ''">
-  		  		AND QUEST_STATE = '답변 대기'
-  		  	</if>
-  		  	<if test="questGood != null and questGood != 0">
-  		  		AND QUEST_STATE = '답변 대기'
-  		  		OR QUEST_STATE = '답변 완료'
+  		  	<if test="questState == '답변 완료'">
+  		  		AND Q.QUEST_STATE = '답변 완료'
   		  	</if>
   		  	<if test="keyword != null and keyword != ''">
-  		  		AND QUEST_CONTENT LIKE '%' || #{keyword} || '%'
-  		  		 OR QUEST_TITLE LIKE '%' || #{keyword} || '%'
+  		  		AND Q.QUEST_CONTENT LIKE '%' || #{keyword} || '%'
+  		  		 OR Q.QUEST_TITLE LIKE '%' || #{keyword} || '%'
+  		  	</if>
+  		  	<if test="userId != null and userId != ''">
+  		  		 AND Q.USER_ID = #{userId}
   		  	</if>
   		  </where>
   		  <choose>
   		  	<when test="questGood != null and questGood != 0">
-  		  		ORDER BY QUEST_GOOD DESC
+  		  		ORDER BY Q.QUEST_GOOD DESC
   		  	</when>
   		  	<otherwise>
-  		  	    ORDER BY QUEST_DATE 
+  		  	    ORDER BY Q.QUEST_DATE 
   		  	</otherwise>
   		  </choose>
   		  	

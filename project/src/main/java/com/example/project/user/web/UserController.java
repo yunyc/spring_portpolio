@@ -21,25 +21,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.project.product.service.ProductService;
+import com.example.project.product.service.VO.ProductVO;
+import com.example.project.question.service.QuestService;
+import com.example.project.question.service.VO.QuestVO;
 import com.example.project.user.service.UserService;
 import com.example.project.user.service.UserVO;
-import com.example.project.user.vaildator.SignUpVaildator;
+import com.example.project.vaildator.SignUpVaildator;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : UserController.java
+ * @Description : UserController Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
@@ -47,6 +50,27 @@ public class UserController {
 	/** UserService 인터페이스 */
 	@Resource
 	private UserService userService;
+	
+	@Resource
+	private QuestService questService;
+	
+	@Resource
+	private ProductService productService;
+	
+	@ModelAttribute("bestQuestList")
+	public List<QuestVO> sideQuestInit(QuestVO questVO) throws Exception {
+		
+		questVO.setQuestGood(1);
+		return questService.selectQuestList(questVO);
+		
+	}
+	
+	@ModelAttribute("bestProductList")
+	public List<ProductVO> sideProductInit(ProductVO productVO) throws Exception {
+		
+		productVO.setProductGood(1);
+		return productService.selectProductList(productVO);
+	}
 	
 	/**
 	 * 로그인 화면 이동
@@ -93,13 +117,7 @@ public class UserController {
 	public String userInsert(HttpServletRequest req, HttpServletResponse res, 
 			@ModelAttribute @Valid UserVO userVO, BindingResult result ,Random random) throws Exception {
 				
-		new SignUpVaildator().validate(userVO, result);
-
-		try {
-			userService.insertUserList(userVO);
-		} catch (Exception e) {
-			result.rejectValue("userId", "userId.error");
-		}
+		new SignUpVaildator(userService).validate(userVO, result);
 
 		// 유효성 검사 불통과 시
 		if (result.hasErrors()) {
@@ -109,20 +127,17 @@ public class UserController {
 		} else {
 			
 			// 인증키 6자리 생성
-			int authKey = (int) Math.floor(Math.random() * 1000000)+100000;
-			if(authKey>1000000){
-				authKey = authKey - 100000;
-			} 
+			int authKey = userService.getAuthKey(6);
 			userVO.setAuthKey(authKey);
 			
 			// 데이터베이스 업데이트
+			userService.insertUserList(userVO);
 			userService.insertAuthority(userVO);
 			
 			// 메일 보내기
-			String email = userVO.getUserEmail();
 			req.setCharacterEncoding("utf-8");
 			res.setContentType("text/html;charset=utf-8");
-			userService.sendAuthKey(email, userVO.getUserId(), userVO.getAuthKey());
+			userService.sendAuthKey(userVO.getUserEmail(), userVO.getUserId(), userVO.getAuthKey());
 			
 			return "redirect:/main.do";
 		}
@@ -169,18 +184,25 @@ public class UserController {
 	 */
 	@ResponseBody
 	@PostMapping("/find")
-	public String find(@RequestParam HashMap<String, Object> emailMap, Model model) throws Exception {
+	public String find(@RequestBody HashMap<String, Object> emailMap, 
+			Model model) throws Exception {
 		
 		String email = (String) emailMap.get("userEmail");
-		 
+		String state = null;
+		
+		// 사용자 정보 조회
 		List<UserVO> userList = userService.selectUserList(emailMap);
 		
-		String userId = userList.get(0).getUserId();
-		String userPassword = userList.get(0).getUserPassword();
+		if (userList.size() > 0) {
+			state = "success";
+			String userId = userList.get(0).getUserId();
+			String userPassword = userList.get(0).getUserPassword();
+			
+			// 메일 전송
+			userService.sendUserInfo(email, userId, userPassword);
+		}
 		
-		userService.sendUserInfo(email, userId, userPassword);
-				
-		return "확인 메일이 전송되었습니다";
+		return state;
 	}
 
 }

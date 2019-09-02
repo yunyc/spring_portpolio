@@ -24,7 +24,7 @@
             </div>
             	<!-- 질문 상태 탭 -->
                     <ul class="tab">
-                        <li><a href="<c:url value='/quest'/>">답변을 기다리는 질문</a></li>
+                        <li><a href="<c:url value='/quest?questState=답변 대기'/>">답변을 기다리는 질문</a></li>
                         <li><a href="<c:url value='/quest?questState=답변 완료'/>">답변이 완료된 질문</a></li>
                         <li><a href="<c:url value='/quest?questGood=1'/>">좋아요가 높은 질문</a></li>
                     </ul>
@@ -43,10 +43,10 @@
                             </div>
                             <div class="response">
                                 <div class="response_list">
-                                    <p>답변 <c:out value='0' />개</p>
+                                    <p>답변 <c:out value='${varQuestList.answerCnt}' />개</p>
                                 </div>
                                 <div class="response_list">
-                                    <p>추천 <c:out value='${varQuestList.questGood}' />개</p>
+                                    <p>좋아요 <c:out value='${varQuestList.questGood}' />개</p>
                                 </div>
                             </div>
                             </a>

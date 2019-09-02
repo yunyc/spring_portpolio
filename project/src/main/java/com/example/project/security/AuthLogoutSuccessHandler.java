@@ -19,26 +19,21 @@ import com.example.project.user.service.UserService;
 import com.example.project.user.service.UserVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : AuthLogoutSuccessHandler.java
+ * @Description : AuthLogoutSuccessHandler Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 public class AuthLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
-	
-	@Resource
-	private UserService userService;
 	
 	/**
 	 * 로그 아웃 후 페이지 유지

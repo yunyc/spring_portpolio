@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.project.board.service.BoardService;
@@ -20,20 +21,18 @@ import com.example.project.user.service.UserService;
 import com.example.project.user.service.UserVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : adminController.java
+ * @Description : admin Controller Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
@@ -51,6 +50,21 @@ public class adminController {
 	
 	@Resource
 	private BoardService boardService;
+	
+	@ModelAttribute("bestQuestList")
+	public List<QuestVO> sideQuestInit(QuestVO questVO) throws Exception {
+		
+		questVO.setQuestGood(1);
+		return questService.selectQuestList(questVO);
+		
+	}
+	
+	@ModelAttribute("bestProductList")
+	public List<ProductVO> sideProductInit(ProductVO productVO) throws Exception {
+		
+		productVO.setProductGood(1);
+		return productService.selectProductList(productVO);
+	}
 	
 	/**
 	 * 사용자 정보 조회

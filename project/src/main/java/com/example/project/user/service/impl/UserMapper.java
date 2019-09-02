@@ -7,20 +7,18 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.project.user.service.UserVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : UserMapper.java
+ * @Description : UserMapper interface
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Mapper
@@ -32,7 +30,7 @@ public interface UserMapper {
 	 * @return "List<UserVO>"
 	 * @exception Exception
 	 */
-	List<UserVO> selectUserList(HashMap<String, Object> map) throws Exception;
+	List<UserVO> selectUserList(HashMap<String, Object> map);
 	
 	/**
 	 * 사용자 등록

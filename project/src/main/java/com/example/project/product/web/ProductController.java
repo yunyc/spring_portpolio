@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,22 +38,22 @@ import com.example.project.paging.PagingVO;
 import com.example.project.point.service.PointService;
 import com.example.project.product.service.ProductService;
 import com.example.project.product.service.VO.ProductVO;
+import com.example.project.question.service.QuestService;
+import com.example.project.question.service.VO.QuestVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : ProductController.java
+ * @Description : ProductController Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
@@ -64,6 +65,24 @@ public class ProductController {
 	
 	@Resource
 	private PointService pointService;
+	
+	@Resource
+	private QuestService questService;
+	
+	@ModelAttribute("bestQuestList")
+	public List<QuestVO> sideQuestInit(QuestVO questVO) throws Exception {
+		
+		questVO.setQuestGood(1);
+		return questService.selectQuestList(questVO);
+		
+	}
+	
+	@ModelAttribute("bestProductList")
+	public List<ProductVO> sideProductInit(ProductVO productVO) throws Exception {
+		
+		productVO.setProductGood(1);
+		return productService.selectProductList(productVO);
+	}
 	
 	/**
 	 * 상품 목록을 조회
@@ -100,7 +119,7 @@ public class ProductController {
 	 * @exception Exception
 	 */
 	@GetMapping("/{productId}")
-	public String productDetailInit(@PathVariable int productId, 
+	public String productDetail(@PathVariable int productId, 
 			ProductVO productVO, Model model) throws Exception {
 		
 		try {
@@ -143,7 +162,7 @@ public class ProductController {
 	 */
 	@Transactional
 	@PostMapping("/regist")
-	public String productInsert(@ModelAttribute ProductVO productVO, FileVO fileVO,
+	public String productInsert(@ModelAttribute @Valid ProductVO productVO, FileVO fileVO,
 			HttpServletRequest req, @RequestParam MultipartFile file) throws Exception {
 		
 		fileVO.setUpload(file);
@@ -205,7 +224,7 @@ public class ProductController {
 	@Transactional
 	@PostMapping("/regist/{productId}")
 	public String productUpdate(@PathVariable int productId, @RequestParam MultipartFile file, 
-			@ModelAttribute ProductVO productVO, FileVO fileVO, HttpServletRequest req) throws Exception {
+			@ModelAttribute @Valid ProductVO productVO, FileVO fileVO, HttpServletRequest req) throws Exception {
 		
 		fileVO.setUpload(file);
 		fileVO.setFileUpload(req);
@@ -246,21 +265,19 @@ public class ProductController {
 	
 	/**
 	 * 상품 구매하기
-	 * @param productId - 상품 번호
-	 * @param productVO - 상품 관련 정보 ProductVO
-	 * @return "redirect:/product"
+	 * @param orderMap - 상품 정보
+	 * @return void
 	 * @exception Exception
 	 */
 	@Transactional
 	@ResponseBody
 	@PostMapping("/purchase")
-	public HashMap<String, Object> productPurchase(@RequestBody HashMap<String, Object> orderMap) throws Exception {
+	public void productPurchase(@RequestBody HashMap<String, Object> orderMap) 
+			throws Exception {
 		
 		// 포인트 차감
 		pointService.plusPoint(orderMap);
 		// 주문 추가
 		productService.insertOrder(orderMap);
-
-		return orderMap;
 	}
 }

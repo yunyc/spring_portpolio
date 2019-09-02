@@ -26,10 +26,10 @@
                    </div>
                    <!--  목록 내용  -->
                    <table>
-                   	<c:forEach items="${questList}" var="questList" begin="0" end="6">
+                   	<c:forEach items="${questList}" var="questList" begin="0" end="8">
                    		<tr>
                            <td>
-                               <a href="<c:url value='/quest/${questVO.questId}'/>">
+                               <a href="<c:url value='/quest/${questList.questId}'/>">
                                    <c:out value='${questList.questTitle}'/>
                                </a>
                            </td>
@@ -51,7 +51,7 @@
                    		    <a href="<c:url value='/product/${productList.productId}'/>">
                    		    	<img class="product_img" src="<c:url value='resources/upload/${productList.productThumnail}'/>" />
                         		<div class="product_content">
-                        			<p><c:out value='${productList.productTitle}'/></p>
+                        			<p style="width: 184px"><c:out value='${productList.productTitle}'/></p>
                    		    	</div>
                    		</a>
                        
@@ -61,8 +61,21 @@
                 </div>
                 <div class="good_banner">
                     <div class="title">
-                       <p>안녕하하</p>
+                       <p>문의사항<a href="<c:url value='/quest'/>">더보기</a></p>
                    </div>
+                   <!--  목록 내용  -->
+                   <table>
+                   	<c:forEach items="${boardList}" var="boardList" begin="0" end="6">
+                   		<tr>
+                           <td>
+                               <a href="<c:url value='/board/${boardList.boardId}'/>">
+                                   <c:out value='${boardList.boardTitle}'/>
+                               </a>
+                           </td>
+                           <td><c:out value='${boardList.boardDate}'/></td>
+                       </tr>
+                   	</c:forEach>
+                   </table>
                 </div>
             </div> 
 </body>

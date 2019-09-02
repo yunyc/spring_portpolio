@@ -7,26 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.example.project.user.service.UserService;
 import com.example.project.user.service.UserVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : SessionInterceptor.java
+ * @Description : SessionInterceptor Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 public class SessionInterceptor extends HandlerInterceptorAdapter {
@@ -43,9 +42,10 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 	 * @exception Exception
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
-			Object handler) throws Exception {
-		
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+
+
 		HttpSession session = request.getSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		UserVO userVO = new UserVO();
@@ -59,9 +59,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		session.setAttribute("userPoint", userVO.getUserPoint());
-		session.setAttribute("userLevel", userVO.getUserLevel());
-		
-		return super.preHandle(request, response, handler);
+		super.postHandle(request, response, handler, modelAndView);
 	}
+	
+	
 
 }

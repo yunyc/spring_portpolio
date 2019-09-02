@@ -24,6 +24,17 @@
         font-size: 15px;
     }
     
+    button {
+    float: right;
+    margin: 10px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    background: #0877ee;
+    border: none;
+    color: #fff;
+}
+    
     </style>
 </head>
 <body>
@@ -33,7 +44,7 @@
                 </div>
                 <div class="quest_form">
                     <form:form class="submit" modelAttribute="questVO">
-                    <form:hidden path="userId" value="yunyc1010"/>
+                    <form:hidden path="userId" value="${userId}"/>
                     <p>질문 제목</p>
                     <form:input path="questTitle" value="${questVO.questTitle}" placeholder="제목을 입력하세요" />
                     <form:errors path="questTitle"/>
@@ -48,13 +59,13 @@
                     
                         <c:choose>
 							<c:when test="${method eq 'post'}">
-								<button id="fn_point(100)" class="post" type="button">제출</button>
+								<button onclick="fn_point(100)" class="post" type="button">제출</button>
 							</c:when>
 							<c:otherwise>
 								<button class="patch" type="button">수정</button>
 							</c:otherwise>
 						</c:choose>
-						<button type="button">취소</button>
+						<button onclick="history.back()" type="button">취소</button>
                    
                     </form:form>
                 </div>

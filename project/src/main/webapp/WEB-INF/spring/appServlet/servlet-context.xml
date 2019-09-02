@@ -12,19 +12,9 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+    	  
+	<!-- Enables the Spring MVC @Controller programming model -->		
 	
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
-	
-	<!--  인터셉터 선언 -->
-	<beans:bean id="interceptor" class="com.example.project.interceptor.SessionInterceptor" />
-	<!--  인터셉터와 url맵핑 -->
-	<interceptors>
-		<interceptor>
-			<mapping path="/*"/>
-			<beans:ref bean="interceptor" />
-		</interceptor>
-	</interceptors>
 	
 	<!-- Register the Customer.properties -->
     <beans:bean id="messageSource"
@@ -61,11 +51,12 @@
 	    </beans:property>
 	</beans:bean>
 	
-	<context:component-scan base-package="com.example.project" />
 	<!--  JSR-303  -->
 	<beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	
 	<aop:aspectj-autoproxy />
+	
+	
 	
 	
 	

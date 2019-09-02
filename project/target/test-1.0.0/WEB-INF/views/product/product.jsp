@@ -21,8 +21,8 @@
                     <div class="option">
                         <form:form modelAttribute="productVO" method="get">
                            <ul class="tab">
-                                <li><a href="#" style="background: #fff; color: #000 ">최신순</a></li>
-                                <li><a href="#" style="background: #fff; color: #000 ">추천순</a></li>
+                                <li><a href="<c:url value='/product'/>" style="color: #000 ">최신순</a></li>
+                                <li><a href="<c:url value='/product?productGood=1'/>" style="color: #000 ">추천순</a></li>
                            </ul>
                             <div class="search">
                                 <form:input path="keyword" placeholder="검색 키워드를 입력하세요" />
@@ -38,28 +38,31 @@
                         </form:form>
                     </div>
                     <div class="product_list">
-                    	<c:forEach items="${productList}" var="varProductList" begin="0" end="5">
+                    	<c:forEach items="${productList}" var="varProductList" begin="${pagingVO.startIndex}" end="${pagingVO.endIndex}">
 	                    	<div class="product">
 	                            <a href="/product/${varProductList.productId}">
 	                                <p><c:out value="${varProductList.productTitle}"/></p>
 	                                <img class="thumnail" src="<c:url value='/resources/upload/${varProductList.productThumnail}'/>" />	                            </a>
 	                            <div class="info">
 	                                <label>좋아요 <c:out value="${varProductList.productGood}"/></label>
-	                                <span>0000-00-00</span>
+	                                <span style="float: right;"><c:out value='${varProductList.productDate}'/></span>
+	                                <p><c:out value="${varProductList.productPoint}"/>포인트</p>
 	                            </div>
 	                        </div>
                     	</c:forEach>
                     </div>
                 </div>
                 <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <c:forEach var="page" begin="1" end="${pagingVO.endPage}">
-                    	<li><a href="#">${page}</a></li>
+                    <li><a href="<c:url value='/product?currentPage=${pagingVO.startPage - 1}'/>">&laquo;</a></li>
+                    <c:forEach var="page" begin="${pagingVO.startPage}" end="${pagingVO.endPage}">
+                    	<li><a href="<c:url value='/product?currentPage=${page}'/>">${page}</a></li>
                     </c:forEach>
-                    
-                    <li><a href="#">&raquo;</a></li>
+                    <li><a href="<c:url value='/product?currentPage=${pagingVO.endPage + 1}'/>">&raquo;</a></li>
                 </ul>
-                <a id="new_product" href="/product/regist">새 상품등록</a>
+              	<sec:authorize access="hasRole('ROLE_ADMIN')">
+              		<a id="new_product" href="/product/regist">새 상품등록</a>
+              	</sec:authorize>
+                
             </div>
 </body>
 </html>

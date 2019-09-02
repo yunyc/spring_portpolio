@@ -15,25 +15,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.project.product.service.ProductService;
+import com.example.project.product.service.VO.ProductVO;
 import com.example.project.question.service.QuestService;
 import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
 
 /**
- * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Class Name : QuestAnswerController.java
+ * @Description : QuestAnswerController Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
@@ -43,6 +43,24 @@ public class QuestAnswerController {
 	/** QuestService 주입 */
 	@Resource
 	private QuestService questService;
+	
+	@Resource
+	private ProductService productService;
+	
+	@ModelAttribute("bestQuestList")
+	public List<QuestVO> sideQuestInit(QuestVO questVO) throws Exception {
+		
+		questVO.setQuestGood(1);
+		return questService.selectQuestList(questVO);
+		
+	}
+	
+	@ModelAttribute("bestProductList")
+	public List<ProductVO> sideProductInit(ProductVO productVO) throws Exception {
+		
+		productVO.setProductGood(1);
+		return productService.selectProductList(productVO);
+	}
 	
 	/**
 	 * 답변 추가 기능

@@ -34,6 +34,7 @@
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/security/security-context.xml
 			/WEB-INF/spring/email/mail-context.xml
+			/WEB-INF/spring/interceptor/interceptor-context.xml
 		</param-value>
 	</context-param>
 	

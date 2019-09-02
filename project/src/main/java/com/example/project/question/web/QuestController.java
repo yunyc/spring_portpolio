@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import javax.mail.Multipart;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,41 +28,54 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.example.project.product.service.ProductService;
+import com.example.project.product.service.VO.ProductVO;
 import com.example.project.question.service.QuestService;
 import com.example.project.question.service.VO.QuestAnswerVO;
 import com.example.project.question.service.VO.QuestVO;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiOperation;
 
 /**
  * @Class Name : QuestController.java
- * @Description : EgovSample Controller Class
- * @Modification Information
+ * @Description : QuestController Class
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ 2019.09.02               버그 수정
  *
  * @author yunyc
- * @since 2009. 03.16
+ * @since 2019. 07.01
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
 @RequestMapping("/quest")
 public class QuestController {
 	
+	private static List<QuestVO> questList;
+	
 	/** QuestService 인터페이스 */
 	@Resource
 	private QuestService questService;
+	
+	@Resource
+	private ProductService productService;
+	
+	@ModelAttribute("bestQuestList")
+	public List<QuestVO> sideQuestInit(QuestVO questVO) throws Exception {
+		
+		questVO.setQuestGood(1);
+		return questService.selectQuestList(questVO);
+		
+	}
+	
+	@ModelAttribute("bestProductList")
+	public List<ProductVO> sideProductInit(ProductVO productVO) throws Exception {
+		
+		productVO.setProductGood(1);
+		return productService.selectProductList(productVO);
+	}
 	
 	/**
 	 * 질문 목록을 조회
@@ -73,7 +88,7 @@ public class QuestController {
 	public String questInit(@ModelAttribute QuestVO questVO, 
 			Model model) throws Exception {
 		
-		List<QuestVO> questList = questService.selectQuestList(questVO);
+		questList = questService.selectQuestList(questVO);
 		
 		model.addAttribute("questList", questList);
 		
@@ -89,9 +104,7 @@ public class QuestController {
 	@ResponseBody
 	@PostMapping("")
 	public HashMap<String, Object> questLoad(QuestVO questVO) throws Exception {
-			
-		List<QuestVO> questList = questService.selectQuestList(questVO);
-		
+				
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("questList", questList);
 		
@@ -155,7 +168,7 @@ public class QuestController {
 	 * @exception Exception
 	 */
 	@PostMapping("/post")
-	public String questInsert(@ModelAttribute QuestVO questVO, 
+	public String questInsert(@ModelAttribute @Valid QuestVO questVO, 
 			Model model) throws Exception {
 		
 		questService.insertQuest(questVO);
@@ -189,16 +202,16 @@ public class QuestController {
 	 * @param questVO - 질문 정보가 담긴 QuestVO
 	 * @param questId - 질문 번호
 	 * @param model
-	 * @return "quest"
+	 * @return "redirect:/quest/" + questId
 	 * @exception Exception
 	 */
 	@PatchMapping("/post/{questId}")
-	public String questUpdate(@ModelAttribute QuestVO questVO, 
+	public String questUpdate(@ModelAttribute @Valid QuestVO questVO, 
 			@PathVariable int questId, Model model) throws Exception {
 		
 		questService.updateQuest(questVO);
 		
-		return "redirect:/quest";
+		return "redirect:/quest/" + questId;
 	}
 	
 	/**

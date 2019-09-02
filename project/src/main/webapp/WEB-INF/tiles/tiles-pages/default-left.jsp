@@ -59,21 +59,32 @@
                         <p>Best! 질문/답변</p>
                     </div>
                     <table>
-                       <tr>
-                           <td width="290px">아아아아아앙아아</td>
+                    <c:forEach items="${bestQuestList}" var="bestQuestList" begin="0" end="5">
+                    	<tr>
+                           <td>
+                           <a style="width: 235px;" href="<c:url value='/quest/${bestQuestList.questId}'/>">
+                               <c:out value='${bestQuestList.questTitle}'/>
+                           </a>
+                           </td>
                        </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                       </tr>
-                       <tr>
-                           <td>아아아아아앙아아</td>
-                       </tr>   
+                    </c:forEach>
                    </table>
                 </div>
                 <div class="recent">
                   <div class="title">
                         <p>Best! 상품</p>
                     </div>
+                    <table>
+                    <c:forEach items="${bestProductList}" var="bestProductList" begin="0" end="5">
+                    	<tr>
+                           <td>
+                           <a style="width: 235px;" href="<c:url value='/product/${bestProductList.productId}'/>">
+                           <c:out value='${bestProductList.productTitle}'/>
+                           </a>
+                           </td>
+                       </tr>
+                    </c:forEach>
+                   </table>
                 </div>
                 
             </div>
