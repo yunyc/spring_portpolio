@@ -3,4 +3,6 @@
 아래는 포트폴리오 호스팅 주소입니다.
 http://springtest-env.mts2w2jvfy.us-east-2.elasticbeanstalk.com/main.do
 
+웹사이트 구축에 사용된 기술과 설명은 포트폴리오.pptx 파일에 작성했습니다
+
 관리자 계정은 아이디 - yunyc1010 비밀번호 - 1024 입니다.
